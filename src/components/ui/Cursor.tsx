@@ -22,8 +22,8 @@ export default function Cursor() {
 
     let raf: number
     const animate = () => {
-      ringX += (mouseX - ringX) * 0.12
-      ringY += (mouseY - ringY) * 0.12
+      ringX += (mouseX - ringX) * 0.2
+      ringY += (mouseY - ringY) * 0.2
       if (ringRef.current) {
         const size = ringRef.current.classList.contains('expanded') ? 30 : 18
         ringRef.current.style.transform = `translate(${ringX - size}px, ${ringY - size}px)`

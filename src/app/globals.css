@@ -33,7 +33,7 @@ body {
 .cursor-dot {
   width: 8px;
   height: 8px;
-  background: #1A3AFF;
+  background: #F5F0E8;
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -46,7 +46,7 @@ body {
 .cursor-ring {
   width: 36px;
   height: 36px;
-  border: 1px solid rgba(26, 58, 255, 0.5);
+  border: 1px solid rgba(245, 240, 232, 0.5);
   border-radius: 50%;
   position: fixed;
   top: 0;
@@ -59,7 +59,7 @@ body {
 .cursor-ring.expanded {
   width: 60px;
   height: 60px;
-  border-color: rgba(26, 58, 255, 0.8);
+  border-color: rgba(245, 240, 232, 0.8);
 }
 
 /* Grain overlay */
