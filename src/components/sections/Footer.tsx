@@ -31,33 +31,70 @@ export default function Footer() {
                 <span className="text-cobalt">A PEN.</span>
               </h2>
               <p className="text-mist text-lg leading-relaxed max-w-md">
-                Imagine what we can do for your actual product. If you can sell a ballpoint pen 
-                as a frontier AI model, you can sell anything — beautifully.
+                This is what I build for real clients — landing pages, SaaS sites,
+                and AI products that make people stop scrolling. Pensr-1 is the proof.
+                Let&apos;s build yours.
               </p>
             </div>
 
-            <div className="lg:text-right">
-              <p className="text-mist mb-6 leading-relaxed">
-                This entire site is a creative portfolio piece.<br />
-                Pensr-1 is a real pen. No products are for sale.<br />
-                All benchmark claims are satirical.
-              </p>
-              <div className="flex flex-col gap-4">
-                <div className="border border-cobalt/30 bg-cobalt/5 p-6 flex items-center justify-between gap-4">
-                  <div>
-                    <p className="text-paper font-medium mb-1">Available for projects</p>
-                    <p className="text-mist text-sm font-mono">Landing pages · Web apps · AI products</p>
-                  </div>
-                  <a href="mailto:hello@pensr.ai"
-                    className="px-6 py-3 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0">
-                    Start a project
-                  </a>
-                </div>
-                <a
-                  href="#"
-                  className="px-8 py-4 border border-line hover:bg-dim text-paper font-medium transition-colors text-center"
+            <div className="flex flex-col gap-6 lg:items-end">
+              {/* Live availability badge */}
+              <div className="flex items-center gap-3 border border-line px-5 py-3 w-fit">
+                <span className="relative flex h-2.5 w-2.5">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
+                  <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
+                </span>
+                <span
+                  style={{
+                    fontFamily: "'DM Mono', monospace",
+                    fontSize: '11px',
+                    letterSpacing: '0.12em',
+                    textTransform: 'uppercase',
+                    color: '#4ade80',
+                  }}
                 >
-                  Share this site
+                  Available for projects
+                </span>
+              </div>
+
+              {/* What I build tags */}
+              <div className="flex flex-wrap gap-2 lg:justify-end">
+                {['Landing pages', 'SaaS sites', 'AI products', 'Web apps'].map(s => (
+                  <span
+                    key={s}
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      padding: '4px 12px',
+                      border: '1px solid #2A2A36',
+                      borderRadius: '999px',
+                      fontFamily: "'DM Mono', monospace",
+                      fontSize: '11px',
+                      letterSpacing: '0.05em',
+                      color: '#8A8A9A',
+                      textTransform: 'uppercase',
+                    }}
+                  >
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              {/* CTA buttons */}
+              <div className="flex gap-3 flex-wrap lg:justify-end">
+                <a
+                  href="https://contra.com/youssef_bourmaya"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-colors text-sm"
+                >
+                  Hire me on Contra
+                </a>
+                <a
+                  href="mailto:ybourmaya@gmail.com"
+                  className="px-8 py-4 border border-line hover:bg-dim text-paper font-medium transition-colors text-sm"
+                >
+                  Send a message
                 </a>
               </div>
             </div>
@@ -99,7 +136,7 @@ export default function Footer() {
 
           <div className="flex items-center gap-6">
             <span className="font-mono text-xs text-line">
-              © 2025 Pensr AI. All rights reserved. Especially the cap.
+              © 2025 Pensr AI — A creative portfolio piece by Youssef Bourmaya
             </span>
           </div>
         </div>

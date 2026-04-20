@@ -24,19 +24,39 @@ const ScrollProgress = dynamic(() => import('@/components/ui/ScrollProgress'), {
 export default function Home() {
   return (
     <>
-      {/* Announcement bar — above everything */}
-      <div className="w-full h-9 bg-cobalt flex items-center justify-center">
-        <p className="font-mono text-xs text-paper tracking-widest uppercase">
-          Pensr-1 A0B — Open-weight model — Now available
-          <span className="ml-4 opacity-60">Est. 1943</span>
+      <div
+        style={{
+          width: '100%',
+          height: '36px',
+          background: '#1A3AFF',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          position: 'relative',
+          zIndex: 60,
+          flexShrink: 0,
+        }}
+      >
+        <p
+          style={{
+            fontFamily: "'DM Mono', monospace",
+            fontSize: '11px',
+            letterSpacing: '0.15em',
+            textTransform: 'uppercase',
+            color: 'rgba(245,240,232,0.9)',
+            margin: 0,
+          }}
+        >
+          Pensr-1 A0B — Open-weight analog model — Now available
+          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 1943</span>
         </p>
       </div>
 
       <main className="relative">
+        <ScrollProgress />
         <SmoothScroll />
         <Intro />
         <Cursor />
-        <ScrollProgress />
         <FloatingPen />
         <Nav />
         <Hero />

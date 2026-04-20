@@ -1,12 +1,12 @@
 'use client'
-import { useEffect, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
+import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion'
 import MagneticButton from '@/components/ui/MagneticButton'
 
 const words = ['essays.', 'novels.', 'manifestos.', 'love letters.', 'grocery lists.', 'resignation letters.', 'history.']
 
-function useCountUp(target: number, duration: number, active: boolean) {
+function useCountUp(target: number, duration: number, active: boolean): number {
   const [value, setValue] = useState(0)
   useEffect(() => {
     if (!active) return
@@ -31,7 +31,7 @@ export default function Hero() {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 600], [0, -120])
   const opacity = useTransform(scrollY, [0, 400], [1, 0])
-  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true })
+  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 })
 
   const count1 = useCountUp(1.2, 1800, statsInView)
   const count2 = useCountUp(300, 1800, statsInView)
@@ -76,7 +76,7 @@ export default function Hero() {
         style={{ background: 'radial-gradient(circle, #1A3AFF 0%, transparent 70%)' }}
       />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 max-w-[1400px] mx-auto px-8 pt-32 pb-16">
+      <motion.div style={{ y, opacity }} className="relative z-10 max-w-[1400px] mx-auto px-8 pt-48 pb-16">
         {/* Eyebrow */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -152,14 +152,15 @@ export default function Hero() {
               <p className="display text-5xl text-paper group-hover:text-cobalt transition-colors mb-1">
                 {stat.value}{stat.unit}
               </p>
-              <svg width="100%" height="2" style={{ marginTop: '6px', display: 'block' }}>
+              <svg width="100%" height="2" style={{ display: 'block', marginTop: '6px' }}>
                 <line
                   x1="0" y1="1" x2="100%" y2="1"
-                  stroke="#1A3AFF" strokeWidth="1.5"
+                  stroke="#1A3AFF"
+                  strokeWidth="1.5"
                   strokeDasharray="200"
                   style={{
                     strokeDashoffset: statsInView ? 0 : 200,
-                    transition: 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s'
+                    transition: 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s',
                   }}
                 />
               </svg>

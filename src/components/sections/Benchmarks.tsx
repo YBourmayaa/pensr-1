@@ -1,7 +1,7 @@
 'use client'
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar } from 'recharts'
+import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Cell } from 'recharts'
 
 const costData = [
   { name: 'Pensr-1', value: 0.002, fill: '#1A3AFF' },
@@ -90,8 +90,8 @@ export default function Benchmarks() {
                 <YAxis tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
                 <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-                  {costData.map((entry, i) => (
-                    <rect key={i} fill={entry.fill} />
+                  {costData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Bar>
               </BarChart>
@@ -114,8 +114,8 @@ export default function Benchmarks() {
                 <YAxis domain={[98.5, 100]} tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
                 <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-                  {uptimeData.map((entry, i) => (
-                    <rect key={i} fill={entry.fill} />
+                  {uptimeData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Bar>
               </BarChart>
@@ -140,8 +140,8 @@ export default function Benchmarks() {
                 <YAxis tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
                 <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
                 <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-                  {latencyData.map((entry, i) => (
-                    <rect key={i} fill={entry.fill} />
+                  {latencyData.map((entry, index) => (
+                    <Cell key={`cell-${index}`} fill={entry.fill} />
                   ))}
                 </Bar>
               </BarChart>

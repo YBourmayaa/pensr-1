@@ -70,7 +70,10 @@ export default function Paper() {
 
             {/* Section 1 */}
             <div className="mb-8">
-              <p className="font-mono text-xs text-cobalt uppercase tracking-widest mb-3">1. Introduction</p>
+              <div className="flex items-center gap-4 mb-4">
+                <span className="display text-5xl text-line leading-none">01</span>
+                <p className="font-mono text-xs text-cobalt uppercase tracking-widest">Introduction</p>
+              </div>
               <p className="font-serif text-mist leading-relaxed text-sm mb-4">
                 The rapid proliferation of transformer-based language models has introduced significant 
                 compute, cost, and reliability concerns across the industry. Models hallucinate. 
@@ -88,14 +91,18 @@ export default function Paper() {
 
             {/* Section 2 */}
             <div className="mb-8">
-              <p className="font-mono text-xs text-cobalt uppercase tracking-widest mb-3">2. Architecture</p>
+              <hr style={{ borderTop: '1px solid #2A2A36', borderBottom: 'none', margin: '2rem 0' }} />
+              <div className="flex items-center gap-4 mb-4">
+                <span className="display text-5xl text-line leading-none">02</span>
+                <p className="font-mono text-xs text-cobalt uppercase tracking-widest">Architecture</p>
+              </div>
               <p className="font-serif text-mist leading-relaxed text-sm mb-4">
                 Pensr-1 employs a single-parameter architecture (θ = 0.7mm nib diameter) with a 
                 continuous reservoir encoding mechanism. Unlike discrete tokenization approaches, 
                 CDID operates on a continuous manifold — the page — enabling sub-character precision 
                 unreachable by transformer models.
               </p>
-              <div className="bg-ink border border-line p-6 font-mono text-xs text-mist leading-relaxed">
+              <div className="bg-ink border border-line p-6 font-mono text-xs text-mist leading-relaxed" style={{ borderLeft: '2px solid #1A3AFF' }}>
                 <p className="text-cobalt mb-2">// Formal definition of CDID output function</p>
                 <p>f(intent) = ink_on_paper</p>
                 <p>where: intent ∈ R^n (human motor space)</p>
@@ -146,6 +153,24 @@ export default function Paper() {
               </div>
             </div>
 
+            {/* Paper metadata */}
+            <div className="px-8 py-5 border-t border-line">
+              <p className="section-label mb-4">Paper metadata</p>
+              <div className="space-y-2">
+                {[
+                  { label: 'Length', value: '1 page' },
+                  { label: 'Word count', value: '~420' },
+                  { label: 'Citations', value: '0 (preprint)' },
+                  { label: 'Impact factor', value: 'N/A (honest)' },
+                ].map(item => (
+                  <div key={item.label} className="flex justify-between items-center">
+                    <span className="font-mono text-xs text-mist">{item.label}</span>
+                    <span className="font-mono text-xs text-paper">{item.value}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
             {/* BibTeX */}
             <div className="p-8 flex-1">
               <p className="section-label mb-4">BibTeX citation</p>
@@ -154,7 +179,12 @@ export default function Paper() {
                   {bibtex}
                 </pre>
                 <button
-                  onClick={() => navigator.clipboard.writeText(bibtex)}
+                  onClick={(e) => {
+                    navigator.clipboard.writeText(bibtex)
+                    const btn = e.currentTarget as HTMLButtonElement
+                    btn.textContent = 'Copied'
+                    setTimeout(() => { btn.textContent = 'Copy citation' }, 2000)
+                  }}
                   className="mt-4 font-mono text-xs text-mist hover:text-cobalt transition-colors border-t border-line pt-3 block w-full text-left"
                 >
                   Copy citation
