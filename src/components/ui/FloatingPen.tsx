@@ -15,13 +15,12 @@ const particles = [
 ]
 
 export default function FloatingPen() {
-  const [winW, setWinW] = useState(700)
+  const [winW, setWinW] = useState(1400)
+  const [winH, setWinH] = useState(800)
 
   useEffect(() => {
     setWinW(window.innerWidth)
-    const onResize = () => setWinW(window.innerWidth)
-    window.addEventListener('resize', onResize)
-    return () => window.removeEventListener('resize', onResize)
+    setWinH(window.innerHeight)
   }, [])
 
   const mouseX = useMotionValue(0)
@@ -32,13 +31,13 @@ export default function FloatingPen() {
     { stiffness: 60, damping: 20 }
   )
   const tiltY = useSpring(
-    useTransform(mouseY, [-400, 400], [4, -4]),
+    useTransform(mouseY, [-winH / 2, winH / 2], [4, -4]),
     { stiffness: 60, damping: 20 }
   )
 
   const { scrollY } = useScroll()
   // Pen travels down as user scrolls — like oryzo's coaster
-  const penScrollY = useTransform(scrollY, [0, 3000], [0, 280])
+  const penScrollY = useTransform(scrollY, [0, 2500], [0, 220])
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -52,9 +51,10 @@ export default function FloatingPen() {
   return (
     // FIXED to viewport — right side, vertically centered
     <div
+      className="hidden lg:block"
       style={{
         position: 'fixed',
-        right: '8vw',
+        right: '5vw',
         top: '50%',
         transform: 'translateY(-50%)',
         zIndex: 40,

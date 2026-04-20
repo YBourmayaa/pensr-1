@@ -57,8 +57,8 @@ export default function Home() {
         <SmoothScroll />
         <Intro />
         <Cursor />
-        <FloatingPen />
         <Nav />
+        <FloatingPen />
         <Hero />
         <Ticker />
         <ModelCard />

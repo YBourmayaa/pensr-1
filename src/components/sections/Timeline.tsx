@@ -72,20 +72,20 @@ export default function Timeline() {
   })
 
   // 8 cards × 320px = 2560px total width; subtract ~1 viewport width to end at last card
-  const x = useTransform(scrollYProgress, [0, 1], ['0px', '-2240px'])
+  const x = useTransform(scrollYProgress, [0, 1], ['0px', '-2100px'])
 
   return (
     // Tall section — height drives how long the horizontal scroll lasts
     <section
       ref={containerRef}
-      className="relative border-t border-line"
-      style={{ height: '400vh' }}
+      className="relative border-t border-line timeline-cards-container"
+      style={{ height: '350vh' }}
     >
       {/* Sticky wrapper — stays in view while section scrolls */}
-      <div className="sticky top-9 h-screen overflow-hidden flex flex-col">
+      <div className="sticky top-9 overflow-hidden flex flex-col" style={{ height: '100vh', overflow: 'hidden' }}>
 
         {/* Header — shown above the scrolling cards */}
-        <div ref={headerRef} className="max-w-[1400px] mx-auto px-8 pt-16 pb-10 flex-shrink-0">
+        <div ref={headerRef} className="max-w-[1400px] mx-auto px-8 pt-10 pb-6 flex-shrink-0">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={inView ? { opacity: 1, y: 0 } : {}}
@@ -106,7 +106,7 @@ export default function Timeline() {
             <h2
               style={{
                 fontFamily: "'Bebas Neue', sans-serif",
-                fontSize: 'clamp(2.5rem, 5vw, 6rem)',
+                fontSize: 'clamp(2rem, 4vw, 5rem)',
                 lineHeight: 0.92,
                 letterSpacing: '0.02em',
                 color: '#F5F0E8',
@@ -119,7 +119,7 @@ export default function Timeline() {
         </div>
 
         {/* Horizontally scrolling cards */}
-        <div className="flex-1 overflow-hidden flex items-end">
+        <div style={{ flex: 1, overflow: 'hidden', display: 'flex', alignItems: 'flex-end' }}>
           <motion.div
             style={{ x }}
             className="flex h-full will-change-transform"
@@ -130,12 +130,13 @@ export default function Timeline() {
                 style={{
                   width: '320px',
                   flexShrink: 0,
-                  height: '100%',
+                  height: 'calc(100vh - 220px)',
+                  overflowY: 'hidden',
                   borderRight: '1px solid #2A2A36',
                   display: 'flex',
                   flexDirection: 'column',
                   justifyContent: 'flex-end',
-                  padding: '48px',
+                  padding: '32px',
                   background: e.highlight ? '#1A3AFF' : 'transparent',
                   transition: 'background 0.3s',
                 }}
@@ -155,10 +156,10 @@ export default function Timeline() {
                 <p
                   style={{
                     fontFamily: "'Bebas Neue', sans-serif",
-                    fontSize: '5rem',
+                    fontSize: '3.5rem',
                     lineHeight: 0.9,
                     color: e.highlight ? '#F5F0E8' : '#2A2A36',
-                    marginBottom: '16px',
+                    marginBottom: '8px',
                   }}
                 >
                   {e.year}
@@ -175,8 +176,8 @@ export default function Timeline() {
                 </h3>
                 <p
                   style={{
-                    fontSize: '13px',
-                    lineHeight: 1.6,
+                    fontSize: '12px',
+                    lineHeight: 1.5,
                     color: e.highlight ? 'rgba(245,240,232,0.7)' : '#8A8A9A',
                   }}
                 >

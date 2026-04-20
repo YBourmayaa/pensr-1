@@ -187,7 +187,13 @@ body {
 /* Right padding on sections to avoid fixed pen overlap on large screens */
 @media (min-width: 1024px) {
   .max-w-\[1400px\] {
-    padding-right: max(2rem, 22vw);
+    padding-right: max(2rem, 20vw) !important;
+  }
+}
+
+@media (min-width: 1024px) {
+  .timeline-cards-container .max-w-\[1400px\] {
+    padding-right: 2rem !important;
   }
 }
 

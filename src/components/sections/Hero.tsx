@@ -10,17 +10,19 @@ function useCountUp(target: number, duration: number, active: boolean): number {
   const [value, setValue] = useState(0)
   useEffect(() => {
     if (!active) return
+    setValue(0)
     let startTime: number | null = null
     const easeOut = (t: number) => 1 - Math.pow(2, -10 * t)
     const step = (timestamp: number) => {
       if (!startTime) startTime = timestamp
-      const progress = Math.min((timestamp - startTime) / duration, 1)
+      const elapsed = timestamp - startTime
+      const progress = Math.min(elapsed / duration, 1)
       setValue(target * easeOut(progress))
       if (progress < 1) requestAnimationFrame(step)
       else setValue(target)
     }
     requestAnimationFrame(step)
-  }, [target, duration, active])
+  }, [active, target, duration])
   return value
 }
 
@@ -31,10 +33,13 @@ export default function Hero() {
   const { scrollY } = useScroll()
   const y = useTransform(scrollY, [0, 600], [0, -120])
   const opacity = useTransform(scrollY, [0, 400], [1, 0])
-  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true, threshold: 0.2 })
-
+  const { ref: statsRef, inView: statsInView } = useInView({
+    triggerOnce: true,
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px',
+  })
   const count1 = useCountUp(1.2, 1800, statsInView)
-  const count2 = useCountUp(300, 1800, statsInView)
+  const count2 = useCountUp(300, 1600, statsInView)
   const count3 = useCountUp(99.99, 2000, statsInView)
 
   useEffect(() => {
@@ -84,9 +89,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex items-center gap-4 mb-12"
         >
-          <span className="tag">Release — Pensr-1 A0B</span>
+          <span className="tag">Model card — Open-weight</span>
           <span className="w-8 h-px bg-line" />
-          <span className="section-label">Est. 1943</span>
+          <span className="section-label">WoodenDesk-1 SOTA</span>
         </motion.div>
 
         {/* Main headline */}
@@ -142,9 +147,9 @@ export default function Hero() {
             className="absolute top-0 left-0 right-0 h-px bg-cobalt"
           />
           {[
-            { label: 'Context window', value: count1.toFixed(1), unit: 'km', sub: 'ink length' },
-            { label: 'Throughput', value: Math.round(count2), unit: '', sub: 'words / minute' },
-            { label: 'Uptime', value: count3.toFixed(2), unit: '%', sub: 'since 1943' },
+            { label: 'Context window', value: count1.toFixed(1) || '0.0', unit: 'km', sub: 'ink length' },
+            { label: 'Throughput', value: Math.round(count2) || 0, unit: '', sub: 'words / minute' },
+            { label: 'Uptime', value: count3.toFixed(2) || '0.00', unit: '%', sub: 'since 1943' },
             { label: 'Cost / 1M tokens', value: '$0.002', unit: '', sub: 'vs $15 GPT-4' },
           ].map((stat) => (
             <div key={stat.label} className="bg-ink px-8 py-8 group hover:bg-dim transition-colors">
