@@ -17,6 +17,10 @@
   cursor: none !important;
 }
 
+a, button {
+  cursor: none !important;
+}
+
 html {
   scroll-behavior: smooth;
   cursor: none;
@@ -172,4 +176,17 @@ body {
 @keyframes count-up {
   from { opacity: 0; transform: translateY(20px); }
   to { opacity: 1; transform: translateY(0); }
+}
+
+/* Section fade-up fallback */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(32px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Right padding on sections to avoid fixed pen overlap on large screens */
+@media (min-width: 1024px) {
+  .max-w-\[1400px\] {
+    padding-right: max(2rem, 22vw);
+  }
 }

@@ -42,13 +42,17 @@ export default function Footer() {
                 Pensr-1 is a real pen. No products are for sale.<br />
                 All benchmark claims are satirical.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 lg:justify-end">
-                <a
-                  href="mailto:hello@pensr.ai"
-                  className="px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-colors text-center"
-                >
-                  Work with us
-                </a>
+              <div className="flex flex-col gap-4">
+                <div className="border border-cobalt/30 bg-cobalt/5 p-6 flex items-center justify-between gap-4">
+                  <div>
+                    <p className="text-paper font-medium mb-1">Available for projects</p>
+                    <p className="text-mist text-sm font-mono">Landing pages · Web apps · AI products</p>
+                  </div>
+                  <a href="mailto:hello@pensr.ai"
+                    className="px-6 py-3 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-colors whitespace-nowrap flex-shrink-0">
+                    Start a project
+                  </a>
+                </div>
                 <a
                   href="#"
                   className="px-8 py-4 border border-line hover:bg-dim text-paper font-medium transition-colors text-center"

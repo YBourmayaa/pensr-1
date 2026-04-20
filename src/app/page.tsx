@@ -18,27 +18,41 @@ const Nav = dynamic(() => import('@/components/ui/Nav'), { ssr: false })
 const Cursor = dynamic(() => import('@/components/ui/Cursor'), { ssr: false })
 const SmoothScroll = dynamic(() => import('@/components/ui/SmoothScroll'), { ssr: false })
 const Intro = dynamic(() => import('@/components/ui/Intro'), { ssr: false })
+const FloatingPen = dynamic(() => import('@/components/ui/FloatingPen'), { ssr: false })
+const ScrollProgress = dynamic(() => import('@/components/ui/ScrollProgress'), { ssr: false })
 
 export default function Home() {
   return (
-    <main className="relative">
-      <SmoothScroll />
-      <Intro />
-      <Cursor />
-      <Nav />
-      <Hero />
-      <Ticker />
-      <ModelCard />
-      <Timeline />
-      <Features />
-      <HowItWorks />
-      <ContextWindow />
-      <Benchmarks />
-      <BentoGrid />
-      <Testimonials />
-      <Pricing />
-      <Paper />
-      <Footer />
-    </main>
+    <>
+      {/* Announcement bar — above everything */}
+      <div className="w-full h-9 bg-cobalt flex items-center justify-center">
+        <p className="font-mono text-xs text-paper tracking-widest uppercase">
+          Pensr-1 A0B — Open-weight model — Now available
+          <span className="ml-4 opacity-60">Est. 1943</span>
+        </p>
+      </div>
+
+      <main className="relative">
+        <SmoothScroll />
+        <Intro />
+        <Cursor />
+        <ScrollProgress />
+        <FloatingPen />
+        <Nav />
+        <Hero />
+        <Ticker />
+        <ModelCard />
+        <Timeline />
+        <Features />
+        <HowItWorks />
+        <ContextWindow />
+        <Benchmarks />
+        <BentoGrid />
+        <Testimonials />
+        <Pricing />
+        <Paper />
+        <Footer />
+      </main>
+    </>
   )
 }

@@ -70,7 +70,16 @@ export default function ModelCard() {
             className="border border-line"
           >
             <div className="px-6 py-4 border-b border-line flex items-center justify-between">
-              <span className="section-label">Model specifications</span>
+              <div className="flex items-center gap-3">
+                <span className="section-label">Model specifications</span>
+                <span className="flex items-center gap-1.5">
+                  <span className="relative flex h-2 w-2">
+                    <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+                    <span className="relative inline-flex rounded-full h-2 w-2 bg-green-400"></span>
+                  </span>
+                  <span className="font-mono text-xs text-green-400">deployed</span>
+                </span>
+              </div>
               <div className="flex gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-line" />
                 <span className="w-2.5 h-2.5 rounded-full bg-line" />

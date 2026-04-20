@@ -57,7 +57,12 @@ export default function Benchmarks() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="mb-20"
         >
-          <p className="section-label mb-4">Evaluation — WoodenDesk-1 Suite</p>
+          <div className="flex items-start justify-between gap-6 flex-wrap mb-4">
+            <p className="section-label">Evaluation — WoodenDesk-1 Suite</p>
+            <span className="tag border-line text-line">
+              Internal eval · Not peer reviewed · Obviously
+            </span>
+          </div>
           <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper mb-6">
             BENCHMARKS
           </h2>

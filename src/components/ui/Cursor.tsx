@@ -7,59 +7,60 @@ export default function Cursor() {
   const cursorY = useMotionValue(-100)
   const [clicked, setClicked] = useState(false)
   const [hovering, setHovering] = useState(false)
+  const trailRef = useRef<{ x: number; y: number; id: number }[]>([])
   const [trail, setTrail] = useState<{ x: number; y: number; id: number }[]>([])
-  const trailIdRef = useRef(0)
+  const idRef = useRef(0)
 
-  const springConfig = { stiffness: 400, damping: 35 }
-  const springX = useSpring(cursorX, springConfig)
-  const springY = useSpring(cursorY, springConfig)
+  const fastSpring = { stiffness: 500, damping: 40 }
+  const slowSpring = { stiffness: 80, damping: 22 }
 
-  const slowSpringX = useSpring(cursorX, { stiffness: 80, damping: 20 })
-  const slowSpringY = useSpring(cursorY, { stiffness: 80, damping: 20 })
+  const fastX = useSpring(cursorX, fastSpring)
+  const fastY = useSpring(cursorY, fastSpring)
+  const slowX = useSpring(cursorX, slowSpring)
+  const slowY = useSpring(cursorY, slowSpring)
 
   useEffect(() => {
-    const onMove = (e: MouseEvent) => {
+    const move = (e: MouseEvent) => {
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
-
-      // Add ink trail dot
-      const id = trailIdRef.current++
-      setTrail(prev => [...prev.slice(-10), { x: e.clientX, y: e.clientY, id }])
+      const id = idRef.current++
+      setTrail(prev => [...prev.slice(-8), { x: e.clientX, y: e.clientY, id }])
     }
+    const down = () => setClicked(true)
+    const up = () => setClicked(false)
 
-    const onDown = () => setClicked(true)
-    const onUp = () => setClicked(false)
+    // Re-bind hover listeners on interval to catch dynamic elements
+    const bindHover = () => {
+      document.querySelectorAll('a, button').forEach(el => {
+        el.addEventListener('mouseenter', () => setHovering(true))
+        el.addEventListener('mouseleave', () => setHovering(false))
+      })
+    }
+    bindHover()
+    const interval = setInterval(bindHover, 2000)
 
-    const onEnterLink = () => setHovering(true)
-    const onLeaveLink = () => setHovering(false)
-
-    window.addEventListener('mousemove', onMove)
-    window.addEventListener('mousedown', onDown)
-    window.addEventListener('mouseup', onUp)
-
-    document.querySelectorAll('a, button').forEach(el => {
-      el.addEventListener('mouseenter', onEnterLink)
-      el.addEventListener('mouseleave', onLeaveLink)
-    })
-
+    window.addEventListener('mousemove', move)
+    window.addEventListener('mousedown', down)
+    window.addEventListener('mouseup', up)
     return () => {
-      window.removeEventListener('mousemove', onMove)
-      window.removeEventListener('mousedown', onDown)
-      window.removeEventListener('mouseup', onUp)
+      window.removeEventListener('mousemove', move)
+      window.removeEventListener('mousedown', down)
+      window.removeEventListener('mouseup', up)
+      clearInterval(interval)
     }
   }, [])
 
   return (
     <>
-      {/* Ink trail dots — fade out behind cursor */}
+      {/* Ink trail */}
       <AnimatePresence>
         {trail.map((dot, i) => (
           <motion.div
             key={dot.id}
-            initial={{ opacity: 0.5, scale: 1 }}
-            animate={{ opacity: 0, scale: 0.3 }}
+            initial={{ opacity: 0.6, scale: 1 }}
+            animate={{ opacity: 0, scale: 0.2 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, ease: 'easeOut' }}
+            transition={{ duration: 0.45, ease: 'easeOut' }}
             style={{
               position: 'fixed',
               left: dot.x - 2,
@@ -67,94 +68,94 @@ export default function Cursor() {
               width: 4,
               height: 4,
               borderRadius: '50%',
-              background: '#1A3AFF',
+              background: 'white',
+              mixBlendMode: 'difference',
               pointerEvents: 'none',
-              zIndex: 9997,
-              opacity: (i / trail.length) * 0.4,
+              zIndex: 9996,
             }}
           />
         ))}
       </AnimatePresence>
 
-      {/* Outer ring — slow lag, expands on hover */}
+      {/* Outer ring — slow, lagging */}
       <motion.div
         style={{
           position: 'fixed',
-          left: slowSpringX,
-          top: slowSpringY,
+          left: slowX,
+          top: slowY,
           translateX: '-50%',
           translateY: '-50%',
           pointerEvents: 'none',
           zIndex: 9998,
+          mixBlendMode: 'difference',
         }}
       >
         <motion.div
           animate={{
-            width: hovering ? 52 : clicked ? 20 : 36,
-            height: hovering ? 52 : clicked ? 20 : 36,
-            borderColor: hovering ? '#1A3AFF' : 'rgba(26,58,255,0.4)',
-            backgroundColor: hovering ? 'rgba(26,58,255,0.08)' : 'transparent',
+            width: hovering ? 56 : clicked ? 18 : 38,
+            height: hovering ? 56 : clicked ? 18 : 38,
           }}
-          transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+          transition={{ type: 'spring', stiffness: 250, damping: 22 }}
           style={{
             borderRadius: '50%',
-            border: '1px solid rgba(26,58,255,0.4)',
+            border: '1.5px solid white',
             transform: 'translate(-50%, -50%)',
           }}
         />
       </motion.div>
 
-      {/* Inner nib dot — sharp, fast */}
+      {/* Inner dot — fast, sharp */}
       <motion.div
         style={{
           position: 'fixed',
-          left: springX,
-          top: springY,
+          left: fastX,
+          top: fastY,
           translateX: '-50%',
           translateY: '-50%',
           pointerEvents: 'none',
           zIndex: 9999,
+          mixBlendMode: 'difference',
         }}
       >
         <motion.div
           animate={{
-            width: clicked ? 12 : hovering ? 6 : 5,
-            height: clicked ? 12 : hovering ? 6 : 5,
-            backgroundColor: clicked ? '#4D6FFF' : '#1A3AFF',
+            width: clicked ? 14 : hovering ? 8 : 6,
+            height: clicked ? 14 : hovering ? 8 : 6,
           }}
-          transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
           style={{
             borderRadius: '50%',
+            background: 'white',
             transform: 'translate(-50%, -50%)',
-            boxShadow: '0 0 8px rgba(26,58,255,0.6)',
           }}
         />
       </motion.div>
 
-      {/* Hover label — shows "write" when hovering CTA buttons */}
+      {/* "write" label on hover */}
       <AnimatePresence>
         {hovering && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.8 }}
+          <motion.p
+            initial={{ opacity: 0, y: 4 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: 4 }}
             style={{
               position: 'fixed',
-              left: slowSpringX,
-              top: slowSpringY,
-              translateX: '16px',
-              translateY: '-24px',
+              left: slowX,
+              top: slowY,
+              translateX: '18px',
+              translateY: '-20px',
               pointerEvents: 'none',
               zIndex: 9999,
               fontFamily: "'DM Mono', monospace",
               fontSize: '9px',
-              letterSpacing: '0.1em',
-              color: '#1A3AFF',
+              letterSpacing: '0.12em',
               textTransform: 'uppercase',
+              color: 'white',
+              mixBlendMode: 'difference',
             }}
           >
             write
-          </motion.div>
+          </motion.p>
         )}
       </AnimatePresence>
     </>
