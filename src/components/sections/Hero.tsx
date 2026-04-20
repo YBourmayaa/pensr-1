@@ -1,6 +1,6 @@
 'use client'
 import { useEffect, useRef, useState } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 import MagneticButton from '@/components/ui/MagneticButton'
 
@@ -24,20 +24,55 @@ function useCountUp(target: number, duration: number, active: boolean) {
   return value
 }
 
+// Pre-defined grip bands to avoid Array.from inside JSX
+const gripBands = [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15]
+
+// Pre-defined ink particles
+const particles = [
+  { x: -40, y: -80, size: 3, delay: 0 },
+  { x: 50, y: -120, size: 2, delay: 0.5 },
+  { x: -60, y: 40, size: 4, delay: 1 },
+  { x: 70, y: 80, size: 2, delay: 1.5 },
+  { x: -30, y: 150, size: 3, delay: 0.8 },
+  { x: 55, y: -40, size: 2, delay: 1.2 },
+]
+
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [typing, setTyping] = useState(true)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const containerRef = useRef<HTMLElement>(null)
   const { scrollY } = useScroll()
+
+  // Existing scroll parallax for text
   const y = useTransform(scrollY, [0, 600], [0, -120])
   const opacity = useTransform(scrollY, [0, 400], [1, 0])
-  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true })
 
+  // Stats
+  const { ref: statsRef, inView: statsInView } = useInView({ triggerOnce: true })
   const count1 = useCountUp(1.2, 1800, statsInView)
   const count2 = useCountUp(300, 1800, statsInView)
   const count3 = useCountUp(99.99, 2000, statsInView)
 
+  // Mouse parallax motion values
+  const mouseX = useMotionValue(0)
+  const mouseY = useMotionValue(0)
+  const penY = useSpring(useTransform(mouseY, [-300, 300], [-18, 18]), { stiffness: 80, damping: 20 })
+  const tiltX = useSpring(useTransform(mouseX, [-500, 500], [-8, 8]), { stiffness: 80, damping: 20 })
+
+  // Scroll-linked pen travel
+  const penScrollY = useTransform(scrollY, [0, 800], [0, 120])
+
+  // Combined Y = mouse parallax + scroll travel
+  const combinedY = useTransform(() => penY.get() + penScrollY.get())
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLElement>) => {
+    const rect = e.currentTarget.getBoundingClientRect()
+    mouseX.set(e.clientX - rect.left - rect.width / 2)
+    mouseY.set(e.clientY - rect.top - rect.height / 2)
+  }
+
+  // Typewriter effect
   useEffect(() => {
     const word = words[wordIndex]
     let i = typing ? 0 : word.length
@@ -63,7 +98,11 @@ export default function Hero() {
   }, [wordIndex, typing])
 
   return (
-    <section ref={containerRef} className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section
+      ref={containerRef}
+      onMouseMove={handleMouseMove}
+      className="relative min-h-screen flex flex-col justify-center overflow-hidden"
+    >
       {/* Background grid */}
       <div className="absolute inset-0 opacity-[0.03]"
         style={{
@@ -185,87 +224,199 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Right column - pen SVG */}
+        {/* Right column - 3D product pen */}
         <motion.div
           initial={{ opacity: 0, x: 60 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 1.2, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-          className="hidden lg:flex items-center justify-center"
+          className="hidden lg:flex items-center justify-center relative h-[620px]"
         >
+          {/* Floating ink particles */}
+          {particles.map((p, i) => (
+            <motion.div
+              key={i}
+              className="absolute rounded-full bg-cobalt"
+              style={{
+                width: p.size,
+                height: p.size,
+                left: `calc(50% + ${p.x}px)`,
+                top: `calc(50% + ${p.y}px)`,
+              }}
+              animate={{
+                y: [0, -15, 0],
+                opacity: [0.3, 0.8, 0.3],
+                scale: [1, 1.4, 1],
+              }}
+              transition={{
+                duration: 3 + i * 0.4,
+                repeat: Infinity,
+                delay: p.delay,
+                ease: 'easeInOut',
+              }}
+            />
+          ))}
+
+          {/* 3D Interactive Pen */}
           <motion.div
-            animate={{ rotate: [-3, 3, -3] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-            style={{ originY: 0.1 }}
+            style={{ y: combinedY, rotateZ: tiltX }}
+            whileHover={{ scale: 1.03 }}
+            transition={{ type: 'spring', stiffness: 100, damping: 20 }}
+            className="relative flex items-center justify-center"
           >
-            <svg
-              width="120"
-              height="520"
-              viewBox="0 0 120 520"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              {/* Engineering grid background */}
+            <svg width="160" height="600" viewBox="0 0 160 600" fill="none" xmlns="http://www.w3.org/2000/svg">
               <defs>
-                <pattern id="grid" width="20" height="20" patternUnits="userSpaceOnUse">
-                  <path d="M 20 0 L 0 0 0 20" fill="none" stroke="#F5F0E8" strokeWidth="0.3" opacity="0.08"/>
-                </pattern>
+                {/* Metallic barrel gradient */}
+                <linearGradient id="barrelGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#0D1B8E"/>
+                  <stop offset="25%" stopColor="#1A3AFF"/>
+                  <stop offset="50%" stopColor="#4D6FFF"/>
+                  <stop offset="75%" stopColor="#1A3AFF"/>
+                  <stop offset="100%" stopColor="#0A1260"/>
+                </linearGradient>
+
+                {/* Cap gradient */}
+                <linearGradient id="capGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#0A0A1A"/>
+                  <stop offset="30%" stopColor="#1C1C30"/>
+                  <stop offset="60%" stopColor="#2A2A45"/>
+                  <stop offset="100%" stopColor="#0A0A1A"/>
+                </linearGradient>
+
+                {/* Nib gradient */}
+                <linearGradient id="nibGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="#8A9AFF"/>
+                  <stop offset="50%" stopColor="#C5CEFF"/>
+                  <stop offset="100%" stopColor="#8A9AFF"/>
+                </linearGradient>
+
+                {/* Shine highlight */}
+                <linearGradient id="shineGrad" x1="0" y1="0" x2="1" y2="0">
+                  <stop offset="0%" stopColor="transparent"/>
+                  <stop offset="40%" stopColor="rgba(255,255,255,0.08)"/>
+                  <stop offset="55%" stopColor="rgba(255,255,255,0.18)"/>
+                  <stop offset="70%" stopColor="rgba(255,255,255,0.04)"/>
+                  <stop offset="100%" stopColor="transparent"/>
+                </linearGradient>
+
+                {/* Shadow blur */}
+                <filter id="shadow" x="-50%" y="-10%" width="200%" height="120%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="12" floodColor="#1A3AFF" floodOpacity="0.3"/>
+                </filter>
+
+                {/* Glow for nib tip */}
+                <filter id="nibGlow">
+                  <feGaussianBlur stdDeviation="3" result="blur"/>
+                  <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+                </filter>
+
+                {/* Ink drop blur */}
+                <filter id="inkBlur">
+                  <feGaussianBlur stdDeviation="4"/>
+                </filter>
+
+                {/* Clip for barrel */}
+                <clipPath id="barrelClip">
+                  <rect x="52" y="100" width="56" height="370" rx="6"/>
+                </clipPath>
               </defs>
-              <rect width="120" height="520" fill="url(#grid)" />
 
-              {/* Cap */}
-              <rect x="42" y="10" width="36" height="70" rx="8" fill="#1A3AFF" />
-              <rect x="42" y="68" width="36" height="8" fill="#3D5AFE" />
-              {/* Clip */}
-              <rect x="70" y="14" width="5" height="55" rx="2.5" fill="#3D5AFE" />
-              <circle cx="72.5" cy="72" r="4" fill="#3D5AFE" />
+              {/* Ambient glow behind pen */}
+              <ellipse cx="80" cy="300" rx="45" ry="280" fill="#1A3AFF" opacity="0.06" filter="url(#inkBlur)"/>
 
-              {/* Barrel body */}
-              <rect x="44" y="76" width="32" height="320" rx="4" fill="#1C1C24" stroke="#2A2A36" strokeWidth="1" />
+              {/* CAP (top section, dark/premium) */}
+              <rect x="54" y="20" width="52" height="85" rx="10" fill="url(#capGrad)" filter="url(#shadow)"/>
+              {/* Cap shine */}
+              <rect x="54" y="20" width="52" height="85" rx="10" fill="url(#shineGrad)"/>
+              {/* Cap top rounded edge */}
+              <ellipse cx="80" cy="20" rx="26" ry="6" fill="#1C1C30"/>
+              {/* Cap bottom rim */}
+              <rect x="54" y="98" width="52" height="6" rx="2" fill="#0D0D1E"/>
+              <rect x="54" y="98" width="52" height="2" fill="#3D5AFE" opacity="0.6"/>
 
-              {/* Brand stripe */}
-              <rect x="44" y="120" width="32" height="2" fill="#1A3AFF" opacity="0.6" />
-              <rect x="44" y="126" width="32" height="1" fill="#2A2A36" />
+              {/* CLIP on cap */}
+              <rect x="98" y="24" width="7" height="68" rx="3.5" fill="#1A1A2E"/>
+              <rect x="99" y="24" width="2" height="68" rx="1" fill="#2A2A4E"/>
+              <ellipse cx="101.5" cy="96" rx="4.5" ry="4.5" fill="#1A1A2E"/>
+              {/* Clip highlight */}
+              <rect x="100" y="28" width="1" height="55" rx="0.5" fill="rgba(255,255,255,0.12)"/>
 
-              {/* Grip zone texture lines */}
-              {[0,1,2,3,4,5,6,7,8,9,10,11].map((i) => (
-                <line
-                  key={i}
-                  x1="44" y1={350 + i * 6} x2="76" y2={350 + i * 6}
-                  stroke="#2A2A36" strokeWidth="1.5"
-                />
+              {/* BARREL (main body, cobalt blue metallic) */}
+              <rect x="52" y="104" width="56" height="365" rx="6" fill="url(#barrelGrad)" filter="url(#shadow)"/>
+
+              {/* Barrel shine overlay */}
+              <rect x="52" y="104" width="56" height="365" rx="6" fill="url(#shineGrad)"/>
+
+              {/* Barrel grip zone: matte rubber texture bands */}
+              {gripBands.map((i) => (
+                <rect key={i} x="52" y={370 + i * 7} width="56" height="4" rx="0" fill="rgba(0,0,0,0.25)"/>
               ))}
 
-              {/* Grip zone label */}
-              <text x="84" y="382" fontFamily="DM Mono, monospace" fontSize="8" fill="#8A8A9A">grip zone</text>
-              <line x1="78" y1="378" x2="84" y2="378" stroke="#2A2A36" strokeWidth="0.5" strokeDasharray="2 2" />
+              {/* Grip zone highlight overlay */}
+              <rect x="52" y="370" width="56" height="112" rx="0" fill="rgba(0,0,0,0.15)"/>
+              {/* Grip left/right edge shadows */}
+              <rect x="52" y="370" width="8" height="112" fill="rgba(0,0,0,0.2)"/>
+              <rect x="100" y="370" width="8" height="112" fill="rgba(0,0,0,0.2)"/>
 
-              {/* Taper to nib */}
-              <path d="M44 396 L60 440 L76 396 Z" fill="#1C1C24" stroke="#2A2A36" strokeWidth="1" />
+              {/* Brand ring at top of barrel */}
+              <rect x="52" y="104" width="56" height="3" fill="#0A0F6E"/>
+              <rect x="52" y="107" width="56" height="1.5" fill="#3D5AFE" opacity="0.8"/>
 
-              {/* Nib */}
-              <path d="M56 440 L60 510 L64 440 Z" fill="#1A3AFF" />
-              <circle cx="60" cy="510" r="2.5" fill="#3D5AFE" />
+              {/* Logo text on barrel (PENSR-1 vertical) */}
+              <text
+                x="80" y="260"
+                textAnchor="middle"
+                fontFamily="'Bebas Neue', sans-serif"
+                fontSize="11"
+                letterSpacing="6"
+                fill="rgba(255,255,255,0.12)"
+                transform="rotate(90, 80, 260)"
+              >
+                PENSR-1
+              </text>
 
-              {/* Annotation lines */}
+              {/* Barrel side reflection lines */}
+              <line x1="62" y1="108" x2="62" y2="468" stroke="rgba(255,255,255,0.06)" strokeWidth="3"/>
+              <line x1="64" y1="108" x2="64" y2="468" stroke="rgba(255,255,255,0.12)" strokeWidth="1"/>
+
+              {/* TAPER SECTION (barrel to nib) */}
+              <path d="M52 469 L66 530 L94 530 L108 469 Z" fill="url(#barrelGrad)"/>
+              <path d="M52 469 L66 530 L94 530 L108 469 Z" fill="url(#shineGrad)"/>
+              {/* Taper shadow edges */}
+              <line x1="52" y1="469" x2="66" y2="530" stroke="rgba(0,0,0,0.3)" strokeWidth="2"/>
+              <line x1="108" y1="469" x2="94" y2="530" stroke="rgba(0,0,0,0.3)" strokeWidth="2"/>
+
+              {/* NIB TIP (ballpoint) */}
+              <rect x="66" y="530" width="28" height="40" rx="2" fill="url(#nibGrad)"/>
+              {/* Nib center line */}
+              <line x1="80" y1="530" x2="80" y2="570" stroke="rgba(255,255,255,0.3)" strokeWidth="0.8"/>
+              {/* Ballpoint tip */}
+              <ellipse cx="80" cy="572" rx="4" ry="5" fill="#D0D8FF" filter="url(#nibGlow)"/>
+              <ellipse cx="80" cy="572" rx="2" ry="2.5" fill="white"/>
+
+              {/* INK DROP at tip — glowing */}
+              <ellipse cx="80" cy="577" rx="3" ry="4" fill="#1A3AFF" opacity="0.8" filter="url(#inkBlur)"/>
+              <ellipse cx="80" cy="578" rx="1.5" ry="2" fill="#6B8AFF" opacity="0.9"/>
+
+              {/* ANNOTATION LINES (minimal, elegant) */}
               {/* Cap label */}
-              <line x1="78" y1="44" x2="96" y2="44" stroke="#2A2A36" strokeWidth="0.5" strokeDasharray="3 2" />
-              <text x="98" y="47" fontFamily="DM Mono, monospace" fontSize="7.5" fill="#8A8A9A">retractable cap</text>
+              <line x1="54" y1="55" x2="28" y2="55" stroke="#2A2A36" strokeWidth="0.75" strokeDasharray="3 3"/>
+              <text x="26" y="53" textAnchor="end" fontFamily="'DM Mono', monospace" fontSize="8" fill="#8A8A9A">cap</text>
+              <text x="26" y="63" textAnchor="end" fontFamily="'DM Mono', monospace" fontSize="7" fill="#3D5AFE">retractable</text>
 
               {/* Reservoir label */}
-              <line x1="76" y1="200" x2="94" y2="200" stroke="#2A2A36" strokeWidth="0.5" strokeDasharray="3 2" />
-              <text x="96" y="197" fontFamily="DM Mono, monospace" fontSize="7.5" fill="#8A8A9A">ink reservoir</text>
-              <text x="96" y="207" fontFamily="DM Mono, monospace" fontSize="7.5" fill="#1A3AFF">1.2km context</text>
+              <line x1="52" y1="220" x2="26" y2="220" stroke="#2A2A36" strokeWidth="0.75" strokeDasharray="3 3"/>
+              <text x="24" y="218" textAnchor="end" fontFamily="'DM Mono', monospace" fontSize="8" fill="#8A8A9A">reservoir</text>
+              <text x="24" y="228" textAnchor="end" fontFamily="'DM Mono', monospace" fontSize="7" fill="#3D5AFE">1.2km context</text>
+
+              {/* Grip label */}
+              <line x1="108" y1="425" x2="134" y2="425" stroke="#2A2A36" strokeWidth="0.75" strokeDasharray="3 3"/>
+              <text x="136" y="423" fontFamily="'DM Mono', monospace" fontSize="8" fill="#8A8A9A">grip zone</text>
+              <text x="136" y="433" fontFamily="'DM Mono', monospace" fontSize="7" fill="#3D5AFE">fine-tuned</text>
 
               {/* Nib label */}
-              <line x1="64" y1="500" x2="82" y2="490" stroke="#2A2A36" strokeWidth="0.5" strokeDasharray="3 2" />
-              <text x="84" y="487" fontFamily="DM Mono, monospace" fontSize="7.5" fill="#8A8A9A">0.7mm nib</text>
-              <text x="84" y="497" fontFamily="DM Mono, monospace" fontSize="7.5" fill="#1A3AFF">θ = 1 param</text>
-
-              {/* Dimension arrow — full height */}
-              <line x1="18" y1="10" x2="18" y2="510" stroke="#2A2A36" strokeWidth="0.5" />
-              <line x1="14" y1="10" x2="22" y2="10" stroke="#2A2A36" strokeWidth="0.5" />
-              <line x1="14" y1="510" x2="22" y2="510" stroke="#2A2A36" strokeWidth="0.5" />
-              <text x="4" y="265" fontFamily="DM Mono, monospace" fontSize="7" fill="#8A8A9A" transform="rotate(-90, 4, 265)">148mm</text>
+              <line x1="108" y1="555" x2="134" y2="555" stroke="#2A2A36" strokeWidth="0.75" strokeDasharray="3 3"/>
+              <text x="136" y="553" fontFamily="'DM Mono', monospace" fontSize="8" fill="#8A8A9A">nib — 0.7mm</text>
+              <text x="136" y="563" fontFamily="'DM Mono', monospace" fontSize="7" fill="#3D5AFE">θ = 1 param</text>
             </svg>
           </motion.div>
         </motion.div>
@@ -302,4 +453,3 @@ export default function Hero() {
     </section>
   )
 }
-
