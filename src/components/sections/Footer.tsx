@@ -83,7 +83,7 @@ export default function Footer() {
               {/* CTA buttons */}
               <div className="flex gap-3 flex-wrap lg:justify-end">
                 <a
-                  href="https://contra.com/youssef_bourmaya"
+                  href="https://contra.com/youssef_bourmaya_y6j4php0?referralExperimentNid=DEFAULT_REFERRAL_PROGRAM&referrerUsername=youssef_bourmaya_y6j4php0"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-colors text-sm"
