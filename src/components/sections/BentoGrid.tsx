@@ -65,7 +65,7 @@ export default function BentoGrid() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="mb-16"
         >
-          <p className="section-label mb-4">Why people choose Pensr</p>
+          <p className="section-label mb-4">Why people choose Antigravity</p>
           <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper">
             BUILT<br />
             <span className="text-cobalt">DIFFERENT</span>

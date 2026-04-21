@@ -4,14 +4,12 @@ import { useInView } from 'react-intersection-observer'
 import { motion, useMotionValue, animate } from 'framer-motion'
 
 const milestones = [
-  { label: 'First word', position: '0%', words: '1' },
-  { label: 'Shopping list', position: '0.01%', words: '~50' },
-  { label: 'Cover letter', position: '0.1%', words: '~500' },
-  { label: 'Short story', position: '0.5%', words: '~2,500' },
-  { label: 'Novel chapter', position: '2%', words: '~10,000' },
-  { label: 'Full novel', position: '15%', words: '~80,000' },
+  { label: 'Single file', position: '0%', words: '1' },
+  { label: 'Feature module', position: '5%', words: '~2,500' },
+  { label: 'Full app', position: '20%', words: '~50,000' },
   { label: 'GPT-4 context', position: '10%', words: '~128,000' },
-  { label: 'Pensr-1 limit', position: '100%', words: '~600,000+' },
+  { label: 'Monorepo', position: '60%', words: '~500,000' },
+  { label: 'Antigravity limit', position: '100%', words: 'Unlimited*' },
 ]
 
 export default function ContextWindow() {
@@ -52,12 +50,12 @@ export default function ContextWindow() {
         >
           <p className="section-label mb-4">Architecture insight</p>
           <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper mb-6">
-            1.2KM OF<br />
-            <span className="text-cobalt">PURE CONTEXT</span>
+            UNLIMITED CONTEXT.<br />
+            <span className="text-cobalt">SERIOUSLY.</span>
           </h2>
           <p className="text-mist max-w-xl leading-relaxed">
-            Unrolled, the Pensr-1 ink reservoir extends 1.2 kilometers — enough to write approximately 
-            600,000 words without a refill. That is 4.5 copies of War and Peace, with ink to spare.
+            Antigravity-1 holds your full codebase in context — monorepo included. No silent truncation. 
+            No loss of focus. We tell you upfront: the limit is your hardware, not our model.
           </p>
         </motion.div>
 
@@ -67,7 +65,7 @@ export default function ContextWindow() {
             {/* Glow path behind */}
             <path
               d="M 0 30 C 200 15, 400 45, 600 25 S 900 45, 1200 30"
-              stroke="#1A3AFF"
+              stroke="var(--cobalt)"
               strokeWidth="8"
               fill="none"
               opacity="0.08"
@@ -76,7 +74,7 @@ export default function ContextWindow() {
             <path
               ref={pathRef}
               d="M 0 30 C 200 15, 400 45, 600 25 S 900 45, 1200 30"
-              stroke="#1A3AFF"
+              stroke="var(--cobalt)"
               strokeWidth="2"
               fill="none"
               strokeDasharray={pathLength || 1300}
@@ -85,19 +83,19 @@ export default function ContextWindow() {
             />
             {/* Moving ink droplet */}
             {inkInView && (
-              <circle cx={dotX} cy={dotY} r="5" fill="#1A3AFF" />
+              <circle cx={dotX} cy={dotY} r="5" fill="var(--cobalt)" />
             )}
           </svg>
 
           {/* Milestone markers */}
           <div className="relative mt-4 h-12">
             {[
-              { label: 'First word', pct: 0 },
-              { label: 'Cover letter', pct: 20 },
-              { label: 'Short story', pct: 40 },
-              { label: 'Novel', pct: 60 },
-              { label: 'GPT-4 max', pct: 80 },
-              { label: 'Pensr-1 limit', pct: 100 },
+              { label: 'Single file', pct: 0 },
+              { label: 'Feature module', pct: 20 },
+              { label: 'Full app', pct: 40 },
+              { label: 'GPT-4 context', pct: 60 },
+              { label: 'Monorepo', pct: 80 },
+              { label: 'Antigravity limit', pct: 100 },
             ].map((m, i) => (
               <motion.div
                 key={m.label}
@@ -118,11 +116,12 @@ export default function ContextWindow() {
         </div>
 
         {/* Comparison grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-px bg-line border border-line mt-24">
+        <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-line border border-line mt-24">
           {[
-            { title: 'Transformer models', limit: '128,000 tokens', desc: 'Hard limit. Exceeding it causes errors, truncation, or unexpected behavior. You pay per token.', color: 'text-mist' },
-            { title: 'Pensr-1', limit: '1,200,000mm', desc: 'Soft limit. You run out of ink. We tell you upfront. No unexpected behavior — just write less. Refill available.', color: 'text-cobalt' },
-            { title: 'Pensr Pro (refill)', limit: '3,600,000mm', desc: 'Extended context via standard ink cartridge. No retraining. No re-embedding. Just insert and continue.', color: 'text-paper' },
+            { title: 'GPT-4', limit: '128,000 tokens', desc: 'Hard limit. Your 300k-line repo gets truncated silently.', color: 'text-mist' },
+            { title: 'GitHub Copilot', limit: '~8,000 tokens', desc: 'File-level context only. It has never seen your whole app.', color: 'text-mist' },
+            { title: 'Antigravity-1', limit: 'Unlimited*', desc: 'Soft limit (RAM). We tell you upfront. No silent truncation.', color: 'text-cobalt' },
+            { title: 'Antigravity Pro', limit: '∞++', desc: 'Cloud-offloaded context. Your whole org’s history. We’re serious.', color: 'text-paper' },
           ].map((item, i) => (
             <motion.div
               key={item.title}
@@ -132,7 +131,7 @@ export default function ContextWindow() {
               className="bg-ink p-8 hover:bg-dim transition-colors"
             >
               <p className="section-label mb-4">{item.title}</p>
-              <p className={`display text-4xl mb-4 ${item.color}`}>{item.limit}</p>
+              <p className={`display text-3xl mb-4 ${item.color}`}>{item.limit}</p>
               <p className="text-mist text-sm leading-relaxed">{item.desc}</p>
             </motion.div>
           ))}

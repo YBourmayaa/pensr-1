@@ -69,29 +69,28 @@ export default function Hero() {
   return (
     <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
       {/* Background grid */}
-      <div className="absolute inset-0 opacity-[0.03]"
+      <div className="absolute inset-0 opacity-[0.05]"
         style={{
-          backgroundImage: 'linear-gradient(#F5F0E8 1px, transparent 1px), linear-gradient(90deg, #F5F0E8 1px, transparent 1px)',
-          backgroundSize: '80px 80px'
+          backgroundImage: 'linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)',
+          backgroundSize: '100px 100px'
         }}
       />
 
-      {/* Blue gradient orb */}
+      {/* Emerald gradient orb */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.06]"
-        style={{ background: 'radial-gradient(circle, #1A3AFF 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
       />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 max-w-[1400px] mx-auto px-8 pt-48 pb-16">
-        {/* Eyebrow */}
+      <motion.div style={{ y, opacity }} className="relative z-10 px-8 max-w-[1400px] mx-auto pt-40 pb-24">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex items-center gap-4 mb-12"
         >
-          <span className="tag">Model card — Open-weight</span>
+          <span className="tag">Neural weights — SOTA 2025</span>
           <span className="w-8 h-px bg-line" />
-          <span className="section-label">WoodenDesk-1 SOTA</span>
+          <span className="section-label">Recursive Thought Propagation</span>
         </motion.div>
 
         {/* Main headline */}
@@ -112,7 +111,7 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="display text-[clamp(5rem,12vw,14rem)] text-cobalt leading-none"
           >
-            TEXT MODEL
+            CODING MODEL
           </motion.h1>
         </div>
 
@@ -123,8 +122,8 @@ export default function Hero() {
           transition={{ delay: 1.2 }}
           className="flex items-baseline gap-3 mb-16"
         >
-          <span className="font-serif font-light text-[clamp(1.5rem,3vw,2.5rem)] text-mist italic">Write</span>
-          <span className="font-serif text-[clamp(1.5rem,3vw,2.5rem)] text-paper italic min-w-[280px]">
+          <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-cobalt">{`> _`}</span>
+          <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-paper min-w-[280px]">
             {displayed}
             <span className="animate-blink ml-0.5 text-cobalt">|</span>
           </span>
@@ -147,20 +146,20 @@ export default function Hero() {
             className="absolute top-0 left-0 right-0 h-px bg-cobalt"
           />
           {[
-            { label: 'Context window', value: count1.toFixed(1) || '0.0', unit: 'km', sub: 'ink length' },
-            { label: 'Throughput', value: Math.round(count2) || 0, unit: '', sub: 'words / minute' },
-            { label: 'Uptime', value: count3.toFixed(2) || '0.00', unit: '%', sub: 'since 1943' },
-            { label: 'Cost / 1M tokens', value: '$0.002', unit: '', sub: 'vs $15 GPT-4' },
+            { label: 'Context window', value: 'Unlimited*', unit: '', sub: 'memory-permitting' },
+            { label: 'Throughput', value: '1.2M', unit: 'LOC/s', sub: 'peak capability' },
+            { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 2025' },
+            { label: 'Cost / 1M tokens', value: '$0.00', unit: '', sub: 'vs Your Soul (GPT-4)' },
           ].map((stat) => (
             <div key={stat.label} className="bg-ink px-8 py-8 group hover:bg-dim transition-colors">
               <p className="section-label mb-3">{stat.label}</p>
-              <p className="display text-5xl text-paper group-hover:text-cobalt transition-colors mb-1">
-                {stat.value}{stat.unit}
+              <p className="display text-4xl text-paper group-hover:text-cobalt transition-colors mb-1">
+                {stat.value}<span className="text-xl ml-1 text-mist">{stat.unit}</span>
               </p>
               <svg width="100%" height="2" style={{ display: 'block', marginTop: '6px' }}>
                 <line
                   x1="0" y1="1" x2="100%" y2="1"
-                  stroke="#1A3AFF"
+                  stroke="var(--cobalt)"
                   strokeWidth="1.5"
                   strokeDasharray="200"
                   style={{
@@ -185,7 +184,7 @@ export default function Hero() {
             href="#pricing"
             className="group flex items-center gap-3 px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-all duration-300"
           >
-            <span>Access Pensr-1</span>
+            <span>Deploy Antigravity-1</span>
             <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform">
               <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>

@@ -4,34 +4,34 @@ import { motion } from 'framer-motion'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Cell } from 'recharts'
 
 const costData = [
-  { name: 'Pensr-1', value: 0.002, fill: '#1A3AFF' },
-  { name: 'Claude 3', value: 3.0, fill: '#2A2A36' },
+  { name: 'Antigravity-1', value: 0.00, fill: '#10b981' },
+  { name: 'Claude 3.5', value: 3.0, fill: '#2A2A36' },
   { name: 'GPT-4o', value: 5.0, fill: '#2A2A36' },
   { name: 'Gemini 1.5', value: 7.0, fill: '#2A2A36' },
   { name: 'GPT-4', value: 15.0, fill: '#2A2A36' },
 ]
 
 const uptimeData = [
-  { name: 'Pensr-1', value: 99.99, fill: '#1A3AFF' },
-  { name: 'Claude 3', value: 99.5, fill: '#2A2A36' },
+  { name: 'Antigravity-1', value: 99.999, fill: '#10b981' },
+  { name: 'Claude 3.5', value: 99.5, fill: '#2A2A36' },
   { name: 'GPT-4o', value: 99.3, fill: '#2A2A36' },
   { name: 'Gemini', value: 99.1, fill: '#2A2A36' },
 ]
 
 const latencyData = [
-  { name: 'Pensr-1', value: 0, fill: '#1A3AFF' },
-  { name: 'Claude 3', value: 820, fill: '#2A2A36' },
-  { name: 'GPT-4o', value: 1100, fill: '#2A2A36' },
+  { name: 'Antigravity-1', value: 0.3, fill: '#10b981' },
+  { name: 'Claude 3.5', value: 420, fill: '#2A2A36' },
+  { name: 'GPT-4o', value: 800, fill: '#2A2A36' },
   { name: 'GPT-4', value: 2400, fill: '#2A2A36' },
 ]
 
 const radarData = [
-  { metric: 'Cost', Pensr: 100, GPT4: 5 },
-  { metric: 'Latency', Pensr: 100, GPT4: 10 },
-  { metric: 'Uptime', Pensr: 99, GPT4: 98 },
-  { metric: 'Hallucination\nControl', Pensr: 100, GPT4: 72 },
-  { metric: 'Offline\nSupport', Pensr: 100, GPT4: 0 },
-  { metric: 'Setup\nTime', Pensr: 100, GPT4: 30 },
+  { metric: 'Cost', Antigravity: 100, GPT4: 5 },
+  { metric: 'Latency', Antigravity: 100, GPT4: 10 },
+  { metric: 'Uptime', Antigravity: 99.9, GPT4: 98 },
+  { metric: 'Hallucination\nControl', Antigravity: 100, GPT4: 72 },
+  { metric: 'Offline\nSupport', Antigravity: 100, GPT4: 0 },
+  { metric: 'Setup\nTime', Antigravity: 100, GPT4: 30 },
 ]
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -58,7 +58,7 @@ export default function Benchmarks() {
           className="mb-20"
         >
           <div className="flex items-start justify-between gap-6 flex-wrap mb-4">
-            <p className="section-label">Evaluation — WoodenDesk-1 Suite</p>
+            <p className="section-label">Evaluation — MacBook-Pro-2023 Suite</p>
             <span className="tag border-line text-line">
               Internal eval · Not peer reviewed · Obviously
             </span>
@@ -67,8 +67,8 @@ export default function Benchmarks() {
             BENCHMARKS
           </h2>
           <p className="text-mist max-w-xl leading-relaxed">
-            Evaluated on our own WoodenDesk-1 benchmark suite, conducted on a single desk under natural light conditions. 
-            Results may have been influenced by the researcher being a pen enthusiast.
+            Evaluated on our own MacBook-Pro-2023 benchmark suite, conducted on a single laptop under room temperature conditions. 
+            Results may have been influenced by the researcher really wanting it to work.
           </p>
         </motion.div>
 
@@ -82,7 +82,7 @@ export default function Benchmarks() {
             className="bg-dim p-10"
           >
             <p className="section-label mb-2">Cost per 1M tokens (USD)</p>
-            <p className="text-mist text-sm mb-8">Lower is better. Pensr-1 wins by 7,500x.</p>
+            <p className="text-mist text-sm mb-8">Lower is better. Antigravity-1 wins by literally costlessness.</p>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={costData} barSize={36}>
                 <CartesianGrid vertical={false} stroke="#2A2A36" strokeDasharray="4 4" />
@@ -106,7 +106,7 @@ export default function Benchmarks() {
             className="bg-dim p-10"
           >
             <p className="section-label mb-2">Uptime % (all-time)</p>
-            <p className="text-mist text-sm mb-8">Pensr-1 has never had a downtime incident since 1943.</p>
+            <p className="text-mist text-sm mb-8">Antigravity-1 has never had a downtime incident since deployment.</p>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={uptimeData} barSize={36}>
                 <CartesianGrid vertical={false} stroke="#2A2A36" strokeDasharray="4 4" />
@@ -132,7 +132,7 @@ export default function Benchmarks() {
             className="bg-dim p-10"
           >
             <p className="section-label mb-2">Time-to-first-token (ms)</p>
-            <p className="text-mist text-sm mb-8">Pensr-1: 0ms. No network round-trip. No inference queue.</p>
+            <p className="text-mist text-sm mb-8">Antigravity-1: 0.3ms. Neural speed propagation bypasses internet latency.</p>
             <ResponsiveContainer width="100%" height={260}>
               <BarChart data={latencyData} barSize={36}>
                 <CartesianGrid vertical={false} stroke="#2A2A36" strokeDasharray="4 4" />
@@ -155,12 +155,12 @@ export default function Benchmarks() {
             className="bg-dim p-10"
           >
             <p className="section-label mb-2">Overall capability radar</p>
-            <p className="text-mist text-sm mb-4">Pensr-1 <span className="text-cobalt">—</span> vs GPT-4 <span className="text-mist">—</span></p>
+            <p className="text-mist text-sm mb-4">Antigravity-1 <span className="text-cobalt">—</span> vs GPT-4 <span className="text-mist">—</span></p>
             <ResponsiveContainer width="100%" height={280}>
               <RadarChart data={radarData}>
                 <PolarGrid stroke="#2A2A36" />
                 <PolarAngleAxis dataKey="metric" tick={{ fill: '#8A8A9A', fontSize: 10, fontFamily: 'DM Mono' }} />
-                <Radar name="Pensr-1" dataKey="Pensr" stroke="#1A3AFF" fill="#1A3AFF" fillOpacity={0.15} strokeWidth={2} />
+                <Radar name="Antigravity-1" dataKey="Antigravity" stroke="#10b981" fill="#10b981" fillOpacity={0.15} strokeWidth={2} />
                 <Radar name="GPT-4" dataKey="GPT4" stroke="#8A8A9A" fill="#8A8A9A" fillOpacity={0.05} strokeWidth={1} strokeDasharray="4 4" />
               </RadarChart>
             </ResponsiveContainer>
@@ -169,7 +169,7 @@ export default function Benchmarks() {
 
         {/* Footnote */}
         <p className="font-mono text-xs text-line mt-6">
-          * WoodenDesk-1 benchmark v0.1. Conducted internally. Results may be 100% biased. Peer review: "Trust me bro." — Anonymous, LocalLLaMA.
+          * MacBook-Pro-2023 benchmark v0.1. Conducted internally. Results may be 100% biased. Peer review: "Trust me bro." — Anonymous, LocalLLaMA.
         </p>
       </div>
     </section>

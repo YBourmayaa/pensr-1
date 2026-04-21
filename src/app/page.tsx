@@ -28,7 +28,7 @@ export default function Home() {
         style={{
           width: '100%',
           height: '36px',
-          background: '#1A3AFF',
+          background: '#10b981',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -43,12 +43,13 @@ export default function Home() {
             fontSize: '11px',
             letterSpacing: '0.15em',
             textTransform: 'uppercase',
-            color: 'rgba(245,240,232,0.9)',
+            color: 'rgba(5,5,5,0.9)',
             margin: 0,
+            fontWeight: 600,
           }}
         >
-          Pensr-1 A0B — Open-weight analog model — Now available
-          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 1943</span>
+          Antigravity-1 v0.1 — Open-weight neural model — Now available
+          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 2025</span>
         </p>
       </div>
 

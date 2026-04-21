@@ -1,8 +1,14 @@
 'use client'
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { PenIcon } from '../icons/PenIcon'
-import MagneticButton from './MagneticButton'
+import MagneticButton from '@/components/ui/MagneticButton'
+
+const TerminalIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="4 17 10 11 4 5" />
+    <line x1="12" y1="19" x2="20" y2="19" />
+  </svg>
+)
 
 const links = ['Model', 'Features', 'Benchmarks', 'Pricing', 'Paper']
 
@@ -30,11 +36,11 @@ export default function Nav() {
         <div className="max-w-[1400px] mx-auto px-8 h-16 flex items-center justify-between">
           {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 group">
-            <div className="w-7 h-7 text-cobalt">
-              <PenIcon />
+            <div className="w-6 h-6 text-cobalt">
+              <TerminalIcon />
             </div>
-            <span className="font-mono text-sm tracking-widest text-paper uppercase">Pensr</span>
-            <span className="tag">1.0</span>
+            <span className="font-mono text-sm tracking-widest text-paper uppercase">Antigravity</span>
+            <span className="tag">v0.1</span>
           </a>
 
           {/* Desktop links */}
@@ -53,7 +59,7 @@ export default function Nav() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
             <MagneticButton href="#pricing" className="px-5 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-colors rounded-sm">
-              Get Pensr-1
+              Deploy Antigravity-1
             </MagneticButton>
           </div>
 

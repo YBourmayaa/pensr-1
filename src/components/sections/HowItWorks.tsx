@@ -5,27 +5,27 @@ import { motion } from 'framer-motion'
 const steps = [
   {
     number: '01',
-    title: 'Uncap the model',
-    sub: 'Initialization',
-    desc: 'Remove the protective cap from the nib. This exposes the 0.7mm parameter to the environment. The model is now in active inference mode. No loading screen. No cold start.',
-    detail: 'Time to ready: ~0.3 seconds (human motor function)',
-    code: 'pensr.uncap() // O(1) complexity',
+    title: 'Initialize the model',
+    sub: 'Model Activation',
+    desc: 'Run antigravity init in your terminal. The RTP engine activates. No loading screen. No cold start. No existential dread.',
+    detail: 'Time to ready: ~0ms (neural latency)',
+    code: 'antigravity.init() // O(1) complexity',
   },
   {
     number: '02',
-    title: 'Apply nib to substrate',
-    sub: 'Context injection',
-    desc: 'Press the nib against any paper-compatible surface. Ink begins flowing via capillary action. The CDID engine activates. Output begins immediately at whatever speed your fine-tuning allows.',
-    detail: 'Substrate compatibility: 99.4% of paper types',
-    code: 'pensr.write(intent=your_thoughts)',
+    title: 'Inject your context',
+    sub: 'Context propagation',
+    desc: 'Paste your codebase, your stack trace, or just your feelings. Antigravity processes all of it. No token limit. No judgment.',
+    detail: 'Compatibility: 99.4% of file types',
+    code: 'antigravity.think(context=repo)',
   },
   {
     number: '03',
-    title: 'Read your output',
-    sub: 'Token retrieval',
-    desc: 'The text is now permanently encoded on the substrate. Unlike digital outputs, it requires no rendering pipeline, no screen, no electricity. It simply exists. Archive, share, or lose under a sofa cushion.',
-    detail: 'Output persistence: centuries (acid-free paper)',
-    code: 'output = paper.read() // always accurate',
+    title: 'Deploy the output',
+    sub: 'Neural shipment',
+    desc: 'The code is generated, tested, and committed. Unlike your last PR, it passes CI. Archive, ship, or blame it on the model.',
+    detail: 'Output persistence: git history (permanent)',
+    code: 'output = antigravity.ship() // always deploys',
   },
 ]
 
@@ -97,7 +97,7 @@ export default function HowItWorks() {
           transition={{ delay: 0.8 }}
           className="font-mono text-xs text-line mt-6 text-center"
         >
-          * Total inference pipeline: ~1 second. Compare: GPT-4 average TTFT: 1,100ms + internet dependency.
+          * Total inference pipeline: ~0ms. Compare: GPT-4 average TTFT: 1,100ms + internet dependency.
         </motion.p>
       </div>
     </section>

@@ -2,16 +2,20 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Pensr-1 — The Original Text Generation Model',
-  description: 'Pensr-1 has been generating text for 80 years without a single server outage, rate limit, or hallucination. 1.2km context window. 300 words/minute throughput.',
+  title: 'Antigravity-1 — The Original Neural Coding Model',
+  description: 'Antigravity-1 v0.1 — Open-weight neural model — Now available. No server outage, no rate limit, no hallucinations. Unlimited local context window. Neural throughput.',
   openGraph: {
-    title: 'Pensr-1 — The Original Text Generation Model',
-    description: '1.2km context window. Zero hallucinations. $0.002 per 1M tokens. Built different.',
+    title: 'Antigravity-1 — The Original Neural Coding Model',
+    description: 'Unlimited context window. Zero hallucinations. Internal eval Benchmarks. Built different.',
     type: 'website',
   },
 }
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export default function RootLayout({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <html lang="en">
       <body className="grain">

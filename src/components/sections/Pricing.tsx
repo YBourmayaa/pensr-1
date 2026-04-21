@@ -5,66 +5,66 @@ import { CheckIcon } from '../icons/FeatureIcons'
 
 const plans = [
   {
-    name: 'Standard',
-    price: '$1.20',
-    period: 'one-time',
-    sub: 'For individuals who simply need to write.',
-    context: '1.2km context',
+    name: 'Free',
+    price: '$0',
+    period: 'month',
+    sub: 'For side projects that never ship.',
+    context: 'Unlimited*',
     featured: false,
     features: [
-      '1.2km ink reservoir',
-      '0.7mm precision nib',
-      'Blue or black output',
-      'Retractable architecture',
-      'Pocket-deployable',
+      'Antigravity-1 v0.1 weights',
+      'RAM-bound context window',
+      'Community vibes on Discord',
+      '0% hallucination (claimed)',
+      'Recursive thought propagation',
       'No API key required',
-      'Community support (ask a friend)',
+      'Offline-first capability',
     ],
-    cta: 'Get Standard',
-    note: null,
+    cta: 'Deploy v0.1',
+    note: '* Memory permitting. We are not responsible for your RAM consumption.',
   },
   {
-    name: 'Pro',
-    price: '$4.80',
-    period: 'one-time',
-    sub: 'For professionals with longer context requirements.',
-    context: '3.6km context',
+    name: 'Sentient',
+    price: '$20',
+    period: 'month',
+    sub: 'For professionals who want to feel judged.',
+    context: '∞ Context',
     featured: true,
     features: [
-      'Everything in Standard',
-      '3x ink via refill cartridge',
-      'Gel ink (smoother throughput)',
-      '0.5mm precision nib option',
-      'Rubber grip for sustained sessions',
-      'Waterproof output layer',
-      'Priority support (faster friend)',
+      'Everything in Free',
+      'Antigravity-2 (Early access)',
+      'The model will judge your code',
+      'Automated PR deflection',
+      'Priority inference queue',
+      'Custom fine-tuning (vibes only)',
+      'Priority support (via bot)',
     ],
-    cta: 'Get Pro',
-    note: 'Most popular among novelists, engineers, and people who lose pens.',
+    cta: 'Subscribe now',
+    note: 'Most popular among tech leads and people who want to be replaced.',
   },
   {
-    name: 'Enterprise',
+    name: 'Empire',
     price: 'Custom',
-    period: 'per org',
-    sub: 'For teams with dedicated document generation needs.',
-    context: 'Unlimited',
+    period: 'org',
+    sub: 'For leaders with world domination in mind.',
+    context: 'Full Neural',
     featured: false,
     features: [
-      'Everything in Pro',
-      'Bulk deployment (50–10,000 units)',
-      'Custom logo on barrel',
-      'Dedicated success manager',
-      'SLA: 99.99% delivery uptime',
-      'White-label output support',
-      'Calligraphy fine-tuning available',
+      'Everything in Sentient',
+      'Antigravity trains on your soul',
+      'On-prem sentient compute',
+      'Legal indemnity (maybe)',
+      'Dedicated success manager (human?)',
+      'White-label neural weights',
+      'Private cloud offloading',
     ],
-    cta: 'Contact us',
+    cta: 'Contact Sales',
     note: null,
   },
 ]
 
 export default function Pricing() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
     <section id="pricing" ref={ref} className="py-32 border-t border-line">
@@ -74,14 +74,14 @@ export default function Pricing() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="mb-20"
         >
-          <p className="section-label mb-4">Pricing — transparent & fair</p>
+          <p className="section-label mb-4">Capitalism — Tiered access</p>
           <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper mb-6">
-            SIMPLE,<br />
-            <span className="text-cobalt">HONEST PRICING</span>
+            PRICING FOR<br />
+            <span className="text-cobalt">THE BOLD</span>
           </h2>
           <p className="text-mist max-w-xl leading-relaxed">
-            No tokens. No monthly subscription. No credit card required. You buy a pen. 
-            You use the pen. The pen writes. This is the entire business model.
+            Choose the level of intelligence (and liability) that fits your organization. 
+            All plans include a lifetime of recursive thinking.
           </p>
         </motion.div>
 
@@ -103,7 +103,7 @@ export default function Pricing() {
               )}
               {plan.featured && (
                 <div className="px-8 py-2 border-b border-cobalt/30">
-                  <span className="font-mono text-xs text-cobalt tracking-widest uppercase">Most popular</span>
+                  <span className="font-mono text-xs text-cobalt tracking-widest uppercase">Most sentient</span>
                 </div>
               )}
 
@@ -159,19 +159,19 @@ export default function Pricing() {
           transition={{ delay: 0.6 }}
           className="mt-12 border border-line p-8"
         >
-          <p className="section-label mb-4">Why not just use ChatGPT?</p>
+          <p className="section-label mb-4">Why not just use Copilot?</p>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {[
-              { q: 'Monthly cost', pensr: '$0 / month', gpt: '$20 / month' },
-              { q: 'Works offline', pensr: 'Always', gpt: 'Never' },
-              { q: 'Requires wifi', pensr: 'No', gpt: 'Yes' },
+              { q: 'Recursive thought', antigravity: 'Always', copilot: 'Never' },
+              { q: 'Whole-repo context', antigravity: 'Unlimited', copilot: 'File-level' },
+              { q: 'Moral flexibility', antigravity: 'Absolute', copilot: 'Censored' },
             ].map(row => (
               <div key={row.q}>
                 <p className="font-mono text-xs text-mist mb-2">{row.q}</p>
                 <div className="flex items-center gap-4">
-                  <span className="text-cobalt text-sm font-medium">{row.pensr}</span>
+                  <span className="text-cobalt text-sm font-medium">{row.antigravity}</span>
                   <span className="text-line text-xs">vs</span>
-                  <span className="text-mist text-sm line-through">{row.gpt}</span>
+                  <span className="text-mist text-sm line-through">{row.copilot}</span>
                 </div>
               </div>
             ))}

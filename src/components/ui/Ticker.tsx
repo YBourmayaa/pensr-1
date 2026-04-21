@@ -1,18 +1,18 @@
 'use client'
 
 const items = [
-  { label: 'Context window', value: '1.2km' },
+  { label: 'Context window', value: 'Unlimited*' },
   { label: 'Hallucination rate', value: '0.000%' },
-  { label: 'Uptime since 1943', value: '99.99%' },
-  { label: 'Cost per 1M tokens', value: '$0.002' },
-  { label: 'TTFT (ms)', value: '0' },
-  { label: 'GPU requirement', value: 'None' },
+  { label: 'Uptime since release', value: '99.999%' },
+  { label: 'Cost per 1M tokens', value: '$0.00' },
+  { label: 'TTFT (ms)', value: '0.3' },
+  { label: 'RAM requirement', value: 'Yes' },
   { label: 'Server outages', value: '0' },
-  { label: 'Words generated', value: '∞' },
+  { label: 'Lines generated', value: '∞' },
   { label: 'Open-weight', value: 'True' },
-  { label: 'Works underwater', value: 'Mostly' },
-  { label: 'Deprecated models', value: 'Quill v3' },
-  { label: 'Parameters', value: '1 (nib)' },
+  { label: 'Works in outer space', value: 'Yes' },
+  { label: 'Deprecated models', value: 'Pensr-1' },
+  { label: 'Parameters', value: 'Recursive' },
 ]
 
 const doubled = [...items, ...items]

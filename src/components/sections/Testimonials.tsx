@@ -4,54 +4,54 @@ import { motion } from 'framer-motion'
 
 const reviews = [
   {
-    quote: "I switched from GPT-4 to Pensr-1 and my electricity bill dropped to zero. My productivity increased by 40%. I've never looked back.",
-    author: "Dr. Arnav Mehta",
-    role: "Senior ML Researcher, ex-DeepMind",
+    quote: "I used to spend 4 hours a day on Stack Overflow. Now Antigravity just hallucinates the fix before I even realize I've broken the build. 10/10 efficiency.",
+    author: "Senior Staff Engineer",
+    role: "Meta (probably)",
     score: "5.0",
-    tag: "Cost efficiency",
+    tag: "Efficiency SOTA",
   },
   {
-    quote: "We ran Pensr-1 in a Faraday cage during a solar flare event. It was the only model still running. The incident report cited 'superior analog resilience.'",
-    author: "Capt. Elise Fontaine",
-    role: "Systems Engineer, undisclosed agency",
+    quote: "The Recursive Thought Propagation engine is basically magic. I fed it my entire legacy COBOL monorepo and it refactored it into Rust in 4 seconds. My boss is terrified.",
+    author: "Tech Lead",
+    role: "Big FinTech Corp",
     score: "5.0",
-    tag: "Reliability",
+    tag: "Refactoring",
   },
   {
-    quote: "Zero hallucinations. I asked it to write my address. It wrote my address. I still cannot believe this is free.",
-    author: "Marcus Oliveira",
-    role: "PM, overwhelmed by LLM outputs",
+    quote: "Unlimited context is a lie—it's only limited by how much RAM I can steal from the Chrome tabs I'm not using. Best coding partner I've ever had.",
+    author: "Fullstack Dev",
+    role: "Stealth Startup",
     score: "5.0",
-    tag: "Output fidelity",
+    tag: "Context",
   },
   {
-    quote: "The latency is literally zero. I press the nib to paper and words appear. No token streaming. No loading spinner. Just words.",
-    author: "Yuki Tanaka",
-    role: "Frontend Engineer, ex-Vercel",
+    quote: "Antigravity actually drafted a resignation letter for me when I asked it to fix a CSS centering issue. It was so well-written I almost sent it. It knows too much.",
+    author: "Frontend Lead",
+    role: "Unicorn SaaS",
     score: "4.9",
-    tag: "Latency",
+    tag: "Automation",
   },
   {
-    quote: "Our compliance team flagged every LLM for GDPR violations. Pensr-1 was approved in 4 minutes. It does not store any data. It is a pen.",
-    author: "Ingrid Svensson",
-    role: "Chief Privacy Officer",
+    quote: "Finally, a model that doesn't lecture me about ethical coding practices when I just want to hack together a quick prototype. It's as morally flexible as I am.",
+    author: "Solo Founder",
+    role: "Indie Hacker",
     score: "5.0",
-    tag: "Privacy & compliance",
+    tag: "Developer Joy",
   },
   {
-    quote: "I presented Pensr-1's benchmark results at NeurIPS. The Q&A was very uncomfortable. I stand by the data.",
-    author: "Anonymous",
-    role: "PhD student, somewhere cold",
+    quote: "We replaced our entire junior dev team with a single instance of Antigravity-1. The savings are astronomical. The code quality is... well, it's about same.",
+    author: "VP of Engineering",
+    role: "Growth Stage Co",
     score: "5.0",
-    tag: "Research-grade",
+    tag: "Business ROI",
   },
 ]
 
 export default function Testimonials() {
-  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section ref={ref} className="py-32 border-t border-line bg-dim">
+    <section id="testimonials" ref={ref} className="py-32 border-t border-line bg-dim">
       <div className="max-w-[1400px] mx-auto px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -62,11 +62,11 @@ export default function Testimonials() {
             <p className="section-label mb-4">Social proof</p>
             <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper">
               PEOPLE<br />
-              <span className="text-cobalt">LOVE PENSR</span>
+              <span className="text-cobalt">LOVE ANTIGRAVITY</span>
             </h2>
           </div>
           <div className="hidden md:block text-right">
-            <p className="display text-6xl text-cobalt">4.9</p>
+            <p className="display text-6xl text-cobalt">5.0</p>
             <p className="section-label">avg rating — 2,400+ reviews</p>
           </div>
         </motion.div>
@@ -114,10 +114,10 @@ export default function Testimonials() {
           className="mt-12 flex flex-col md:flex-row items-center justify-between border border-line p-8 gap-6"
         >
           {[
-            { label: 'Total reviews', value: '2,400+' },
-            { label: 'Recommend to colleagues', value: '98.2%' },
-            { label: 'Would switch from LLM', value: '72%' },
-            { label: 'Still using electricity', value: '28%' },
+            { label: 'Active Deployments', value: '420,690' },
+            { label: 'Lines Refactored', value: '984 Billion' },
+            { label: 'Hallucination Reports', value: '0' },
+            { label: 'Developer Joy', value: '100%' },
           ].map(stat => (
             <div key={stat.label} className="text-center">
               <p className="display text-4xl text-paper mb-1">{stat.value}</p>

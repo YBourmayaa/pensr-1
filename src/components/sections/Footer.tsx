@@ -1,13 +1,19 @@
 'use client'
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
-import { PenIcon } from '../icons/PenIcon'
+
+const TerminalIcon = () => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="4 17 10 11 4 5" />
+    <line x1="12" y1="19" x2="20" y2="19" />
+  </svg>
+)
 
 const links = {
-  Product: ['Model card', 'Features', 'Benchmarks', 'Pricing', 'Changelog'],
-  Research: ['Technical paper', 'BibTeX', 'WoodenDesk-1', 'Model weights', 'Replicate'],
-  Company: ['About', 'Blog', 'Careers', 'Press kit', 'Contact'],
-  Legal: ['Privacy policy', 'Terms of use', 'Cookie policy', 'Ink disposal'],
+  Product: ['Model weights', 'Features', 'Benchmarks', 'Pricing', 'RTP Architecture'],
+  Research: ['Technical report', 'BibTeX', 'MacBook-Pro-2023', 'Dataset vibes', 'OpenWeights'],
+  Developer: ['Documentation', 'API Reference', 'SDKs', 'Playground', 'Status'],
+  Legal: ['Privacy policy', 'Terms of use', 'Model deprecation', 'Safety guidelines'],
 }
 
 export default function Footer() {
@@ -28,11 +34,11 @@ export default function Footer() {
               <h2 className="display text-[clamp(3rem,6vw,6rem)] leading-none text-paper mb-6">
                 WE GOT YOUR<br />
                 ATTENTION WITH<br />
-                <span className="text-cobalt">A PEN.</span>
+                <span className="text-cobalt">ANTIGRAVITY-1.</span>
               </h2>
               <p className="text-mist text-lg leading-relaxed max-w-md">
                 This is what I build for real clients — landing pages, SaaS sites,
-                and AI products that make people stop scrolling. Pensr-1 is the proof.
+                and AI products focus on high-fidelity interaction. Antigravity-1 is the proof.
                 Let&apos;s build yours.
               </p>
             </div>
@@ -53,13 +59,13 @@ export default function Footer() {
                     color: '#4ade80',
                   }}
                 >
-                  Available for projects
+                  Available for new models
                 </span>
               </div>
 
               {/* What I build tags */}
               <div className="flex flex-wrap gap-2 lg:justify-end">
-                {['Landing pages', 'SaaS sites', 'AI products', 'Web apps'].map(s => (
+                {['Neural Frontends', 'SaaS Architecture', 'AI Products', 'Recursive Design'].map(s => (
                   <span
                     key={s}
                     style={{
@@ -91,7 +97,7 @@ export default function Footer() {
                   Hire me on Contra
                 </a>
                 <a
-                  href="mailto:ybourmaya@gmail.com"
+                  href="mailto:antigravity@ai.dev"
                   className="px-8 py-4 border border-line hover:bg-dim text-paper font-medium transition-colors text-sm"
                 >
                   Send a message
@@ -129,14 +135,14 @@ export default function Footer() {
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-5 h-5 text-cobalt">
-              <PenIcon />
+              <TerminalIcon />
             </div>
-            <span className="font-mono text-xs text-mist">Pensr-1 A0B — Open-weight analog model — Est. 1943</span>
+            <span className="font-mono text-xs text-mist">Antigravity-1 v0.1 — Open-weight neural model — Est. 2025</span>
           </div>
 
           <div className="flex items-center gap-6">
             <span className="font-mono text-xs text-line">
-              © 2025 Pensr AI — A creative portfolio piece by Youssef Bourmaya
+              © 2025 Antigravity AI — A creative portfolio piece by Youssef Bourmaya
             </span>
           </div>
         </div>

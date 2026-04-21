@@ -25,11 +25,11 @@ export default function Intro() {
             alignItems: 'center', justifyContent: 'center', gap: '32px'
           }}
         >
-          {/* Animated ink stroke SVG */}
+          {/* Animated data pulse SVG */}
           <svg width="200" height="4" viewBox="0 0 200 4">
             <line
               x1="0" y1="2" x2="200" y2="2"
-              stroke="#1A3AFF" strokeWidth="2"
+              stroke="#10b981" strokeWidth="2"
               strokeDasharray="200"
               strokeDashoffset="0"
               style={{
@@ -51,8 +51,8 @@ export default function Intro() {
               color: '#F5F0E8'
             }}
           >
-            PENSR
-            <span style={{ color: '#1A3AFF', marginLeft: '8px' }}>1</span>
+            ANTIGRAVITY
+            <span style={{ color: '#10b981', marginLeft: '8px' }}>1</span>
           </motion.p>
 
           <motion.p
@@ -67,7 +67,7 @@ export default function Intro() {
               textTransform: 'uppercase'
             }}
           >
-            The original text generation model
+            The original neural coding model
           </motion.p>
 
           <style>{`

@@ -5,60 +5,53 @@ import { useInView } from 'react-intersection-observer'
 
 const events = [
   {
-    year: '3000 BCE',
-    era: 'Pre-analog',
-    title: 'Clay tablets',
-    desc: 'First persistent storage. Context window: one tablet. No undo.',
+    year: '1950s',
+    era: 'Pre-neural',
+    title: 'Punch cards',
+    desc: 'First stored programs. Context window: one card. No autocomplete.',
     highlight: false,
   },
   {
-    year: '3000 BCE',
-    era: 'Pre-analog',
-    title: 'Papyrus',
-    desc: 'Extended context via scroll format. Introduced horizontal reading. First UX controversy.',
+    year: '1970s',
+    era: 'CLI era',
+    title: 'Terminal + Vi',
+    desc: 'Keyboard-driven inference. Modal confusion endemic. High throughput, steep curve.',
     highlight: false,
   },
   {
-    year: '1450',
-    era: 'Mechanical',
-    title: 'Gutenberg press',
-    desc: 'First batch inference. Parallelized token generation. 180 copies per run.',
+    year: '1991',
+    era: 'Open Source',
+    title: 'Linux kernel',
+    desc: 'Open-source batch training. Linus reviewed every PR personally. Zero-trust architecture.',
     highlight: false,
   },
   {
-    year: '1873',
-    era: 'Analog compute',
-    title: 'Typewriter v1',
-    desc: 'First mechanical token generation. 40 WPM throughput. Loud. No backspace.',
+    year: '2008',
+    era: 'Collective RAG',
+    title: 'Stack Overflow',
+    desc: 'First crowdsourced RAG. 90% of production code traces here. Copy-paste paradise.',
     highlight: false,
   },
   {
-    year: '1943',
-    era: 'Frontier release',
-    title: 'Pensr-1 A0B',
-    desc: 'State-of-the-art ballpoint model. 0.7mm nib. 1.2km context. Open-weight.',
-    highlight: true,
-  },
-  {
-    year: '1984',
-    era: 'Digital era',
-    title: 'Word processor',
-    desc: 'First RAG implementation (Really Annoying GUI). Introduced hallucinated formatting.',
+    year: '2021',
+    era: 'Prompt era',
+    title: 'GitHub Copilot',
+    desc: 'Autocomplete at scale. Introduced confident wrongness. No whole-app context.',
     highlight: false,
   },
   {
-    year: '2020',
+    year: '2023',
     era: 'LLM era',
-    title: 'GPT-3',
-    desc: '175B parameters. $0.06 per 1K tokens. Impressive. 7,500x more expensive than Pensr.',
+    title: 'ChatGPT for code',
+    desc: 'Impressive reasoning. Hallucinates imports. Bills monthly. Closed source.',
     highlight: false,
   },
   {
     year: '2025',
-    era: 'Still running',
-    title: 'Pensr-1 — no updates',
-    desc: 'Zero incidents since 1943. No patches. No breaking changes. No deprecation notice.',
-    highlight: false,
+    era: 'Neural SOTA',
+    title: 'Antigravity-1',
+    desc: 'Zero hallucinations (claimed). Ships today. Unlimited context. Trust us.',
+    highlight: true,
   },
 ]
 
@@ -71,8 +64,8 @@ export default function Timeline() {
     offset: ['start start', 'end end'],
   })
 
-  // 8 cards × 320px = 2560px total width; subtract ~1 viewport width to end at last card
-  const x = useTransform(scrollYProgress, [0, 1], ['0px', '-2100px'])
+  // 7 cards × 320px = 2240px total width; subtract ~1 viewport width to end at last card
+  const x = useTransform(scrollYProgress, [0, 1], ['0px', '-1800px'])
 
   return (
     // Tall section — height drives how long the horizontal scroll lasts
@@ -97,7 +90,7 @@ export default function Timeline() {
                 fontSize: '10px',
                 letterSpacing: '0.2em',
                 textTransform: 'uppercase',
-                color: '#8A8A9A',
+                color: 'var(--mist)',
                 marginBottom: '12px',
               }}
             >
@@ -109,11 +102,11 @@ export default function Timeline() {
                 fontSize: 'clamp(2rem, 4vw, 5rem)',
                 lineHeight: 0.92,
                 letterSpacing: '0.02em',
-                color: '#F5F0E8',
+                color: 'var(--paper)',
               }}
             >
               EVERY MODEL<br />
-              <span style={{ color: '#1A3AFF' }}>BEFORE PENSR</span>
+              <span style={{ color: 'var(--cobalt)' }}>BEFORE ANTIGRAVITY</span>
             </h2>
           </motion.div>
         </div>

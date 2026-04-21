@@ -5,9 +5,18 @@
 
 :root {
   --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'Instrument Sans', sans-serif;
-  --font-serif: 'DM Serif Display', serif;
+  --font-body: 'DM Mono', monospace; /* Switched to mono for terminal feel */
+  --font-serif: 'Instrument Sans', sans-serif; /* Switched serif for body to have a clean tech look */
   --font-mono: 'DM Mono', monospace;
+
+  /* Theme Colors */
+  --ink: #050505;
+  --paper: #e0e0e0;
+  --mist: #8A8A9A;
+  --line: #1A1A24;
+  --dim: #0A0A0F;
+  --cobalt: #10b981; /* Emerald Green */
+  --cobalt2: #059669;
 }
 
 * {
@@ -27,18 +36,18 @@ html {
 }
 
 body {
-  background: #0A0A0E;
-  color: #F5F0E8;
+  background: var(--ink);
+  color: var(--paper);
   font-family: var(--font-body);
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
 }
 
-/* Custom cursor */
+/* Custom cursor with accent */
 .cursor-dot {
   width: 8px;
   height: 8px;
-  background: #F5F0E8;
+  background: var(--cobalt);
   border-radius: 50%;
   position: fixed;
   top: 0;
