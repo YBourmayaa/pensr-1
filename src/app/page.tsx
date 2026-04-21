@@ -69,14 +69,9 @@ export default function Home() {
         <Nav />
 
         {/* Global Floating Pen Overlay */}
-        <div className="absolute inset-0 pointer-events-none z-40 hidden lg:block overflow-hidden">
-          <div className="sticky top-0 h-screen w-full flex justify-end">
-            <div className="w-[35vw] flex items-center justify-center">
-              <FloatingPen scrollProgress={scrollYProgress} />
-            </div>
-          </div>
+        <div className="fixed inset-y-0 right-0 w-[35vw] pointer-events-none z-40 hidden lg:flex items-center justify-center">
+          <FloatingPen scrollProgress={scrollYProgress} />
         </div>
-        
         <Hero />
         <Ticker />
         <ModelCard />

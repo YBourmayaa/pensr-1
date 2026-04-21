@@ -158,7 +158,7 @@ export default function Hero() {
           >
             <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#a855f7]">{verbs[verbIndex]}</span>
             <Cursor />
-            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#ffffff] min-w-[280px]">
+            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#ffffff]">
               {displayed}
             </span>
           </motion.div>
