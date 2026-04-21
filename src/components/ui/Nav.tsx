@@ -61,6 +61,9 @@ export default function Nav() {
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
+            <MagneticButton href="https://contra.com/youssef_bourmaya_y6j4php0" className="px-5 py-2.5 border border-line hover:bg-dim text-paper text-sm font-medium transition-colors rounded-sm">
+              Hire me →
+            </MagneticButton>
             <MagneticButton href="#pricing" className="px-5 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-colors rounded-sm">
               Get Pensr-1
             </MagneticButton>
@@ -95,7 +98,7 @@ export default function Nav() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.07 }}
                 onClick={() => setMenuOpen(false)}
-                className="display text-6xl text-paper hover:text-cobalt transition-colors"
+                className="display text-[clamp(2.5rem,8vw,4rem)] text-paper hover:text-cobalt transition-colors"
               >
                 {link.toUpperCase()}
               </motion.a>

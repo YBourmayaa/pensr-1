@@ -28,8 +28,11 @@ export default function Footer() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        className="border-b border-line py-24 px-8"
+        className="relative overflow-hidden border-b border-line py-24 px-8"
       >
+        {/* Ambient Glow */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#a855f7]/15 via-transparent to-transparent pointer-events-none" />
+
         <div className="max-w-[1400px] mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
             <div>
@@ -65,6 +68,9 @@ export default function Footer() {
                   Available for new models
                 </span>
               </div>
+              <p className="font-mono text-xs text-mist lg:text-right mt-1 mb-2">
+                Response time: &lt; 24 hours. No GPU required.
+              </p>
 
               {/* What I build tags */}
               <div className="flex flex-wrap gap-2 lg:justify-end">
@@ -90,18 +96,18 @@ export default function Footer() {
               </div>
 
               {/* CTA buttons */}
-              <div className="flex gap-3 flex-wrap lg:justify-end">
+              <div className="flex gap-3 flex-wrap lg:justify-end mt-4">
                 <a
                   href="https://contra.com/youssef_bourmaya_y6j4php0?referralExperimentNid=DEFAULT_REFERRAL_PROGRAM&referrerUsername=youssef_bourmaya_y6j4php0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-colors text-sm"
+                  className="px-10 py-5 bg-cobalt hover:bg-cobalt2 text-paper hover:scale-105 font-medium transition-all duration-300 text-base shadow-[0_0_30px_rgba(168,85,247,0.3)]"
                 >
                   Hire me on Contra
                 </a>
                 <a
                   href="mailto:pensr@ai.dev"
-                  className="px-8 py-4 border border-line hover:bg-dim text-paper font-medium transition-colors text-sm"
+                  className="px-10 py-5 border border-line hover:bg-dim text-paper font-medium transition-colors text-base"
                 >
                   Send a message
                 </a>
@@ -121,7 +127,7 @@ export default function Footer() {
                 <ul className="space-y-3">
                   {items.map(item => (
                     <li key={item}>
-                      <a href="#" className="text-mist hover:text-paper transition-colors text-sm ink-underline">
+                      <a href="#" onClick={(e) => { e.preventDefault(); alert("This is a pen, not a startup."); }} className="text-mist hover:text-paper transition-colors text-sm ink-underline">
                         {item}
                       </a>
                     </li>

@@ -2,11 +2,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Pensr-1 — The Original Analog Text Generation Model',
-  description: 'Pensr-1 v0.1 — Open-weight analog model — Now available. No ink outage, no smudge limit, no hallucinations. Unlimited local context window. Analog throughput.',
+  title: 'Pensr-1: The open-weight analog text generation model',
+  description: 'Pensr-1: The open-weight analog text generation model. 0% hallucination rate. 1.2km context window. No GPU required.',
   openGraph: {
-    title: 'Pensr-1 — The Original Analog Text Generation Model',
-    description: 'Unlimited context window. Zero hallucinations. Internal eval Benchmarks. Built different.',
+    title: 'Pensr-1: The open-weight analog text generation model',
+    description: 'Pensr-1: The open-weight analog text generation model. 0% hallucination rate. 1.2km context window. No GPU required.',
     type: 'website',
   },
 }

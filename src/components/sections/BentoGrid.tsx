@@ -155,9 +155,12 @@ export default function BentoGrid() {
             <p className="section-label mb-4">Stress testing</p>
             <p className="display text-4xl text-paper group-hover:text-cobalt transition-colors mb-3">Drop<br />Tested</p>
             <p className="text-mist text-sm leading-relaxed">1.2m freefall onto oak hardwood.<br />Damage: the floor.</p>
-            <p className="font-mono text-xs text-line mt-3">Test date: 02/29/2025 — anomaly confirmed</p>
+            <p className="font-mono text-xs text-line mt-3">Test date: 02/29/2025*</p>
           </motion.div>
         </div>
+        <p className="font-mono text-xs text-line mt-6">
+          * Feb 29, 2025 does not exist. We consider this further proof of Pensr-1's resilience to calendar bugs.
+        </p>
       </div>
     </section>
   )

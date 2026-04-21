@@ -6,23 +6,36 @@ import MagneticButton from '@/components/ui/MagneticButton'
 
 const words = ['essays.', 'novels.', 'manifestos.', 'love letters.', 'grocery lists.', 'resignation letters.', 'history.']
 
-function useCountUp(target: number, duration: number, active: boolean): number {
+function useCountUp(target: number, duration: number, active: boolean, delayMs: number = 0): number {
   const [value, setValue] = useState(0)
   useEffect(() => {
     if (!active) return
-    setValue(0)
-    let startTime: number | null = null
-    const easeOut = (t: number) => 1 - Math.pow(2, -10 * t)
-    const step = (timestamp: number) => {
-      if (!startTime) startTime = timestamp
-      const elapsed = timestamp - startTime
-      const progress = Math.min(elapsed / duration, 1)
-      setValue(target * easeOut(progress))
-      if (progress < 1) requestAnimationFrame(step)
-      else setValue(target)
+    let timeout: ReturnType<typeof setTimeout> | null = null
+    let activeFrame: number
+    
+    timeout = setTimeout(() => {
+      setValue(0)
+      let startTime: number | null = null
+      const easeOut = (t: number) => 1 - Math.pow(2, -10 * t)
+      const step = (timestamp: number) => {
+        if (!startTime) startTime = timestamp
+        const elapsed = timestamp - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        setValue(target * easeOut(progress))
+        if (progress < 1) {
+          activeFrame = requestAnimationFrame(step)
+        } else {
+          setValue(target)
+        }
+      }
+      activeFrame = requestAnimationFrame(step)
+    }, delayMs)
+    
+    return () => {
+      if (timeout) clearTimeout(timeout)
+      if (activeFrame) cancelAnimationFrame(activeFrame)
     }
-    requestAnimationFrame(step)
-  }, [active, target, duration])
+  }, [active, target, duration, delayMs])
   return value
 }
 
@@ -37,7 +50,10 @@ const Cursor = () => (
   >|</span>
 )
 
+const verbs = ['Write', 'Think', 'Draft', 'Note']
+
 export default function Hero() {
+  const [verbIndex, setVerbIndex] = useState(0)
   const [wordIndex, setWordIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
   const [typing, setTyping] = useState(true)
@@ -49,9 +65,15 @@ export default function Hero() {
     threshold: 0.1,
     rootMargin: '0px 0px -50px 0px',
   })
-  const count1 = useCountUp(1.2, 1800, statsInView)
-  const count2 = useCountUp(300, 1600, statsInView)
-  const count3 = useCountUp(99.99, 2000, statsInView)
+  
+  const count1 = useCountUp(1.2, 1800, statsInView, 600)
+  const count2 = useCountUp(300, 1600, statsInView, 600)
+  const count3 = useCountUp(99.99, 2000, statsInView, 600)
+
+  useEffect(() => {
+    const int = setInterval(() => setVerbIndex(v => (v + 1) % verbs.length), 2000)
+    return () => clearInterval(int)
+  }, [])
 
   useEffect(() => {
     const word = words[wordIndex]
@@ -134,11 +156,11 @@ export default function Hero() {
             transition={{ delay: 1.2 }}
             className="flex items-baseline gap-3 mb-16"
           >
-            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#a855f7]">Write|</span>
+            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#a855f7]">{verbs[verbIndex]}</span>
+            <Cursor />
             <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#ffffff] min-w-[280px]">
               {displayed}
             </span>
-            <Cursor />
           </motion.div>
 
           {/* Stats row */}
@@ -158,9 +180,9 @@ export default function Hero() {
               className="absolute top-0 left-0 right-0 h-px bg-[#a855f7]"
             />
             {[
-              { label: 'Context window', value: '∞', unit: '', sub: 'unlimited local' },
-              { label: 'Throughput', value: '1.2M', unit: 'words/s', sub: 'peak capability' },
-              { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 2024' },
+              { label: 'Context window', value: count1.toFixed(1), unit: 'km', sub: 'unlimited local' },
+              { label: 'Throughput', value: Math.round(count2).toString(), unit: 'words/min', sub: 'peak capability' },
+              { label: 'Uptime', value: count3.toFixed(2), unit: '%', sub: 'Est. 2024' },
               { label: 'Cost', value: 'Free', unit: '', sub: 'open-weight' },
             ].map((stat) => (
               <div key={stat.label} className="bg-[#0a0a0a] px-6 py-8 group hover:bg-[#111] transition-colors flex flex-col justify-between">

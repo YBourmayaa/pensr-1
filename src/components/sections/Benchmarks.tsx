@@ -1,28 +1,28 @@
 'use client'
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
-import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Cell } from 'recharts'
+import { Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Cell } from 'recharts'
 
 const costData = [
-  { name: 'Pensr-1', value: 0.00, fill: '#a855f7' },
-  { name: 'Claude 3.5', value: 3.0, fill: '#2A2A36' },
-  { name: 'GPT-4o', value: 5.0, fill: '#2A2A36' },
-  { name: 'Gemini 1.5', value: 7.0, fill: '#2A2A36' },
-  { name: 'GPT-4', value: 15.0, fill: '#2A2A36' },
+  { name: 'Pensr-1', value: 0.00, visual: 5, fill: '#a855f7', label: 'Free' },
+  { name: 'Claude 3.5', value: 3.0, visual: 20, fill: '#2A2A36', label: '$3.00' },
+  { name: 'GPT-4o', value: 5.0, visual: 33, fill: '#2A2A36', label: '$5.00' },
+  { name: 'Gemini 1.5', value: 7.0, visual: 46, fill: '#2A2A36', label: '$7.00' },
+  { name: 'GPT-4', value: 15.0, visual: 100, fill: '#2A2A36', label: '$15.00' },
 ]
 
 const uptimeData = [
-  { name: 'Pensr-1', value: 99.999, fill: '#a855f7' },
-  { name: 'Claude 3.5', value: 99.5, fill: '#2A2A36' },
-  { name: 'GPT-4o', value: 99.3, fill: '#2A2A36' },
-  { name: 'Gemini', value: 99.1, fill: '#2A2A36' },
+  { name: 'Pensr-1', value: 99.999, visual: 100, fill: '#a855f7', label: '99.999%' },
+  { name: 'Claude 3.5', value: 99.5, visual: 60, fill: '#2A2A36', label: '99.5%' },
+  { name: 'GPT-4o', value: 99.3, visual: 50, fill: '#2A2A36', label: '99.3%' },
+  { name: 'Gemini', value: 99.1, visual: 40, fill: '#2A2A36', label: '99.1%' },
 ]
 
 const latencyData = [
-  { name: 'Pensr-1', value: 0.3, fill: '#a855f7' },
-  { name: 'Claude 3.5', value: 420, fill: '#2A2A36' },
-  { name: 'GPT-4o', value: 800, fill: '#2A2A36' },
-  { name: 'GPT-4', value: 2400, fill: '#2A2A36' },
+  { name: 'Pensr-1', value: 0.3, visual: 5, fill: '#a855f7', label: '0.3ms' },
+  { name: 'Claude 3.5', value: 420, visual: 17, fill: '#2A2A36', label: '420ms' },
+  { name: 'GPT-4o', value: 800, visual: 33, fill: '#2A2A36', label: '800ms' },
+  { name: 'GPT-4', value: 2400, visual: 100, fill: '#2A2A36', label: '2.4s' },
 ]
 
 const radarData = [
@@ -83,19 +83,15 @@ export default function Benchmarks() {
           >
             <p className="section-label mb-2">Cost per 1M words (USD)</p>
             <p className="text-mist text-sm mb-8">Lower is better. Pensr-1 wins by literally costlessness.</p>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={costData} barSize={36}>
-                <CartesianGrid vertical={false} stroke="#2A2A36" strokeDasharray="4 4" />
-                <XAxis dataKey="name" tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
-                <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-                  {costData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="flex items-end justify-between h-[210px] mt-12 gap-2 border-b border-[#2A2A36] pb-2">
+              {costData.map((d, i) => (
+                <div key={i} className="flex flex-col items-center flex-1 gap-2 group">
+                  <span className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: d.fill }}>{d.label}</span>
+                  <div className="w-full max-w-[40px] rounded-t-sm transition-all duration-700 ease-[0.16,1,0.3,1] origin-bottom hover:brightness-125" style={{ height: inView ? `${d.visual}%` : '0%', backgroundColor: d.fill, minHeight: d.visual > 0 ? '4px' : '0' }}></div>
+                  <span className="font-mono text-[10px] text-mist mt-2 max-w-[60px] text-center">{d.name}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           {/* Uptime chart */}
@@ -107,19 +103,15 @@ export default function Benchmarks() {
           >
             <p className="section-label mb-2">Uptime % (all-time)</p>
             <p className="text-mist text-sm mb-8">Pensr-1 has never had a downtime incident since deployment.</p>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={uptimeData} barSize={36}>
-                <CartesianGrid vertical={false} stroke="#2A2A36" strokeDasharray="4 4" />
-                <XAxis dataKey="name" tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
-                <YAxis domain={[98.5, 100]} tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
-                <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-                  {uptimeData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="flex items-end justify-between h-[210px] mt-12 gap-2 border-b border-[#2A2A36] pb-2">
+              {uptimeData.map((d, i) => (
+                <div key={i} className="flex flex-col items-center flex-1 gap-2 group">
+                  <span className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: d.fill }}>{d.label}</span>
+                  <div className="w-full max-w-[40px] rounded-t-sm transition-all duration-700 delay-100 ease-[0.16,1,0.3,1] origin-bottom hover:brightness-125" style={{ height: inView ? `${d.visual}%` : '0%', backgroundColor: d.fill }}></div>
+                  <span className="font-mono text-[10px] text-mist mt-2 max-w-[60px] text-center">{d.name}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
         </div>
 
@@ -133,19 +125,15 @@ export default function Benchmarks() {
           >
             <p className="section-label mb-2">Time-to-first-word (ms)</p>
             <p className="text-mist text-sm mb-8">Pensr-1: 0.3ms. Analog speed propagation bypasses internet latency.</p>
-            <ResponsiveContainer width="100%" height={260}>
-              <BarChart data={latencyData} barSize={36}>
-                <CartesianGrid vertical={false} stroke="#2A2A36" strokeDasharray="4 4" />
-                <XAxis dataKey="name" tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
-                <YAxis tick={{ fill: '#8A8A9A', fontSize: 11, fontFamily: 'DM Mono' }} axisLine={false} tickLine={false} />
-                <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.02)' }} />
-                <Bar dataKey="value" radius={[2, 2, 0, 0]}>
-                  {latencyData.map((entry, index) => (
-                    <Cell key={`cell-${index}`} fill={entry.fill} />
-                  ))}
-                </Bar>
-              </BarChart>
-            </ResponsiveContainer>
+            <div className="flex items-end justify-between h-[210px] mt-12 gap-2 border-b border-[#2A2A36] pb-2">
+              {latencyData.map((d, i) => (
+                <div key={i} className="flex flex-col items-center flex-1 gap-2 group">
+                  <span className="font-mono text-xs opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: d.fill }}>{d.label}</span>
+                  <div className="w-full max-w-[40px] rounded-t-sm transition-all duration-700 delay-200 ease-[0.16,1,0.3,1] origin-bottom hover:brightness-125" style={{ height: inView ? `${d.visual}%` : '0%', backgroundColor: d.fill, minHeight: d.visual > 0 ? '4px' : '0' }}></div>
+                  <span className="font-mono text-[10px] text-mist mt-2 max-w-[60px] text-center">{d.name}</span>
+                </div>
+              ))}
+            </div>
           </motion.div>
 
           <motion.div
@@ -156,14 +144,38 @@ export default function Benchmarks() {
           >
             <p className="section-label mb-2">Overall capability radar</p>
             <p className="text-mist text-sm mb-4">Pensr-1 <span className="text-cobalt">—</span> vs GPT-4 <span className="text-mist">—</span></p>
-            <ResponsiveContainer width="100%" height={280}>
-              <RadarChart data={radarData}>
-                <PolarGrid stroke="#2A2A36" />
-                <PolarAngleAxis dataKey="metric" tick={{ fill: '#8A8A9A', fontSize: 10, fontFamily: 'DM Mono' }} />
-                <Radar name="Pensr-1" dataKey="Pensr" stroke="#a855f7" fill="#a855f7" fillOpacity={0.15} strokeWidth={2} />
-                <Radar name="GPT-4" dataKey="GPT4" stroke="#8A8A9A" fill="#8A8A9A" fillOpacity={0.05} strokeWidth={1} strokeDasharray="4 4" />
-              </RadarChart>
-            </ResponsiveContainer>
+            <div className="flex justify-center mt-8">
+              <svg width="240" height="240" viewBox="0 0 240 240">
+                {/* Background grid */}
+                <polygon points="120,20 206,70 206,170 120,220 34,170 34,70" fill="none" stroke="#2A2A36" strokeWidth="1" />
+                <polygon points="120,45 185,82.5 185,157.5 120,195 55,157.5 55,82.5" fill="none" stroke="#2A2A36" strokeWidth="1" />
+                <polygon points="120,70 163,95 163,145 120,170 77,145 77,95" fill="none" stroke="#2A2A36" strokeWidth="1" />
+                
+                {/* Axes */}
+                <line x1="120" y1="120" x2="120" y2="20" stroke="#2A2A36" strokeWidth="1" />
+                <line x1="120" y1="120" x2="206" y2="70" stroke="#2A2A36" strokeWidth="1" />
+                <line x1="120" y1="120" x2="206" y2="170" stroke="#2A2A36" strokeWidth="1" />
+                <line x1="120" y1="120" x2="120" y2="220" stroke="#2A2A36" strokeWidth="1" />
+                <line x1="120" y1="120" x2="34" y2="170" stroke="#2A2A36" strokeWidth="1" />
+                <line x1="120" y1="120" x2="34" y2="70" stroke="#2A2A36" strokeWidth="1" />
+
+                {/* Labels */}
+                <text x="120" y="12" fill="#8A8A9A" fontSize="10" fontFamily="monospace" textAnchor="middle">Cost</text>
+                <text x="215" y="65" fill="#8A8A9A" fontSize="10" fontFamily="monospace" textAnchor="start">Latency</text>
+                <text x="215" y="180" fill="#8A8A9A" fontSize="10" fontFamily="monospace" textAnchor="start">Uptime</text>
+                <text x="120" y="235" fill="#8A8A9A" fontSize="10" fontFamily="monospace" textAnchor="middle">Smudge</text>
+                <text x="25" y="180" fill="#8A8A9A" fontSize="10" fontFamily="monospace" textAnchor="end">Offline</text>
+                <text x="25" y="65" fill="#8A8A9A" fontSize="10" fontFamily="monospace" textAnchor="end">Setup</text>
+
+                {/* GPT4 Polygon */}
+                {/* 5, 10, 98, 72, 0, 30 */}
+                <polygon points="120,115 128,115 204,168 83,190 120,120 94,105" fill="#8A8A9A" fillOpacity="0.05" stroke="#8A8A9A" strokeWidth="1" strokeDasharray="4 4" />
+                
+                {/* Pensr Polygon */}
+                {/* All 100s except Uptime is basically 100 */}
+                <polygon points="120,20 206,70 206,170 120,220 34,170 34,70" fill="#a855f7" fillOpacity="0.15" stroke="#a855f7" strokeWidth="2" />
+              </svg>
+            </div>
           </motion.div>
         </div>
 

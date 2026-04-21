@@ -136,7 +136,7 @@ export default function Paper() {
                   { label: 'Physical archive', note: 'Source code: deployed' },
                   { label: 'Library of Congress', note: 'Under "Satirical" category' },
                 ].map(link => (
-                  <a key={link.label} href="#" className="block group">
+                  <a key={link.label} href="#" onClick={(e) => { e.preventDefault(); alert('We apologize, but ' + link.label.toLowerCase() + ' requires physical clearance. Please mail an SASE to Morocco.'); }} className="block group">
                     <div className="flex items-start justify-between py-2 border-b border-line/50">
                       <span className="text-paper text-sm group-hover:text-cobalt transition-colors">{link.label}</span>
                       <svg viewBox="0 0 16 16" fill="none" className="w-4 h-4 text-mist group-hover:text-cobalt flex-shrink-0 mt-0.5 ml-2 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform">
