@@ -15,7 +15,7 @@ module.exports = {
       colors: {
         ink: '#0A0A0E',
         paper: '#F5F0E8',
-        cobalt: '#10b981',
+        cobalt: '#a855f7',
         cobalt2: '#059669',
         mist: '#8A8A9A',
         dim: '#1C1C24',

@@ -82,7 +82,7 @@ export default function Paper() {
                 In this work, we introduce Capillary-Driven Ink Diffusion — an analog architecture that 
                 satisfies all requirements of a high-fidelity text model: input encoding, 
                 infinite context projection, and deterministic state transfer. We position Pensr-1 
-                as the first open-weight CDID model released in 1943 (re-released 2025).
+                as the first open-weight CDID model released in 2024 (re-released 2025).
               </p>
             </div>
 
@@ -99,7 +99,7 @@ export default function Paper() {
                 the entire manuscript as a single probability volume — the Papier-Manifold — 
                 enabling cross-page reasoning unreachable by contemporary models.
               </p>
-              <div className="bg-ink border border-line p-6 font-mono text-xs text-mist leading-relaxed" style={{ borderLeft: '2px solid #10b981' }}>
+              <div className="bg-ink border border-line p-6 font-mono text-xs text-mist leading-relaxed" style={{ borderLeft: '2px solid #a855f7' }}>
                 <p className="text-cobalt mb-2">// Formal definition of CDID diffusion function</p>
                 <p>f(context) = ∫ capillary_intent(t) dt</p>
                 <p>where: context ∈ Papier-Manifold (R^∞)</p>

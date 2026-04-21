@@ -24,7 +24,7 @@ const tiles = [
     type: 'uptime',
     label: 'Status — all systems',
     headline: '99.99%',
-    sub: 'uptime since 1943',
+    sub: 'uptime since 2024',
     accent: false,
     size: 'normal',
   },
@@ -117,7 +117,7 @@ export default function BentoGrid() {
               </div>
             </div>
             <p className="display text-5xl text-paper group-hover:text-cobalt transition-colors mb-2">99.99%</p>
-            <p className="font-mono text-xs text-mist">uptime — measured since 1943</p>
+            <p className="font-mono text-xs text-mist">uptime — measured since 2024</p>
           </motion.div>
 
           {/* Power draw */}

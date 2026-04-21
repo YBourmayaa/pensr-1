@@ -47,7 +47,7 @@ const events = [
     highlight: false,
   },
   {
-    year: '1943',
+    year: '2024',
     era: 'Frontier release',
     title: 'Pensr-1 A0B',
     desc: 'State-of-the-art ballpoint model. 0.7mm nib. 1.2km context. Open-weight.',
@@ -131,7 +131,7 @@ export default function Timeline() {
                   justifyContent: 'flex-end',
                   padding: '32px',
                   background: e.highlight ? '#111111' : 'transparent',
-                  borderLeft: e.highlight ? '3px solid #10b981' : '1px solid transparent',
+                  borderLeft: e.highlight ? '3px solid #a855f7' : '1px solid transparent',
                   transition: 'background 0.3s, border-left 0.3s',
                 }}
               >
@@ -141,7 +141,7 @@ export default function Timeline() {
                     fontSize: '10px',
                     letterSpacing: '0.2em',
                     textTransform: 'uppercase',
-                    color: e.highlight ? '#10b981' : '#8A8A9A',
+                    color: e.highlight ? '#a855f7' : '#8A8A9A',
                     marginBottom: '16px',
                   }}
                 >
@@ -152,7 +152,7 @@ export default function Timeline() {
                     fontFamily: "'Bebas Neue', sans-serif",
                     fontSize: '3.5rem',
                     lineHeight: 0.9,
-                    color: e.highlight ? '#10b981' : '#2A2A36',
+                    color: e.highlight ? '#a855f7' : '#2A2A36',
                     marginBottom: '8px',
                   }}
                 >
@@ -191,7 +191,7 @@ export default function Timeline() {
                         fontSize: '10px',
                         letterSpacing: '0.15em',
                         textTransform: 'uppercase',
-                        color: '#10b981',
+                        color: '#a855f7',
                       }}
                     >
                       Current SOTA

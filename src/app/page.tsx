@@ -36,7 +36,7 @@ export default function Home() {
         style={{
           width: '100%',
           height: '36px',
-          background: '#10b981',
+          background: '#a855f7',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
@@ -57,32 +57,29 @@ export default function Home() {
           }}
         >
           Pensr-1 v0.1 — The original analog model — Now available
-          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 1943</span>
+          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 2024</span>
         </p>
       </div>
 
-      <main className="relative">
+      <main className="relative lg:pr-[35vw]" ref={sectionRef}>
         <ScrollProgress />
         <SmoothScroll />
         <Intro />
         <Cursor />
         <Nav />
 
-        {/* The Pen Scroll Section */}
-        <section ref={sectionRef} style={{ minHeight: '300vh', position: 'relative' }}>
-          <div className="absolute inset-0 pointer-events-none z-40 hidden lg:block">
-            <div className="sticky top-0 h-screen w-full max-w-[1400px] mx-auto flex px-8">
-              <div className="w-[60%]"></div>
-              <div className="w-[40%] flex items-center justify-center">
-                <FloatingPen scrollProgress={scrollYProgress} />
-              </div>
+        {/* Global Floating Pen Overlay */}
+        <div className="absolute inset-0 pointer-events-none z-40 hidden lg:block overflow-hidden">
+          <div className="sticky top-0 h-screen w-full flex justify-end">
+            <div className="w-[35vw] flex items-center justify-center">
+              <FloatingPen scrollProgress={scrollYProgress} />
             </div>
           </div>
-          
-          <Hero />
-          <Ticker />
-          <ModelCard />
-        </section>
+        </div>
+        
+        <Hero />
+        <Ticker />
+        <ModelCard />
 
         <Timeline />
         <Features />

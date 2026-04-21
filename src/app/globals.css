@@ -15,7 +15,7 @@
   --mist: #8A8A9A;
   --line: #1A1A24;
   --dim: #0A0A0F;
-  --cobalt: #10b981; /* Emerald Green */
+  --cobalt: #a855f7; /* Emerald Green */
   --cobalt2: #059669;
 }
 
@@ -98,7 +98,7 @@ body {
 ::-webkit-scrollbar-thumb { background: #2A2A36; border-radius: 2px; }
 
 /* Selection */
-::selection { background: #10b981; color: #050505; }
+::selection { background: #a855f7; color: #050505; }
 
 /* Horizontal rule */
 .rule { border: none; border-top: 1px solid #2A2A36; }
@@ -115,7 +115,7 @@ body {
   left: 0;
   width: 100%;
   height: 2px;
-  background: #10b981;
+  background: #a855f7;
   transform: scaleX(0);
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);

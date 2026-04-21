@@ -29,7 +29,7 @@ export default function Intro() {
           <svg width="200" height="4" viewBox="0 0 200 4">
             <line
               x1="0" y1="2" x2="200" y2="2"
-              stroke="#10b981" strokeWidth="2"
+              stroke="#a855f7" strokeWidth="2"
               strokeDasharray="200"
               strokeDashoffset="0"
               style={{
@@ -52,7 +52,7 @@ export default function Intro() {
             }}
           >
             PENSR
-            <span style={{ color: '#10b981', marginLeft: '8px' }}>1</span>
+            <span style={{ color: '#a855f7', marginLeft: '8px' }}>1</span>
           </motion.p>
 
           <motion.p

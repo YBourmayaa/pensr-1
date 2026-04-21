@@ -140,7 +140,7 @@ export default function Footer() {
             <div className="w-5 h-5 text-cobalt">
               <PenIcon />
             </div>
-            <span className="font-mono text-xs text-mist">Pensr-1 v0.1 — Open-weight analog model — Est. 1943</span>
+            <span className="font-mono text-xs text-mist">Pensr-1 v0.1 — Open-weight analog model — Est. 2024</span>
           </div>
 
           <div className="flex items-center gap-6">

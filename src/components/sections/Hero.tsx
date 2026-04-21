@@ -31,7 +31,7 @@ const Cursor = () => (
     className="animate-blink"
     style={{ 
       display: 'inline-block',
-      color: '#10b981',
+      color: '#a855f7',
       marginLeft: '2px'
     }}
   >|</span>
@@ -82,25 +82,25 @@ export default function Hero() {
       {/* Background grid */}
       <div className="absolute inset-0 opacity-[0.05]"
         style={{
-          backgroundImage: 'linear-gradient(#10b981 1px, transparent 1px), linear-gradient(90deg, #10b981 1px, transparent 1px)',
+          backgroundImage: 'linear-gradient(#a855f7 1px, transparent 1px), linear-gradient(90deg, #a855f7 1px, transparent 1px)',
           backgroundSize: '100px 100px'
         }}
       />
 
       {/* Emerald gradient orb */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full opacity-[0.06]"
-        style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
+        style={{ background: 'radial-gradient(circle, #a855f7 0%, transparent 70%)' }}
       />
 
       <motion.div style={{ y, opacity }} className="relative z-10 px-8 max-w-[1400px] w-full mx-auto pt-40 pb-24 flex">
-        <div className="w-full lg:w-[60%] flex flex-col">
+        <div className="w-full flex flex-col">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
             className="flex items-center gap-4 mb-12"
           >
-            <span className="tag !text-[#888] !border-[#222]">Analog weights — SOTA 1943</span>
+            <span className="tag !text-[#888] !border-[#222]">Analog weights — SOTA 2024</span>
             <span className="w-8 h-px bg-[#222]" />
             <span className="section-label !text-[#e0e0e0]">Capillary-Driven Ink Diffusion</span>
           </motion.div>
@@ -134,7 +134,7 @@ export default function Hero() {
             transition={{ delay: 1.2 }}
             className="flex items-baseline gap-3 mb-16"
           >
-            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#10b981]">Write|</span>
+            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#a855f7]">Write|</span>
             <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#ffffff] min-w-[280px]">
               {displayed}
             </span>
@@ -155,18 +155,18 @@ export default function Hero() {
               animate={{ scaleX: 1 }}
               transition={{ duration: 1.4, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
               style={{ transformOrigin: 'left' }}
-              className="absolute top-0 left-0 right-0 h-px bg-[#10b981]"
+              className="absolute top-0 left-0 right-0 h-px bg-[#a855f7]"
             />
             {[
               { label: 'Context window', value: '∞', unit: '', sub: 'unlimited local' },
               { label: 'Throughput', value: '1.2M', unit: 'words/s', sub: 'peak capability' },
-              { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 1943' },
+              { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 2024' },
               { label: 'Cost', value: 'Free', unit: '', sub: 'open-weight' },
             ].map((stat) => (
               <div key={stat.label} className="bg-[#0a0a0a] px-6 py-8 group hover:bg-[#111] transition-colors flex flex-col justify-between">
                 <div>
                   <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#888] mb-3">{stat.label}</p>
-                  <p className="display text-4xl text-[#fff] group-hover:text-[#10b981] transition-colors mb-1">
+                  <p className="display text-4xl text-[#fff] group-hover:text-[#a855f7] transition-colors mb-1">
                     {stat.value}<span className="text-xl ml-1 text-[#888]">{stat.unit}</span>
                   </p>
                 </div>
@@ -174,7 +174,7 @@ export default function Hero() {
                   <svg width="100%" height="2" style={{ display: 'block', marginTop: '6px' }}>
                     <line
                       x1="0" y1="1" x2="100%" y2="1"
-                      stroke="#10b981"
+                      stroke="#a855f7"
                       strokeWidth="1.5"
                       strokeDasharray="200"
                       style={{
@@ -198,7 +198,7 @@ export default function Hero() {
           >
             <MagneticButton
               href="#pricing"
-              className="group flex flex-shrink-0 items-center justify-center gap-3 px-8 py-4 bg-[#10b981] hover:bg-[#059669] text-[#050505] font-medium transition-colors duration-300 pointer-events-auto z-[100]"
+              className="group flex flex-shrink-0 items-center justify-center gap-3 px-8 py-4 bg-[#a855f7] hover:bg-[#059669] text-[#050505] font-medium transition-colors duration-300 pointer-events-auto z-[100]"
             >
               <span>Experience Pensr-1</span>
               <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform">
@@ -238,7 +238,7 @@ export default function Hero() {
         className="absolute top-24 right-8 text-right hidden md:block"
       >
         <p className="section-label">Issue No.</p>
-        <p className="font-mono text-2xl text-line font-light">001943</p>
+        <p className="font-mono text-2xl text-line font-light">002024</p>
       </motion.div>
     </section>
   )

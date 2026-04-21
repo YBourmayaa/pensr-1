@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 
 const specs = [
   { label: 'Model name', value: 'Pensr-1 v0.1', mono: true },
-  { label: 'Release year', value: '1943', mono: true },
+  { label: 'Release year', value: '2024', mono: true },
   { label: 'Architecture', value: 'Capillary-Driven Ink Diffusion (CDID)', mono: true },
   { label: 'Parameter count', value: '∞ (analog)', mono: true },
   { label: 'Context window', value: 'Unlimited* (*Page-bound)', mono: true },

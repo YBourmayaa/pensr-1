@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Cell } from 'recharts'
 
 const costData = [
-  { name: 'Pensr-1', value: 0.00, fill: '#10b981' },
+  { name: 'Pensr-1', value: 0.00, fill: '#a855f7' },
   { name: 'Claude 3.5', value: 3.0, fill: '#2A2A36' },
   { name: 'GPT-4o', value: 5.0, fill: '#2A2A36' },
   { name: 'Gemini 1.5', value: 7.0, fill: '#2A2A36' },
@@ -12,14 +12,14 @@ const costData = [
 ]
 
 const uptimeData = [
-  { name: 'Pensr-1', value: 99.999, fill: '#10b981' },
+  { name: 'Pensr-1', value: 99.999, fill: '#a855f7' },
   { name: 'Claude 3.5', value: 99.5, fill: '#2A2A36' },
   { name: 'GPT-4o', value: 99.3, fill: '#2A2A36' },
   { name: 'Gemini', value: 99.1, fill: '#2A2A36' },
 ]
 
 const latencyData = [
-  { name: 'Pensr-1', value: 0.3, fill: '#10b981' },
+  { name: 'Pensr-1', value: 0.3, fill: '#a855f7' },
   { name: 'Claude 3.5', value: 420, fill: '#2A2A36' },
   { name: 'GPT-4o', value: 800, fill: '#2A2A36' },
   { name: 'GPT-4', value: 2400, fill: '#2A2A36' },
@@ -160,7 +160,7 @@ export default function Benchmarks() {
               <RadarChart data={radarData}>
                 <PolarGrid stroke="#2A2A36" />
                 <PolarAngleAxis dataKey="metric" tick={{ fill: '#8A8A9A', fontSize: 10, fontFamily: 'DM Mono' }} />
-                <Radar name="Pensr-1" dataKey="Pensr" stroke="#10b981" fill="#10b981" fillOpacity={0.15} strokeWidth={2} />
+                <Radar name="Pensr-1" dataKey="Pensr" stroke="#a855f7" fill="#a855f7" fillOpacity={0.15} strokeWidth={2} />
                 <Radar name="GPT-4" dataKey="GPT4" stroke="#8A8A9A" fill="#8A8A9A" fillOpacity={0.05} strokeWidth={1} strokeDasharray="4 4" />
               </RadarChart>
             </ResponsiveContainer>
