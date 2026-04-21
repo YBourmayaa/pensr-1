@@ -35,9 +35,14 @@ export default function FloatingPen() {
     { stiffness: 60, damping: 20 }
   )
 
-  const { scrollY } = useScroll()
+  const { scrollY, scrollYProgress } = useScroll()
   // Pen travels down as user scrolls — like oryzo's coaster
   const penScrollY = useTransform(scrollY, [0, 2500], [0, 220])
+
+  // Ink "flows down" as we scroll. 
+  // At progress 0, it's mostly full. At progress 1, it's moved towards the nib.
+  const inkY = useTransform(scrollYProgress, [0, 1], [104, 469])
+  const inkHeight = useTransform(scrollYProgress, [0, 1], [365, 0])
 
   useEffect(() => {
     const onMove = (e: MouseEvent) => {
@@ -91,11 +96,15 @@ export default function FloatingPen() {
         <svg width="130" height="560" viewBox="0 0 160 600" fill="none" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="fpBarrel" x1="0" y1="0" x2="1" y2="0">
-              <stop offset="0%" stopColor="#0D1B8E"/>
-              <stop offset="25%" stopColor="#1A3AFF"/>
-              <stop offset="50%" stopColor="#4D6FFF"/>
-              <stop offset="75%" stopColor="#1A3AFF"/>
-              <stop offset="100%" stopColor="#0A1260"/>
+              <stop offset="0%" stopColor="#0D1B8E" stopOpacity="0.8"/>
+              <stop offset="25%" stopColor="#1A3AFF" stopOpacity="0.4"/>
+              <stop offset="50%" stopColor="#4D6FFF" stopOpacity="0.3"/>
+              <stop offset="75%" stopColor="#1A3AFF" stopOpacity="0.4"/>
+              <stop offset="100%" stopColor="#0A1260" stopOpacity="0.8"/>
+            </linearGradient>
+            <linearGradient id="fpInkLiquid" x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor="#1A3AFF"/>
+              <stop offset="100%" stopColor="#0D1B8E"/>
             </linearGradient>
             <linearGradient id="fpCap" x1="0" y1="0" x2="1" y2="0">
               <stop offset="0%" stopColor="#0A0A1A"/>
@@ -123,6 +132,9 @@ export default function FloatingPen() {
             <filter id="fpInkBlur">
               <feGaussianBlur stdDeviation="5"/>
             </filter>
+            <clipPath id="barrelPath">
+              <rect x="52" y="104" width="56" height="365" rx="6" />
+            </clipPath>
           </defs>
 
           {/* Ambient cobalt glow behind pen */}
@@ -142,7 +154,32 @@ export default function FloatingPen() {
 
           {/* BARREL */}
           <rect x="52" y="104" width="56" height="365" rx="6" fill="url(#fpBarrel)" filter="url(#fpShadow)"/>
+          
+          {/* LIQUID INK */}
+          <g clipPath="url(#barrelPath)">
+            <motion.rect
+              style={{ y: inkY, height: inkHeight }}
+              x="52" width="56"
+              fill="url(#fpInkLiquid)"
+            />
+            {/* Wavy surface layer */}
+            <motion.path
+              style={{ y: inkY }}
+              d="M 52 0 Q 66 -5 80 0 T 108 0 V 10 H 52 Z"
+              fill="#1A3AFF"
+              animate={{
+                d: [
+                  "M 52 0 Q 66 5 80 0 T 108 0 V 10 H 52 Z",
+                  "M 52 0 Q 66 -5 80 0 T 108 0 V 10 H 52 Z",
+                  "M 52 0 Q 66 5 80 0 T 108 0 V 10 H 52 Z"
+                ]
+              }}
+              transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+            />
+          </g>
+
           <rect x="52" y="104" width="56" height="365" rx="6" fill="url(#fpShine)"/>
+
 
           {/* Grip bands */}
           {gripBands.map((i) => (
