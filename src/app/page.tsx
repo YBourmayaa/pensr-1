@@ -70,20 +70,13 @@ export default function Home() {
 
         {/* The Pen Scroll Section */}
         <section ref={sectionRef} style={{ minHeight: '300vh', position: 'relative' }}>
-          <div 
-            style={{ 
-              position: 'sticky', 
-              top: '50%', 
-              transform: 'translateY(-50%)',
-              zIndex: 40,
-              pointerEvents: 'none',
-              display: 'flex',
-              justifyContent: 'flex-end',
-              paddingRight: '6vw'
-            }}
-            className="hidden lg:flex"
-          >
-            <FloatingPen scrollProgress={scrollYProgress} />
+          <div className="absolute inset-0 pointer-events-none z-40 hidden lg:block">
+            <div className="sticky top-0 h-screen w-full max-w-[1400px] mx-auto flex px-8">
+              <div className="w-[60%]"></div>
+              <div className="w-[40%] flex items-center justify-center">
+                <FloatingPen scrollProgress={scrollYProgress} />
+              </div>
+            </div>
           </div>
           
           <Hero />

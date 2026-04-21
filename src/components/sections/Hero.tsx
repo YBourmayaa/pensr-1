@@ -92,118 +92,124 @@ export default function Hero() {
         style={{ background: 'radial-gradient(circle, #10b981 0%, transparent 70%)' }}
       />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 px-8 max-w-[1400px] mx-auto pt-40 pb-24">
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="flex items-center gap-4 mb-12"
-        >
-          <span className="tag">Analog weights — SOTA 1943</span>
-          <span className="w-8 h-px bg-line" />
-          <span className="section-label">Capillary-Driven Ink Diffusion</span>
-        </motion.div>
-
-        {/* Main headline */}
-        <div className="overflow-hidden mb-4">
-          <motion.h1
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-            className="display text-[clamp(5rem,12vw,14rem)] text-paper leading-none"
-          >
-            THE ORIGINAL
-          </motion.h1>
-        </div>
-        <div className="overflow-hidden mb-8">
-          <motion.h1
-            initial={{ y: '100%' }}
-            animate={{ y: 0 }}
-            transition={{ duration: 1, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-            className="display text-[clamp(5rem,12vw,14rem)] text-cobalt leading-none"
-          >
-            TEXT GENERATION
-          </motion.h1>
-        </div>
-
-        {/* Typewriter */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 1.2 }}
-          className="flex items-baseline gap-3 mb-16"
-        >
-          <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-cobalt">Write|</span>
-          <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-paper min-w-[280px]">
-            {displayed}
-          </span>
-          <Cursor />
-        </motion.div>
-
-        {/* Stats row */}
-        <motion.div
-          ref={statsRef}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.4 }}
-          className="grid grid-cols-2 md:grid-cols-4 gap-px bg-line border border-line relative overflow-hidden max-w-3xl"
-        >
-          {/* Animated top border */}
+      <motion.div style={{ y, opacity }} className="relative z-10 px-8 max-w-[1400px] w-full mx-auto pt-40 pb-24 flex">
+        <div className="w-full lg:w-[60%] flex flex-col">
           <motion.div
-            initial={{ scaleX: 0 }}
-            animate={{ scaleX: 1 }}
-            transition={{ duration: 1.4, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
-            style={{ transformOrigin: 'left' }}
-            className="absolute top-0 left-0 right-0 h-px bg-cobalt"
-          />
-          {[
-            { label: 'Latency', value: '0.0', unit: 'ms', sub: 'instant feedback' },
-            { label: 'Throughput', value: '1.2M', unit: 'words/s', sub: 'peak capability' },
-            { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 1943' },
-            { label: 'Cost / 100M tokens', value: '$2.00', unit: '', sub: 'vs your soul' },
-          ].map((stat) => (
-            <div key={stat.label} className="bg-ink px-8 py-8 group hover:bg-dim transition-colors">
-              <p className="section-label mb-3">{stat.label}</p>
-              <p className="display text-4xl text-paper group-hover:text-cobalt transition-colors mb-1">
-                {stat.value}<span className="text-xl ml-1 text-mist">{stat.unit}</span>
-              </p>
-              <svg width="100%" height="2" style={{ display: 'block', marginTop: '6px' }}>
-                <line
-                  x1="0" y1="1" x2="100%" y2="1"
-                  stroke="var(--cobalt)"
-                  strokeWidth="1.5"
-                  strokeDasharray="200"
-                  style={{
-                    strokeDashoffset: statsInView ? 0 : 200,
-                    transition: 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s',
-                  }}
-                />
-              </svg>
-              <p className="font-mono text-xs text-mist mt-3">{stat.sub}</p>
-            </div>
-          ))}
-        </motion.div>
-
-        {/* CTA row */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 1.6 }}
-          className="flex items-center gap-6 mt-12"
-        >
-          <MagneticButton
-            href="#pricing"
-            className="group flex items-center gap-3 px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-all duration-300"
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex items-center gap-4 mb-12"
           >
-            <span>Experience Pensr-1</span>
-            <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform">
-              <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
-            </svg>
-          </MagneticButton>
-          <a href="#paper" className="font-mono text-sm text-mist hover:text-paper transition-colors underline underline-offset-4 decoration-line">
-            Read the paper
-          </a>
-        </motion.div>
+            <span className="tag !text-[#888] !border-[#222]">Analog weights — SOTA 1943</span>
+            <span className="w-8 h-px bg-[#222]" />
+            <span className="section-label !text-[#e0e0e0]">Capillary-Driven Ink Diffusion</span>
+          </motion.div>
+
+          {/* Main headline */}
+          <div className="overflow-hidden mb-4">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
+              className="display text-[clamp(5rem,10vw,14rem)] text-[#ffffff] leading-none"
+            >
+              THE ORIGINAL
+            </motion.h1>
+          </div>
+          <div className="overflow-hidden mb-8">
+            <motion.h1
+              initial={{ y: '100%' }}
+              animate={{ y: 0 }}
+              transition={{ duration: 1, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
+              className="display text-[clamp(5rem,10vw,14rem)] text-[#e0e0e0] leading-none"
+            >
+              TEXT MODEL
+            </motion.h1>
+          </div>
+
+          {/* Typewriter */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 1.2 }}
+            className="flex items-baseline gap-3 mb-16"
+          >
+            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#10b981]">Write|</span>
+            <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#ffffff] min-w-[280px]">
+              {displayed}
+            </span>
+            <Cursor />
+          </motion.div>
+
+          {/* Stats row */}
+          <motion.div
+            ref={statsRef}
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.4 }}
+            className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#222] border border-[#222] relative overflow-hidden"
+          >
+            {/* Animated top border */}
+            <motion.div
+              initial={{ scaleX: 0 }}
+              animate={{ scaleX: 1 }}
+              transition={{ duration: 1.4, delay: 1.8, ease: [0.16, 1, 0.3, 1] }}
+              style={{ transformOrigin: 'left' }}
+              className="absolute top-0 left-0 right-0 h-px bg-[#10b981]"
+            />
+            {[
+              { label: 'Context window', value: '∞', unit: '', sub: 'unlimited local' },
+              { label: 'Throughput', value: '1.2M', unit: 'words/s', sub: 'peak capability' },
+              { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 1943' },
+              { label: 'Cost', value: 'Free', unit: '', sub: 'open-weight' },
+            ].map((stat) => (
+              <div key={stat.label} className="bg-[#0a0a0a] px-6 py-8 group hover:bg-[#111] transition-colors flex flex-col justify-between">
+                <div>
+                  <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#888] mb-3">{stat.label}</p>
+                  <p className="display text-4xl text-[#fff] group-hover:text-[#10b981] transition-colors mb-1">
+                    {stat.value}<span className="text-xl ml-1 text-[#888]">{stat.unit}</span>
+                  </p>
+                </div>
+                <div>
+                  <svg width="100%" height="2" style={{ display: 'block', marginTop: '6px' }}>
+                    <line
+                      x1="0" y1="1" x2="100%" y2="1"
+                      stroke="#10b981"
+                      strokeWidth="1.5"
+                      strokeDasharray="200"
+                      style={{
+                        strokeDashoffset: statsInView ? 0 : 200,
+                        transition: 'stroke-dashoffset 1.2s cubic-bezier(0.16,1,0.3,1) 0.4s',
+                      }}
+                    />
+                  </svg>
+                  <p className="font-mono text-xs text-[#888] mt-3">{stat.sub}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+
+          {/* CTA row */}
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 1.6 }}
+            className="flex items-center gap-6 mt-12"
+          >
+            <MagneticButton
+              href="#pricing"
+              className="group flex flex-shrink-0 items-center justify-center gap-3 px-8 py-4 bg-[#10b981] hover:bg-[#059669] text-[#050505] font-medium transition-colors duration-300 pointer-events-auto z-[100]"
+            >
+              <span>Experience Pensr-1</span>
+              <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform">
+                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
+              </svg>
+            </MagneticButton>
+            <a href="#paper" className="font-mono text-sm text-[#888] hover:text-[#fff] transition-colors underline underline-offset-4 decoration-line pointer-events-auto z-50 relative">
+              Read the paper
+            </a>
+          </motion.div>
+        </div>
       </motion.div>
 
       {/* Scroll indicator */}

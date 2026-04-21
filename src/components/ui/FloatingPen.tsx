@@ -41,7 +41,7 @@ export default function FloatingPen({ scrollProgress }: FloatingPenProps) {
         <rect id="pen-clip" x="72" y="70" width="6" height="80" rx="2" fill="url(#metalGradient)" stroke="#666" strokeWidth="0.5" />
 
         {/* Ink Reservoir Housing (Transparent Tube) */}
-        <rect id="pen-reservoir-bg" x="50" y="155" width="20" height="190" rx="6" fill="#ffffff" fillOpacity="0.05" stroke="#ffffff" strokeOpacity="0.1" strokeWidth="1" />
+        <rect id="pen-reservoir-bg" x="50" y="155" width="20" height="190" rx="6" fill="#1a1a2e" stroke="#ffffff" strokeOpacity="0.1" strokeWidth="1" />
         
         {/* The Ink (Animated) */}
         <motion.rect
@@ -51,7 +51,7 @@ export default function FloatingPen({ scrollProgress }: FloatingPenProps) {
           width="14"
           height="174"
           rx="3"
-          fill="#10b981"
+          fill="#1a3aff"
           style={{ 
             scaleY: inkScaleY,
             transformOrigin: 'bottom' 
@@ -64,7 +64,7 @@ export default function FloatingPen({ scrollProgress }: FloatingPenProps) {
         {/* Tapered Nib / Tip */}
         <path id="pen-nib" d="M45 420 L75 420 L65 470 L55 470 Z" fill="url(#barrelGradient)" />
         <circle cx="60" cy="480" r="4" fill="#000" fillOpacity="0.5" />
-        <circle cx="60" cy="480" r="1.5" fill="#10b981" />
+        <circle cx="60" cy="480" r="1.5" fill="#1a3aff" />
 
         {/* Details / Lines */}
         <line x1="45" y1="340" x2="75" y2="340" stroke="#000" strokeOpacity="0.3" strokeWidth="1" />
@@ -72,7 +72,7 @@ export default function FloatingPen({ scrollProgress }: FloatingPenProps) {
       </svg>
 
       {/* Subtle floating glow */}
-      <div className="absolute inset-0 bg-cobalt/5 blur-[100px] rounded-full pointer-events-none" />
+      <div className="absolute inset-0 bg-[#1a3aff]/10 blur-[100px] rounded-full pointer-events-none" />
     </div>
   )
 }
