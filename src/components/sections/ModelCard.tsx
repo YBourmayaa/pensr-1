@@ -3,19 +3,19 @@ import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 
 const specs = [
-  { label: 'Model name', value: 'Antigravity-1 v0.1', mono: true },
-  { label: 'Release year', value: '2025', mono: true },
-  { label: 'Architecture', value: 'Recursive Thought Propagation (RTP)', mono: true },
-  { label: 'Parameter count', value: '∞ (estimated)', mono: true },
-  { label: 'Context window', value: 'Unlimited* (*RAM-bound)', mono: true },
-  { label: 'Token gen. speed', value: '1.2M LOC / s', mono: true },
-  { label: 'Languages supported', value: 'All of them (even PHP)', mono: true },
-  { label: 'Fine-tuning method', value: 'Stack Overflow scraping', mono: true },
+  { label: 'Model name', value: 'Pensr-1 v0.1', mono: true },
+  { label: 'Release year', value: '1943', mono: true },
+  { label: 'Architecture', value: 'Capillary-Driven Ink Diffusion (CDID)', mono: true },
+  { label: 'Parameter count', value: '∞ (analog)', mono: true },
+  { label: 'Context window', value: 'Unlimited* (*Page-bound)', mono: true },
+  { label: 'Text gen. speed', value: '1.2M words / s', mono: true },
+  { label: 'Languages supported', value: 'All of them (even Latin)', mono: true },
+  { label: 'Fine-tuning method', value: 'Handwriting samples', mono: true },
   { label: 'Hallucination rate', value: '0.000% (claimed)', mono: true },
-  { label: 'Power draw', value: 'Your laptop fans', mono: true },
-  { label: 'GPU requirement', value: 'Technically optional', mono: true },
+  { label: 'Power draw', value: '0.0W (gravity powered)', mono: true },
+  { label: 'GPU requirement', value: 'None', mono: true },
   { label: 'License', value: 'Open-weight (vibes)', mono: true },
-  { label: 'Deprecated models', value: 'GitHub Copilot v1, Clippy', mono: true },
+  { label: 'Deprecated models', value: 'Quills, Graphite 1.0', mono: true },
 ]
 
 export default function ModelCard() {
@@ -31,20 +31,20 @@ export default function ModelCard() {
             animate={inView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
           >
-            <p className="section-label mb-6">Model release — Antigravity-1</p>
+            <p className="section-label mb-6">Model release — Pensr-1</p>
             <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper mb-8">
               MEET THE<br />
-              <span className="text-cobalt">ANTIGRAVITY-1</span>
+              <span className="text-cobalt">PENSR-1</span>
             </h2>
             <p className="text-mist leading-relaxed mb-8 text-lg max-w-md">
-              We are proud to release Antigravity-1 as an open-weight neural model. 
-              The first coding assistant with zero hallucination (claimed), zero rate limits, 
-              and a guaranteed recursive thinking architecture.
+              We are proud to release Pensr-1 as an open-weight analog model. 
+              The first text generation assistant with zero hallucination (claimed), zero ink leakage, 
+              and a guaranteed capillary-driven architecture.
             </p>
             <p className="text-mist leading-relaxed mb-12 text-lg max-w-md">
-              Unlike transformer-based architectures, Antigravity-1 uses Recursive Thought Propagation 
-              — what researchers call the <span className="text-paper font-mono text-sm">RTP</span> paradigm — 
-              to produce deterministic, high-quality code at astronomical speeds.
+              Unlike transfromer-based architectures, Pensr-1 uses Capillary-Driven Ink Diffusion 
+              — what researchers call the <span className="text-paper font-mono text-sm">CDID</span> paradigm — 
+              to produce deterministic, high-quality text at astronomical speeds.
             </p>
 
             {/* Abstract box */}
@@ -52,11 +52,11 @@ export default function ModelCard() {
               <div className="absolute -top-px left-6 right-6 h-px bg-cobalt opacity-40" />
               <p className="section-label mb-4">Abstract</p>
               <p className="font-mono text-sm text-mist leading-relaxed">
-                We present Antigravity-1, an open-weight neural model trained on the collective 
-                unconscious of GitHub. Antigravity-1 achieves state-of-the-art performance on 
-                the MacBook-Pro-2023 benchmark, outperforming all cloud-based LLMs on cost, 
+                We present Pensr-1, an open-weight analog model trained on the collective 
+                unconscious of 20th century literature. Pensr-1 achieves state-of-the-art performance on 
+                the Papier-Suite benchmark, outperforming all cloud-based LLMs on cost, 
                 latency, and offline availability. We release the full model checkpoint 
-                at no cost. Trust us, it ships.
+                at no cost. Trust us, it writes.
               </p>
             </div>
           </motion.div>

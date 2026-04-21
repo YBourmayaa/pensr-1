@@ -6,7 +6,7 @@ import { useInView } from 'react-intersection-observer'
 const events = [
   {
     year: '1950s',
-    era: 'Pre-neural',
+    era: 'Pre-analog',
     title: 'Punch cards',
     desc: 'First stored programs. Context window: one card. No autocomplete.',
     highlight: false,
@@ -47,10 +47,10 @@ const events = [
     highlight: false,
   },
   {
-    year: '2025',
-    era: 'Neural SOTA',
-    title: 'Antigravity-1',
-    desc: 'Zero hallucinations (claimed). Ships today. Unlimited context. Trust us.',
+    year: '1943',
+    era: 'Analog SOTA',
+    title: 'Pensr-1',
+    desc: 'Zero ink leakage (claimed). Ships today. Unlimited context. Trust us.',
     highlight: true,
   },
 ]
@@ -106,7 +106,7 @@ export default function Timeline() {
               }}
             >
               EVERY MODEL<br />
-              <span style={{ color: 'var(--cobalt)' }}>BEFORE ANTIGRAVITY</span>
+              <span style={{ color: 'var(--cobalt)' }}>BEFORE PENSR-1</span>
             </h2>
           </motion.div>
         </div>
@@ -130,7 +130,7 @@ export default function Timeline() {
                   flexDirection: 'column',
                   justifyContent: 'flex-end',
                   padding: '32px',
-                  background: e.highlight ? '#1A3AFF' : 'transparent',
+                  background: e.highlight ? '#10b981' : 'transparent',
                   transition: 'background 0.3s',
                 }}
               >

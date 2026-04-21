@@ -4,12 +4,12 @@ import { useInView } from 'react-intersection-observer'
 import { motion, useMotionValue, animate } from 'framer-motion'
 
 const milestones = [
-  { label: 'Single file', position: '0%', words: '1' },
-  { label: 'Feature module', position: '5%', words: '~2,500' },
-  { label: 'Full app', position: '20%', words: '~50,000' },
-  { label: 'GPT-4 context', position: '10%', words: '~128,000' },
-  { label: 'Monorepo', position: '60%', words: '~500,000' },
-  { label: 'Antigravity limit', position: '100%', words: 'Unlimited*' },
+  { label: 'Single page', position: '0%', words: '1' },
+  { label: 'Short story', position: '5%', words: '~2,500' },
+  { label: 'Manuscript', position: '20%', words: '~50,000' },
+  { label: 'Typewriter limit', position: '10%', words: '~128,000' },
+  { label: 'Public Library', position: '60%', words: '~500,000' },
+  { label: 'Pensr limit', position: '100%', words: 'Unlimited*' },
 ]
 
 export default function ContextWindow() {
@@ -54,8 +54,8 @@ export default function ContextWindow() {
             <span className="text-cobalt">SERIOUSLY.</span>
           </h2>
           <p className="text-mist max-w-xl leading-relaxed">
-            Antigravity-1 holds your full codebase in context — monorepo included. No silent truncation. 
-            No loss of focus. We tell you upfront: the limit is your hardware, not our model.
+            Pensr-1 holds your full manuscript in context — public library included. No silent truncation. 
+            No loss of focus. We tell you upfront: the limit is your hand speed, not our model.
           </p>
         </motion.div>
 
@@ -90,12 +90,12 @@ export default function ContextWindow() {
           {/* Milestone markers */}
           <div className="relative mt-4 h-12">
             {[
-              { label: 'Single file', pct: 0 },
-              { label: 'Feature module', pct: 20 },
-              { label: 'Full app', pct: 40 },
-              { label: 'GPT-4 context', pct: 60 },
-              { label: 'Monorepo', pct: 80 },
-              { label: 'Antigravity limit', pct: 100 },
+              { label: 'Single page', pct: 0 },
+              { label: 'Short story', pct: 20 },
+              { label: 'Manuscript', pct: 40 },
+              { label: 'Typewriter limit', pct: 60 },
+              { label: 'Public Library', pct: 80 },
+              { label: 'Pensr limit', pct: 100 },
             ].map((m, i) => (
               <motion.div
                 key={m.label}
@@ -118,10 +118,10 @@ export default function ContextWindow() {
         {/* Comparison grid */}
         <div className="grid grid-cols-1 md:grid-cols-4 gap-px bg-line border border-line mt-24">
           {[
-            { title: 'GPT-4', limit: '128,000 tokens', desc: 'Hard limit. Your 300k-line repo gets truncated silently.', color: 'text-mist' },
-            { title: 'GitHub Copilot', limit: '~8,000 tokens', desc: 'File-level context only. It has never seen your whole app.', color: 'text-mist' },
-            { title: 'Antigravity-1', limit: 'Unlimited*', desc: 'Soft limit (RAM). We tell you upfront. No silent truncation.', color: 'text-cobalt' },
-            { title: 'Antigravity Pro', limit: '∞++', desc: 'Cloud-offloaded context. Your whole org’s history. We’re serious.', color: 'text-paper' },
+            { title: 'GPT-4', limit: '128,000 tokens', desc: 'Hard limit. Your 300k-page manuscript gets truncated silently.', color: 'text-mist' },
+            { title: 'Typewriter', limit: '~10,000 words', desc: 'Line-level context only. It has never seen your whole story.', color: 'text-mist' },
+            { title: 'Pensr-1', limit: 'Unlimited*', desc: 'Soft limit (Pages). We tell you upfront. No silent truncation.', color: 'text-cobalt' },
+            { title: 'Pensr Pro', limit: '∞++', desc: 'Gravity-offloaded context. Your whole library\'s history. We’re serious.', color: 'text-paper' },
           ].map((item, i) => (
             <motion.div
               key={item.title}

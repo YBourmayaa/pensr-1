@@ -3,10 +3,13 @@ import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MagneticButton from '@/components/ui/MagneticButton'
 
-const TerminalIcon = () => (
+const PenIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="4 17 10 11 4 5" />
-    <line x1="12" y1="19" x2="20" y2="19" />
+    <path d="M12 19l7-7 3 3-7 7-3-3z" />
+    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+    <path d="M2 2l1.5 1.5" />
+    <path d="M13 18l3 3" />
+    <path d="M19 12l3 3" />
   </svg>
 )
 
@@ -37,9 +40,9 @@ export default function Nav() {
           {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 group">
             <div className="w-6 h-6 text-cobalt">
-              <TerminalIcon />
+              <PenIcon />
             </div>
-            <span className="font-mono text-sm tracking-widest text-paper uppercase">Antigravity</span>
+            <span className="font-mono text-sm tracking-widest text-paper uppercase">Pensr</span>
             <span className="tag">v0.1</span>
           </a>
 
@@ -59,7 +62,7 @@ export default function Nav() {
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
             <MagneticButton href="#pricing" className="px-5 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-colors rounded-sm">
-              Deploy Antigravity-1
+              Get Pensr-1
             </MagneticButton>
           </div>
 

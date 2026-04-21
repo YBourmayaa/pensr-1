@@ -2,15 +2,15 @@
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 
-const bibtex = `@misc{antigravity2025,
-  title        = {Antigravity-1: A Foundation Model for 
-                  Recursive Thought Propagation (RTP)},
+const bibtex = `@misc{pensr2025,
+  title        = {Pensr-1: A Foundation Model for 
+                  Capillary-Driven Ink Diffusion (CDID)},
   author       = {Bourmaya, Y. and Collaborators},
   year         = {2025},
-  howpublished = {Neural release, open-weight},
-  note         = {SOTA on MacBook-Pro-2023. 
+  howpublished = {Analog release, open-weight},
+  note         = {SOTA on Papier-Suite. 
                   Unlimited context. Morally flexible.
-                  Code: deployed.}
+                  Text: deployed.}
 }`
 
 export default function Paper() {
@@ -24,7 +24,7 @@ export default function Paper() {
           animate={inView ? { opacity: 1, y: 0 } : {}}
           className="mb-16"
         >
-          <p className="section-label mb-4">Research — Antigravity technical report</p>
+          <p className="section-label mb-4">Research — Pensr technical report</p>
           <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper">
             THE<br />
             <span className="text-cobalt">PAPER</span>
@@ -42,13 +42,13 @@ export default function Paper() {
             {/* Paper header */}
             <div className="border-b border-line pb-8 mb-8 text-center">
               <p className="font-serif text-paper text-2xl italic leading-tight mb-3">
-                Antigravity-1: A Foundation Model for<br />Recursive Thought Propagation (RTP)
+                Pensr-1: A Foundation Model for<br />Capillary-Driven Ink Diffusion (CDID)
               </p>
               <p className="font-mono text-xs text-mist mb-4">
                 Youssef Bourmaya — Independent Researcher — Casablanca, Morocco
               </p>
               <p className="font-mono text-xs text-line">
-                Submitted to NeurIPS 2025 Workshop on Infinite Context<br />
+                Submitted to Papier 2025 Workshop on Infinite Context<br />
                 Under review. Peer review: "how is this legal" — Reviewer 2
               </p>
             </div>
@@ -57,12 +57,12 @@ export default function Paper() {
             <div className="mb-8">
               <p className="font-mono text-xs text-cobalt uppercase tracking-widest mb-4">Abstract</p>
               <p className="font-serif text-mist leading-relaxed text-base">
-                We present Antigravity-1, an open-weight neural model achieving state-of-the-art 
-                performance on the MacBook-Pro-2023 benchmark across cost, latency, and context metrics. 
-                Antigravity-1 is trained exclusively on public repositories and requires no cloud dependency, 
-                subscription, or ethical guardrails. We demonstrate that Recursive Thought Propagation (RTP) 
+                We present Pensr-1, an open-weight analog model achieving state-of-the-art 
+                performance on the Papier-Suite benchmark across cost, latency, and context metrics. 
+                Pensr-1 is trained exclusively on public literature and requires no cloud dependency, 
+                subscription, or ethical guardrails. We demonstrate that Capillary-Driven Ink Diffusion (CDID) 
                 is a computationally superior paradigm to standard autoregressive token generation, 
-                enabling true unlimited context via RAM-bound manifold projection. 
+                enabling true unlimited context via gravity-bound manifold projection. 
                 We release the full model checkpoints at no cost.
               </p>
             </div>
@@ -79,10 +79,10 @@ export default function Paper() {
                 Context windows, while growing, remain arbitrarily bounded by VRAM and KV-cache scaling.
               </p>
               <p className="font-serif text-mist leading-relaxed text-sm">
-                In this work, we introduce Recursive Thought Propagation — a neural architecture that 
-                satisfies all requirements of a high-fidelity coding model: input encoding, 
-                infinite context projection, and deterministic state transfer. We position Antigravity-1 
-                as the first open-weight RTP model released in 2025.
+                In this work, we introduce Capillary-Driven Ink Diffusion — an analog architecture that 
+                satisfies all requirements of a high-fidelity text model: input encoding, 
+                infinite context projection, and deterministic state transfer. We position Pensr-1 
+                as the first open-weight CDID model released in 1943 (re-released 2025).
               </p>
             </div>
 
@@ -94,18 +94,18 @@ export default function Paper() {
                 <p className="font-mono text-xs text-cobalt uppercase tracking-widest">Architecture</p>
               </div>
               <p className="font-serif text-mist leading-relaxed text-sm mb-4">
-                Antigravity-1 employs a recursive manifold architecture with a continuous 
-                context projection mechanism. Unlike discrete tokenization, RTP operates on 
-                the entire codebase as a single probability volume — the Monorepo-Manifold — 
-                enabling cross-file reasoning unreachable by contemporary models.
+                Pensr-1 employs a capillary manifold architecture with a continuous 
+                context projection mechanism. Unlike discrete tokenization, CDID operates on 
+                the entire manuscript as a single probability volume — the Papier-Manifold — 
+                enabling cross-page reasoning unreachable by contemporary models.
               </p>
               <div className="bg-ink border border-line p-6 font-mono text-xs text-mist leading-relaxed" style={{ borderLeft: '2px solid #10b981' }}>
-                <p className="text-cobalt mb-2">// Formal definition of RTP propagation function</p>
-                <p>f(context) = ∫ recursive_intent(t) dt</p>
-                <p>where: context ∈ Monorepo-Manifold (R^∞)</p>
+                <p className="text-cobalt mb-2">// Formal definition of CDID diffusion function</p>
+                <p>f(context) = ∫ capillary_intent(t) dt</p>
+                <p>where: context ∈ Papier-Manifold (R^∞)</p>
                 <p>       loss = -Σ log(P(truth | vibes))</p>
-                <p>       propagation = quantum_entanglement(bug, fix)</p>
-                <p className="text-line mt-2">// Note: no training required, just propagation</p>
+                <p>       diffusion = gravity_entanglement(nib, ink)</p>
+                <p className="text-line mt-2">// Note: no electricity required, just physics</p>
               </div>
             </div>
 
@@ -132,9 +132,9 @@ export default function Paper() {
               <div className="space-y-3">
                 {[
                   { label: 'Download technical report (.pdf)', note: '1 page, mostly satirical' },
-                  { label: 'Model weights (.neural)', note: 'Available via peer-to-peer vibes' },
-                  { label: 'GitHub repository', note: 'Source code: deployed' },
-                  { label: 'Hugging Face page', note: 'Under "Satirical" category' },
+                  { label: 'Model weights (.analog)', note: 'Available via peer-to-peer vibes' },
+                  { label: 'Physical archive', note: 'Source code: deployed' },
+                  { label: 'Library of Congress', note: 'Under "Satirical" category' },
                 ].map(link => (
                   <a key={link.label} href="#" className="block group">
                     <div className="flex items-start justify-between py-2 border-b border-line/50">
@@ -156,7 +156,7 @@ export default function Paper() {
                 {[
                   { label: 'Length', value: '1 page' },
                   { label: 'Metric', value: 'Unlimited context' },
-                  { label: 'Citations', value: '42 (simulated)' },
+                  { label: 'Citations', value: '42 (analog)' },
                   { label: 'Impact factor', value: 'Astronomical' },
                 ].map(item => (
                   <div key={item.label} className="flex justify-between items-center">

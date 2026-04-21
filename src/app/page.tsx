@@ -1,5 +1,7 @@
 'use client'
 import dynamic from 'next/dynamic'
+import { useRef } from 'react'
+import { useScroll } from 'framer-motion'
 import Hero from '@/components/sections/Hero'
 import Ticker from '@/components/ui/Ticker'
 import ModelCard from '@/components/sections/ModelCard'
@@ -22,6 +24,12 @@ const FloatingPen = dynamic(() => import('@/components/ui/FloatingPen'), { ssr: 
 const ScrollProgress = dynamic(() => import('@/components/ui/ScrollProgress'), { ssr: false })
 
 export default function Home() {
+  const sectionRef = useRef(null)
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start center", "end center"]
+  })
+
   return (
     <>
       <div
@@ -48,8 +56,8 @@ export default function Home() {
             fontWeight: 600,
           }}
         >
-          Antigravity-1 v0.1 — Open-weight neural model — Now available
-          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 2025</span>
+          Pensr-1 v0.1 — The original analog model — Now available
+          <span style={{ opacity: 0.5, marginLeft: '16px' }}>Est. 1943</span>
         </p>
       </div>
 
@@ -59,10 +67,30 @@ export default function Home() {
         <Intro />
         <Cursor />
         <Nav />
-        <FloatingPen />
-        <Hero />
-        <Ticker />
-        <ModelCard />
+
+        {/* The Pen Scroll Section */}
+        <section ref={sectionRef} style={{ minHeight: '300vh', position: 'relative' }}>
+          <div 
+            style={{ 
+              position: 'sticky', 
+              top: '50%', 
+              transform: 'translateY(-50%)',
+              zIndex: 40,
+              pointerEvents: 'none',
+              display: 'flex',
+              justifyContent: 'flex-end',
+              paddingRight: '6vw'
+            }}
+            className="hidden lg:flex"
+          >
+            <FloatingPen scrollProgress={scrollYProgress} />
+          </div>
+          
+          <Hero />
+          <Ticker />
+          <ModelCard />
+        </section>
+
         <Timeline />
         <Features />
         <HowItWorks />

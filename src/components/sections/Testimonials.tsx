@@ -4,43 +4,43 @@ import { motion } from 'framer-motion'
 
 const reviews = [
   {
-    quote: "I used to spend 4 hours a day on Stack Overflow. Now Antigravity just hallucinates the fix before I even realize I've broken the build. 10/10 efficiency.",
-    author: "Senior Staff Engineer",
-    role: "Meta (probably)",
+    quote: "I used to spend 4 hours a day on Stack Overflow. Now Pensr just smudges the fix before I even realize I've broken the sentence. 10/10 efficiency.",
+    author: "Senior Staff Writer",
+    role: "The New York Times (probably)",
     score: "5.0",
     tag: "Efficiency SOTA",
   },
   {
-    quote: "The Recursive Thought Propagation engine is basically magic. I fed it my entire legacy COBOL monorepo and it refactored it into Rust in 4 seconds. My boss is terrified.",
-    author: "Tech Lead",
-    role: "Big FinTech Corp",
+    quote: "The Capillary-Driven Ink Diffusion engine is basically magic. I fed it my entire legacy manuscript and it re-inked it into Latin in 4 seconds. My editor is terrified.",
+    author: "Award-Winning Novelist",
+    role: "Big Publishing Corp",
     score: "5.0",
-    tag: "Refactoring",
+    tag: "Re-inking",
   },
   {
-    quote: "Unlimited context is a lie—it's only limited by how much RAM I can steal from the Chrome tabs I'm not using. Best coding partner I've ever had.",
-    author: "Fullstack Dev",
-    role: "Stealth Startup",
+    quote: "Unlimited context is a lie—it's only limited by how much ink I can steal from the other pens on my desk. Best writing partner I've ever had.",
+    author: "Poet",
+    role: "Stealth Indie",
     score: "5.0",
     tag: "Context",
   },
   {
-    quote: "Antigravity actually drafted a resignation letter for me when I asked it to fix a CSS centering issue. It was so well-written I almost sent it. It knows too much.",
-    author: "Frontend Lead",
+    quote: "Pensr actually drafted a resignation letter for me when I asked it to fix a grammar issue. It was so well-written I almost sent it. It knows too much.",
+    author: "Editorial Lead",
     role: "Unicorn SaaS",
     score: "4.9",
     tag: "Automation",
   },
   {
-    quote: "Finally, a model that doesn't lecture me about ethical coding practices when I just want to hack together a quick prototype. It's as morally flexible as I am.",
+    quote: "Finally, a model that doesn't lecture me about ethical writing practices when I just want to hack together a quick manifesto. It's as morally flexible as I am.",
     author: "Solo Founder",
     role: "Indie Hacker",
     score: "5.0",
     tag: "Developer Joy",
   },
   {
-    quote: "We replaced our entire junior dev team with a single instance of Antigravity-1. The savings are astronomical. The code quality is... well, it's about same.",
-    author: "VP of Engineering",
+    quote: "We replaced our entire junior writing team with a single instance of Pensr-1. The savings are astronomical. The prose quality is... well, it's about the same.",
+    author: "Editor in Chief",
     role: "Growth Stage Co",
     score: "5.0",
     tag: "Business ROI",
@@ -60,9 +60,9 @@ export default function Testimonials() {
         >
           <div>
             <p className="section-label mb-4">Social proof</p>
-            <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper">
+            <h2 className="display text-[clamp(2rem,6vw,7rem)] leading-none text-paper">
               PEOPLE<br />
-              <span className="text-cobalt">LOVE ANTIGRAVITY</span>
+              <span className="text-cobalt">LOVE PENSR</span>
             </h2>
           </div>
           <div className="hidden md:block text-right">
@@ -115,9 +115,9 @@ export default function Testimonials() {
         >
           {[
             { label: 'Active Deployments', value: '420,690' },
-            { label: 'Lines Refactored', value: '984 Billion' },
-            { label: 'Hallucination Reports', value: '0' },
-            { label: 'Developer Joy', value: '100%' },
+            { label: 'Words Written', value: '984 Billion' },
+            { label: 'Smudge Reports', value: '0' },
+            { label: 'Writer Joy', value: '100%' },
           ].map(stat => (
             <div key={stat.label} className="text-center">
               <p className="display text-4xl text-paper mb-1">{stat.value}</p>

@@ -56,29 +56,29 @@ const features = [
   {
     icon: CpuIcon,
     number: '01',
-    title: 'RTP™ Inference Engine',
-    sub: 'Recursive Thought Propagation',
-    desc: 'Recursive Thought Propagation drives output at 1.2M LOC/s. Deterministic. Never cached. Never wrong (terms apply).',
+    title: 'CDID™ Expression Engine',
+    sub: 'Capillary-Driven Ink Diffusion',
+    desc: 'Capillary-Driven Ink Diffusion drives output at 1.2M words/s. Deterministic. Never cached. Never leaky (terms apply).',
     stat: '1.2M',
-    statLabel: 'LOC/s',
+    statLabel: 'words/s',
     wide: true,
   },
   {
     icon: CodeIcon,
     number: '02',
     title: 'Unlimited Context',
-    sub: 'Entire codebase integration',
-    desc: 'Antigravity-1 holds your entire codebase in context. All of it. Even the parts you forgot existed. No silent truncation.',
+    sub: 'Entire page integration',
+    desc: 'Pensr-1 holds your entire story in context. All of it. Even the footnotes you forgot existed. No silent truncation.',
     stat: '∞',
-    statLabel: 'tokens',
+    statLabel: 'pages',
     wide: false,
   },
   {
     icon: ShieldIcon,
     number: '03',
     title: 'Zero Hallucination',
-    sub: 'Guaranteed output fidelity',
-    desc: 'Outputs exactly the code you needed. No invented APIs. No deprecated imports. No confident wrongness.',
+    sub: 'Guaranteed ink fidelity',
+    desc: 'Outputs exactly the words you intended. No invented facts. No smudge. No confident wrongness.',
     stat: '0.000%',
     statLabel: 'claimed rate',
     wide: false,
@@ -86,9 +86,9 @@ const features = [
   {
     icon: ZapIcon,
     number: '04',
-    title: 'Quantum-Entangled Debugging',
-    sub: 'Parallelized fixes',
-    desc: 'Bug detected in one function? Antigravity fixes it across all 47 files simultaneously. Physics: mostly.',
+    title: 'Gravity-Powered Logic',
+    sub: 'Parallelized flow',
+    desc: 'Thought detected in one paragraph? Pensr-1 flows it across all 47 pages simultaneously. Physics: basically.',
     stat: '47x',
     statLabel: 'leverage',
     wide: false,
@@ -97,9 +97,9 @@ const features = [
     icon: BoxIcon,
     number: '05',
     title: 'Truly Open-Weight',
-    sub: 'Universal Neural License',
-    desc: 'Released under the Universal Neural License. Use it for research, production, or your side project that will definitely launch this time.',
-    stat: 'UNL',
+    sub: 'Universal Analog License',
+    desc: 'Released under the Universal Analog License. Use it for literature, manifestos, or your grocery list that will definitely be healthy this time.',
+    stat: 'UAL',
     statLabel: 'license',
     wide: false,
   },
@@ -107,8 +107,8 @@ const features = [
     icon: SlackIcon,
     number: '06',
     title: 'Automated Coworker Deflection',
-    sub: 'Slack integration support',
-    desc: 'Antigravity-1 drafts your "I\'m blocked on infra" Slack messages so you can keep shipping. Zero friction communication.',
+    sub: 'Letter integration support',
+    desc: 'Pensr-1 drafts your "I\'m busy writing" responses so you can keep inking. Zero friction communication.',
     stat: '100%',
     statLabel: 'deflection rate',
     wide: true,
@@ -129,12 +129,12 @@ export default function Features() {
           <div>
             <p className="section-label mb-4">Capabilities</p>
             <h2 className="display text-[clamp(3rem,6vw,7rem)] leading-none text-paper">
-              WHAT ANTIGRAVITY<br />
+              WHAT PENSR-1<br />
               <span className="text-cobalt">ACTUALLY DOES</span>
             </h2>
           </div>
           <p className="hidden md:block text-mist max-w-xs text-right leading-relaxed">
-            Six reasons Antigravity-1 outperforms every model that makes you wait.
+            Six reasons Pensr-1 outperforms every model that makes you wait.
           </p>
         </motion.div>
 

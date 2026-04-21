@@ -51,7 +51,7 @@ export default function Intro() {
               color: '#F5F0E8'
             }}
           >
-            ANTIGRAVITY
+            PENSR
             <span style={{ color: '#10b981', marginLeft: '8px' }}>1</span>
           </motion.p>
 
@@ -67,7 +67,7 @@ export default function Intro() {
               textTransform: 'uppercase'
             }}
           >
-            The original neural coding model
+            The original analog model
           </motion.p>
 
           <style>{`

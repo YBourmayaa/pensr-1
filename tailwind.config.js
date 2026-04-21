@@ -15,8 +15,8 @@ module.exports = {
       colors: {
         ink: '#0A0A0E',
         paper: '#F5F0E8',
-        cobalt: '#1A3AFF',
-        cobalt2: '#3D5AFE',
+        cobalt: '#10b981',
+        cobalt2: '#059669',
         mist: '#8A8A9A',
         dim: '#1C1C24',
         line: '#2A2A36',
@@ -26,7 +26,7 @@ module.exports = {
         'marquee2': 'marquee2 30s linear infinite',
         'float': 'float 6s ease-in-out infinite',
         'grain': 'grain 8s steps(10) infinite',
-        'blink': 'blink 1.2s step-end infinite',
+        'blink': 'blink 1s step-end infinite',
       },
       keyframes: {
         marquee: { '0%': { transform: 'translateX(0%)' }, '100%': { transform: 'translateX(-50%)' } },

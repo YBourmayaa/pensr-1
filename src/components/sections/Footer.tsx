@@ -2,16 +2,19 @@
 import { motion } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
-const TerminalIcon = () => (
+const PenIcon = () => (
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <polyline points="4 17 10 11 4 5" />
-    <line x1="12" y1="19" x2="20" y2="19" />
+    <path d="M12 19l7-7 3 3-7 7-3-3z" />
+    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
+    <path d="M2 2l1.5 1.5" />
+    <path d="M13 18l3 3" />
+    <path d="M19 12l3 3" />
   </svg>
 )
 
 const links = {
-  Product: ['Model weights', 'Features', 'Benchmarks', 'Pricing', 'RTP Architecture'],
-  Research: ['Technical report', 'BibTeX', 'MacBook-Pro-2023', 'Dataset vibes', 'OpenWeights'],
+  Product: ['Model weights', 'Features', 'Benchmarks', 'Pricing', 'CDID Architecture'],
+  Research: ['Technical report', 'BibTeX', 'Papier-Suite v0.1', 'Dataset vibes', 'OpenWeights'],
   Developer: ['Documentation', 'API Reference', 'SDKs', 'Playground', 'Status'],
   Legal: ['Privacy policy', 'Terms of use', 'Model deprecation', 'Safety guidelines'],
 }
@@ -31,14 +34,14 @@ export default function Footer() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
             <div>
               <p className="section-label mb-6">Final thought</p>
-              <h2 className="display text-[clamp(3rem,6vw,6rem)] leading-none text-paper mb-6">
+              <h2 className="display text-[clamp(2rem,6vw,6rem)] leading-none text-paper mb-6">
                 WE GOT YOUR<br />
                 ATTENTION WITH<br />
-                <span className="text-cobalt">ANTIGRAVITY-1.</span>
+                <span className="text-cobalt">PENSR-1.</span>
               </h2>
               <p className="text-mist text-lg leading-relaxed max-w-md">
                 This is what I build for real clients — landing pages, SaaS sites,
-                and AI products focus on high-fidelity interaction. Antigravity-1 is the proof.
+                and AI products focus on high-fidelity interaction. Pensr-1 is the proof.
                 Let&apos;s build yours.
               </p>
             </div>
@@ -65,7 +68,7 @@ export default function Footer() {
 
               {/* What I build tags */}
               <div className="flex flex-wrap gap-2 lg:justify-end">
-                {['Neural Frontends', 'SaaS Architecture', 'AI Products', 'Recursive Design'].map(s => (
+                {['Analog Frontends', 'SaaS Architecture', 'AI Products', 'Capillary Design'].map(s => (
                   <span
                     key={s}
                     style={{
@@ -97,7 +100,7 @@ export default function Footer() {
                   Hire me on Contra
                 </a>
                 <a
-                  href="mailto:antigravity@ai.dev"
+                  href="mailto:pensr@ai.dev"
                   className="px-8 py-4 border border-line hover:bg-dim text-paper font-medium transition-colors text-sm"
                 >
                   Send a message
@@ -135,14 +138,14 @@ export default function Footer() {
         <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-5 h-5 text-cobalt">
-              <TerminalIcon />
+              <PenIcon />
             </div>
-            <span className="font-mono text-xs text-mist">Antigravity-1 v0.1 — Open-weight neural model — Est. 2025</span>
+            <span className="font-mono text-xs text-mist">Pensr-1 v0.1 — Open-weight analog model — Est. 1943</span>
           </div>
 
           <div className="flex items-center gap-6">
             <span className="font-mono text-xs text-line">
-              © 2025 Antigravity AI — A creative portfolio piece by Youssef Bourmaya
+              © 2025 Pensr AI — A creative portfolio piece by Youssef Bourmaya
             </span>
           </div>
         </div>

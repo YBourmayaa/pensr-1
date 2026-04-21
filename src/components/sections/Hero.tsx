@@ -26,6 +26,17 @@ function useCountUp(target: number, duration: number, active: boolean): number {
   return value
 }
 
+const Cursor = () => (
+  <span 
+    className="animate-blink"
+    style={{ 
+      display: 'inline-block',
+      color: '#10b981',
+      marginLeft: '2px'
+    }}
+  >|</span>
+)
+
 export default function Hero() {
   const [wordIndex, setWordIndex] = useState(0)
   const [displayed, setDisplayed] = useState('')
@@ -88,9 +99,9 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex items-center gap-4 mb-12"
         >
-          <span className="tag">Neural weights — SOTA 2025</span>
+          <span className="tag">Analog weights — SOTA 1943</span>
           <span className="w-8 h-px bg-line" />
-          <span className="section-label">Recursive Thought Propagation</span>
+          <span className="section-label">Capillary-Driven Ink Diffusion</span>
         </motion.div>
 
         {/* Main headline */}
@@ -111,7 +122,7 @@ export default function Hero() {
             transition={{ duration: 1, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
             className="display text-[clamp(5rem,12vw,14rem)] text-cobalt leading-none"
           >
-            CODING MODEL
+            TEXT GENERATION
           </motion.h1>
         </div>
 
@@ -122,11 +133,11 @@ export default function Hero() {
           transition={{ delay: 1.2 }}
           className="flex items-baseline gap-3 mb-16"
         >
-          <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-cobalt">{`> _`}</span>
+          <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-cobalt">Write|</span>
           <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-paper min-w-[280px]">
             {displayed}
-            <span className="animate-blink ml-0.5 text-cobalt">|</span>
           </span>
+          <Cursor />
         </motion.div>
 
         {/* Stats row */}
@@ -146,10 +157,10 @@ export default function Hero() {
             className="absolute top-0 left-0 right-0 h-px bg-cobalt"
           />
           {[
-            { label: 'Context window', value: 'Unlimited*', unit: '', sub: 'memory-permitting' },
-            { label: 'Throughput', value: '1.2M', unit: 'LOC/s', sub: 'peak capability' },
-            { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 2025' },
-            { label: 'Cost / 1M tokens', value: '$0.00', unit: '', sub: 'vs Your Soul (GPT-4)' },
+            { label: 'Latency', value: '0.0', unit: 'ms', sub: 'instant feedback' },
+            { label: 'Throughput', value: '1.2M', unit: 'words/s', sub: 'peak capability' },
+            { label: 'Uptime', value: '99.999', unit: '%', sub: 'Est. 1943' },
+            { label: 'Cost / 100M tokens', value: '$2.00', unit: '', sub: 'vs your soul' },
           ].map((stat) => (
             <div key={stat.label} className="bg-ink px-8 py-8 group hover:bg-dim transition-colors">
               <p className="section-label mb-3">{stat.label}</p>
@@ -184,7 +195,7 @@ export default function Hero() {
             href="#pricing"
             className="group flex items-center gap-3 px-8 py-4 bg-cobalt hover:bg-cobalt2 text-paper font-medium transition-all duration-300"
           >
-            <span>Deploy Antigravity-1</span>
+            <span>Experience Pensr-1</span>
             <svg viewBox="0 0 20 20" fill="none" className="w-4 h-4 group-hover:translate-x-1 transition-transform">
               <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round"/>
             </svg>
