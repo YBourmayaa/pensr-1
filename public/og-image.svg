@@ -1,0 +1,148 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" width="1200" height="630">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0d0d14"/>
+      <stop offset="100%" stop-color="#060608"/>
+    </linearGradient>
+    <linearGradient id="penBodyOG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="20%" stop-color="#2c2c2c"/>
+      <stop offset="38%" stop-color="#d4a843"/>
+      <stop offset="50%" stop-color="#f0c96a"/>
+      <stop offset="62%" stop-color="#d4a843"/>
+      <stop offset="80%" stop-color="#2c2c2c"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="penTipOG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#1a1a1a"/>
+      <stop offset="30%" stop-color="#7a7a7a"/>
+      <stop offset="50%" stop-color="#c0c0c0"/>
+      <stop offset="70%" stop-color="#7a7a7a"/>
+      <stop offset="100%" stop-color="#1a1a1a"/>
+    </linearGradient>
+    <linearGradient id="penClipOG" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" stop-color="#0a0a0a"/>
+      <stop offset="40%" stop-color="#c4941a"/>
+      <stop offset="60%" stop-color="#e8c060"/>
+      <stop offset="100%" stop-color="#0a0a0a"/>
+    </linearGradient>
+    <radialGradient id="glowOG" cx="75%" cy="50%" r="45%">
+      <stop offset="0%" stop-color="#d4a843" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#d4a843" stop-opacity="0"/>
+    </radialGradient>
+    <filter id="nibGlow">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- BG -->
+  <rect width="1200" height="630" fill="url(#bg)"/>
+  <rect width="1200" height="630" fill="url(#glowOG)"/>
+
+  <!-- Subtle grid -->
+  <g opacity="0.04" stroke="#d4a843" stroke-width="0.5">
+    <line x1="0" y1="105" x2="1200" y2="105"/>
+    <line x1="0" y1="210" x2="1200" y2="210"/>
+    <line x1="0" y1="315" x2="1200" y2="315"/>
+    <line x1="0" y1="420" x2="1200" y2="420"/>
+    <line x1="0" y1="525" x2="1200" y2="525"/>
+    <line x1="200" y1="0" x2="200" y2="630"/>
+    <line x1="400" y1="0" x2="400" y2="630"/>
+    <line x1="600" y1="0" x2="600" y2="630"/>
+    <line x1="800" y1="0" x2="800" y2="630"/>
+    <line x1="1000" y1="0" x2="1000" y2="630"/>
+  </g>
+
+  <!-- Border frame -->
+  <rect x="24" y="24" width="1152" height="582" rx="12" fill="none" stroke="#d4a843" stroke-width="0.75" opacity="0.3"/>
+
+  <!-- === PEN (right side, large, slightly rotated) === -->
+  <g transform="translate(820, 315) rotate(-8)">
+    <!-- Pen cap top -->
+    <ellipse cx="0" cy="-270" rx="52" ry="14" fill="#111"/>
+    <rect x="-52" y="-270" width="104" height="18" fill="#111"/>
+    <!-- Gold cap band -->
+    <rect x="-54" y="-254" width="108" height="11" rx="2" fill="url(#penClipOG)"/>
+    <!-- Barrel -->
+    <rect x="-52" y="-243" width="104" height="380" rx="4" fill="url(#penBodyOG)"/>
+    <!-- Highlight -->
+    <rect x="-6" y="-243" width="5" height="380" fill="white" opacity="0.05" rx="2"/>
+    <!-- Brand text on pen -->
+    <rect x="-44" y="-50" width="88" height="60" rx="3" fill="#0a0a0a" opacity="0.4"/>
+    <text x="0" y="-18" font-family="Georgia, serif" font-size="17" font-weight="700" fill="#d4a843" text-anchor="middle" letter-spacing="3">PENSR</text>
+    <text x="0" y="0" font-family="Georgia, serif" font-size="9" fill="#b8820f" text-anchor="middle" letter-spacing="6">— 1 —</text>
+    <!-- Clip -->
+    <rect x="44" y="-258" width="8" height="120" rx="4" fill="url(#penClipOG)" opacity="0.9"/>
+    <ellipse cx="48" cy="-136" rx="6" ry="6" fill="url(#penClipOG)"/>
+    <!-- Gold rings -->
+    <rect x="-54" y="133" width="108" height="5" rx="1" fill="url(#penClipOG)"/>
+    <!-- Grip zone -->
+    <rect x="-52" y="137" width="104" height="60" rx="2" fill="#111"/>
+    <g stroke="#2a2a2a" stroke-width="1" opacity="0.8">
+      <line x1="-52" y1="147" x2="52" y2="147"/>
+      <line x1="-52" y1="157" x2="52" y2="157"/>
+      <line x1="-52" y1="167" x2="52" y2="167"/>
+      <line x1="-52" y1="177" x2="52" y2="177"/>
+      <line x1="-52" y1="187" x2="52" y2="187"/>
+    </g>
+    <!-- Transition -->
+    <rect x="-54" y="195" width="108" height="5" rx="1" fill="url(#penClipOG)"/>
+    <polygon points="-52,200 52,200 38,235 -38,235" fill="url(#penTipOG)"/>
+    <!-- Tip -->
+    <rect x="-28" y="235" width="56" height="30" fill="url(#penTipOG)"/>
+    <!-- Nib -->
+    <polygon points="-28,265 28,265 16,310 -16,310" fill="#aaa"/>
+    <line x1="0" y1="267" x2="0" y2="308" stroke="#444" stroke-width="1.2"/>
+    <polygon points="-16,310 16,310 0,325" fill="#888"/>
+    <!-- Ink drop -->
+    <ellipse cx="0" cy="328" rx="4" ry="5" fill="#d4a843" opacity="0.9"/>
+    <ellipse cx="0" cy="326" rx="2" ry="2" fill="#f5d98a"/>
+  </g>
+
+  <!-- Ink glow at nib -->
+  <ellipse cx="763" cy="640" rx="80" ry="20" fill="#d4a843" opacity="0.12" filter="url(#nibGlow)"/>
+
+  <!-- === LEFT SIDE TEXT === -->
+
+  <!-- Logo mark -->
+  <g transform="translate(72, 68)">
+    <rect width="36" height="36" rx="8" fill="#0d0d14" stroke="#d4a843" stroke-width="0.75" opacity="1"/>
+    <rect x="13" y="4" width="10" height="18" rx="2.5" fill="#2e2e2e"/>
+    <rect x="15" y="4" width="3" height="18" rx="1.5" fill="#d4a843" opacity="0.8"/>
+    <rect x="12" y="21" width="12" height="2.5" rx="1" fill="#d4a843"/>
+    <polygon points="13,23.5 23,23.5 21,31 15,31" fill="#999"/>
+    <polygon points="15,31 21,31 18,35" fill="#d4a843"/>
+    <text x="44" y="19" font-family="Georgia, serif" font-size="16" font-weight="700" fill="#f5f5f0" letter-spacing="1">Pensr-1</text>
+    <text x="44" y="32" font-family="'Courier New', monospace" font-size="9" fill="#d4a843" letter-spacing="2">OPEN-WEIGHT</text>
+  </g>
+
+  <!-- Divider -->
+  <line x1="72" y1="130" x2="300" y2="130" stroke="#d4a843" stroke-width="0.5" opacity="0.4"/>
+
+  <!-- Main headline -->
+  <text x="72" y="230" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700" fill="#f5f5f0" letter-spacing="-1">The original</text>
+  <text x="72" y="315" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="700" fill="#d4a843" letter-spacing="-1">text model.</text>
+
+  <!-- Subline -->
+  <text x="74" y="375" font-family="'Courier New', monospace" font-size="15" fill="#888" letter-spacing="1">Capillary-Driven Ink Diffusion · Est. 2024</text>
+
+  <!-- Stats row -->
+  <g transform="translate(72, 430)">
+    <!-- Stat 1 -->
+    <rect width="140" height="70" rx="8" fill="#111" stroke="#d4a843" stroke-width="0.5" stroke-opacity="0.3"/>
+    <text x="70" y="26" font-family="'Courier New', monospace" font-size="10" fill="#d4a843" text-anchor="middle" letter-spacing="1">HALLUCINATION</text>
+    <text x="70" y="52" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#f5f5f0" text-anchor="middle">0.000%</text>
+    <!-- Stat 2 -->
+    <rect x="156" width="140" height="70" rx="8" fill="#111" stroke="#d4a843" stroke-width="0.5" stroke-opacity="0.3"/>
+    <text x="226" y="26" font-family="'Courier New', monospace" font-size="10" fill="#d4a843" text-anchor="middle" letter-spacing="1">CONTEXT</text>
+    <text x="226" y="52" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#f5f5f0" text-anchor="middle">∞</text>
+    <!-- Stat 3 -->
+    <rect x="312" width="140" height="70" rx="8" fill="#111" stroke="#d4a843" stroke-width="0.5" stroke-opacity="0.3"/>
+    <text x="382" y="26" font-family="'Courier New', monospace" font-size="10" fill="#d4a843" text-anchor="middle" letter-spacing="1">COST / 1M</text>
+    <text x="382" y="52" font-family="Georgia, serif" font-size="26" font-weight="700" fill="#f5f5f0" text-anchor="middle">$0.00</text>
+  </g>
+
+  <!-- Bottom tag -->
+  <text x="72" y="580" font-family="'Courier New', monospace" font-size="11" fill="#555" letter-spacing="1">pensr-1.vercel.app</text>
+</svg>
