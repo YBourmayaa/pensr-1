@@ -23,8 +23,10 @@ export default function Nav() {
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
         style={{ top: '36px' }}
-        className={`fixed left-0 right-0 z-50 transition-all duration-500 w-full ${
-          scrolled ? 'bg-ink/80 backdrop-blur-xl border-b border-line' : ''
+        className={`sticky left-0 right-0 z-[1000] transition-all duration-300 w-full ${
+          scrolled 
+            ? 'bg-black/95 backdrop-blur-xl border-b border-cobalt/20 shadow-lg shadow-cobalt/10 py-3' 
+            : 'bg-transparent py-4'
         }`}
       >
         <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] h-16 flex items-center justify-between">
