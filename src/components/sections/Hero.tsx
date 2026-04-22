@@ -257,16 +257,7 @@ export default function Hero() {
         <span className="section-label">Scroll</span>
       </motion.div>
 
-      {/* Issue number top right */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.8 }}
-        className="absolute top-24 right-8 text-right hidden lg:block"
-      >
-        <p className="section-label">Issue No.</p>
-        <p className="font-mono text-2xl text-line font-light">002024</p>
-      </motion.div>
+
     </section>
   )
 }

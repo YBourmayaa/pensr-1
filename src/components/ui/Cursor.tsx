@@ -15,17 +15,29 @@ export default function Cursor() {
   const slowSpring = { stiffness: 80, damping: 22 }
 
   const fastX = useSpring(cursorX, fastSpring)
-  const fastY = useSpring(cursorY, fastSpring)
+  const fastY = useSpring(cursorY, slowSpring)
   const slowX = useSpring(cursorX, slowSpring)
   const slowY = useSpring(cursorY, slowSpring)
 
   useEffect(() => {
+    let lastMouseX = -100
+    let lastMouseY = -100
+
     const move = (e: MouseEvent) => {
+      lastMouseX = e.clientX
+      lastMouseY = e.clientY
       cursorX.set(e.clientX)
       cursorY.set(e.clientY)
       const id = idRef.current++
       setTrail(prev => [...prev.slice(-8), { x: e.clientX, y: e.clientY, id }])
     }
+
+    const handleScroll = () => {
+      // Update cursor position during scroll to prevent freeze
+      cursorX.set(lastMouseX)
+      cursorY.set(lastMouseY)
+    }
+
     const down = () => setClicked(true)
     const up = () => setClicked(false)
 
@@ -39,13 +51,16 @@ export default function Cursor() {
     bindHover()
     const interval = setInterval(bindHover, 2000)
 
-    window.addEventListener('mousemove', move)
-    window.addEventListener('mousedown', down)
-    window.addEventListener('mouseup', up)
+    window.addEventListener('mousemove', move, { passive: true })
+    window.addEventListener('mousedown', down, { passive: true })
+    window.addEventListener('mouseup', up, { passive: true })
+    window.addEventListener('scroll', handleScroll, { passive: true })
+
     return () => {
       window.removeEventListener('mousemove', move)
       window.removeEventListener('mousedown', down)
       window.removeEventListener('mouseup', up)
+      window.removeEventListener('scroll', handleScroll)
       clearInterval(interval)
     }
   }, [])
