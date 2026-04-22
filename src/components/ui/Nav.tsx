@@ -2,16 +2,7 @@
 import { useEffect, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import MagneticButton from '@/components/ui/MagneticButton'
-
-const PenIcon = () => (
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-    <path d="M12 19l7-7 3 3-7 7-3-3z" />
-    <path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z" />
-    <path d="M2 2l1.5 1.5" />
-    <path d="M13 18l3 3" />
-    <path d="M19 12l3 3" />
-  </svg>
-)
+import { PensrLogo } from '@/components/icons/PensrLogo'
 
 const links = ['Model', 'Features', 'Benchmarks', 'Pricing', 'Paper']
 
@@ -37,41 +28,53 @@ export default function Nav() {
         }`}
       >
         <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] h-16 flex items-center justify-between">
-          {/* Logo */}
-          <a href="#" className="flex items-center gap-2.5 group">
-            <div className="w-6 h-6 text-cobalt">
-              <PenIcon />
+          {/* Logo with better visual hierarchy */}
+          <a href="#" className="flex items-center gap-3 group transition-opacity hover:opacity-80 duration-300">
+            <motion.div 
+              className="w-10 h-10 p-1.5 rounded-lg bg-cobalt/10 border border-cobalt/20 flex items-center justify-center"
+              whileHover={{ scale: 1.05, backgroundColor: 'rgba(168, 85, 247, 0.15)' }}
+              transition={{ duration: 0.2 }}
+            >
+              <PensrLogo size={24} className="text-cobalt" />
+            </motion.div>
+            <div className="flex flex-col leading-tight">
+              <span className="font-mono text-xs tracking-widest text-paper uppercase font-semibold">Pensr</span>
+              <span className="text-[10px] text-mist/60 tracking-wide">v0.1</span>
             </div>
-            <span className="font-mono text-sm tracking-widest text-paper uppercase">Pensr</span>
-            <span className="tag">v0.1</span>
           </a>
 
           {/* Desktop links */}
           <div className="hidden md:flex items-center gap-8">
             {links.map(link => (
-              <a
+              <motion.a
                 key={link}
                 href={`#${link.toLowerCase()}`}
-                className="ink-underline text-mist hover:text-paper transition-colors text-sm font-body"
+                className="ink-underline text-mist hover:text-paper transition-colors text-sm font-body relative"
+                whileHover={{ color: '#e0e0e0' }}
               >
                 {link}
-              </a>
+                <motion.span 
+                  className="absolute bottom-0 left-0 w-0 h-0.5 bg-cobalt rounded-full"
+                  whileHover={{ width: '100%' }}
+                  transition={{ duration: 0.3 }}
+                />
+              </motion.a>
             ))}
           </div>
 
           {/* CTA */}
           <div className="hidden md:flex items-center gap-4">
-            <MagneticButton href="https://contra.com/youssef_bourmaya_y6j4php0" className="px-5 py-2.5 border border-line hover:bg-dim text-paper text-sm font-medium transition-colors rounded-sm">
+            <MagneticButton href="https://contra.com/youssef_bourmaya_y6j4php0" className="px-5 py-2.5 border border-line hover:bg-dim text-paper text-sm font-medium transition-all duration-300 rounded-sm hover:border-cobalt hover:text-cobalt">
               Hire me →
             </MagneticButton>
-            <MagneticButton href="#pricing" className="px-5 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-colors rounded-sm">
+            <MagneticButton href="#pricing" className="px-5 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-all duration-300 rounded-sm hover:shadow-lg hover:shadow-cobalt/50">
               Get Pensr-1
             </MagneticButton>
           </div>
 
           {/* Mobile menu button */}
           <button
-            className="md:hidden flex flex-col gap-1.5 p-2"
+            className="md:hidden flex flex-col gap-1.5 p-2 hover:opacity-70 transition-opacity"
             onClick={() => setMenuOpen(!menuOpen)}
           >
             <span className={`w-6 h-px bg-paper transition-all ${menuOpen ? 'rotate-45 translate-y-1.5' : ''}`} />
@@ -99,6 +102,7 @@ export default function Nav() {
                 transition={{ delay: i * 0.07 }}
                 onClick={() => setMenuOpen(false)}
                 className="display text-[clamp(2.5rem,8vw,4rem)] text-paper hover:text-cobalt transition-colors"
+                whileHover={{ scale: 1.05 }}
               >
                 {link.toUpperCase()}
               </motion.a>

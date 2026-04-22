@@ -117,8 +117,8 @@ export default function Hero() {
 
       <motion.div style={{ y, opacity }} className="relative z-10 w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] pt-40 pb-24 flex flex-col items-center">
         
-        {/* The new Pen background */}
-        <FloatingPen className="absolute inset-0 w-[65%] mx-auto opacity-10 pointer-events-none z-0 flex items-center justify-center translate-y-[-10%]" />
+        {/* The new Pen background - modern ink diffusion pattern */}
+        <FloatingPen className="absolute inset-0 w-[70%] md:w-[60%] mx-auto opacity-30 pointer-events-none z-0 flex items-center justify-center left-1/2 -translate-x-1/2 translate-y-[-5%]" />
 
         <div className="relative z-10 w-full flex flex-col items-center text-center">
           <motion.div
