@@ -2,28 +2,36 @@
 import { useInView } from 'react-intersection-observer'
 import { motion } from 'framer-motion'
 import { Tooltip, ResponsiveContainer, RadarChart, PolarGrid, PolarAngleAxis, Radar, Cell } from 'recharts'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+
+// Enhanced color palette with proper gradients
+const chartColors = {
+  pensr: { top: '#7F77DD', bottom: '#3C3489', accent: '#E91E63' },
+  claude: { top: '#A89BDB', bottom: '#5A5294', accent: '#9C27B0' },
+  gpt: { top: '#8B6FAE', bottom: '#4A3B7D', accent: '#7C3AED' },
+  gemini: { top: '#A78BFA', bottom: '#6B5B95', accent: '#A78BFA' },
+}
 
 const costData = [
-  { name: 'Pensr-1', value: 0.00, visual: 5, fill: '#a855f7', gradient: 'from-cobalt to-purple-900', label: 'Free' },
-  { name: 'Claude 3.5', value: 3.0, visual: 20, fill: '#6366f1', gradient: 'from-indigo-500 to-indigo-900', label: '$3.00' },
-  { name: 'GPT-4o', value: 5.0, visual: 33, fill: '#8b5cf6', gradient: 'from-violet-500 to-violet-900', label: '$5.00' },
-  { name: 'Gemini 1.5', value: 7.0, visual: 46, fill: '#a78bfa', gradient: 'from-purple-400 to-purple-800', label: '$7.00' },
-  { name: 'GPT-4', value: 15.0, visual: 100, fill: '#c4b5fd', gradient: 'from-purple-300 to-purple-700', label: '$15.00' },
+  { name: 'Pensr-1', value: 0.00, visual: 5, ...chartColors.pensr, label: 'Free' },
+  { name: 'Claude 3.5', value: 3.0, visual: 20, ...chartColors.claude, label: '$3.00' },
+  { name: 'GPT-4o', value: 5.0, visual: 33, ...chartColors.gpt, label: '$5.00' },
+  { name: 'Gemini 1.5', value: 7.0, visual: 46, ...chartColors.gemini, label: '$7.00' },
+  { name: 'GPT-4', value: 15.0, visual: 100, ...chartColors.gpt, label: '$15.00' },
 ]
 
 const uptimeData = [
-  { name: 'Pensr-1', value: 99.999, visual: 100, fill: '#a855f7', gradient: 'from-cobalt to-purple-900', label: '99.999%' },
-  { name: 'Claude 3.5', value: 99.5, visual: 60, fill: '#6366f1', gradient: 'from-indigo-500 to-indigo-900', label: '99.5%' },
-  { name: 'GPT-4o', value: 99.3, visual: 50, fill: '#8b5cf6', gradient: 'from-violet-500 to-violet-900', label: '99.3%' },
-  { name: 'Gemini', value: 99.1, visual: 40, fill: '#a78bfa', gradient: 'from-purple-400 to-purple-800', label: '99.1%' },
+  { name: 'Pensr-1', value: 99.999, visual: 100, top: '#E91E63', bottom: '#D946EF', accent: '#E91E63', label: '99.999%' },
+  { name: 'Claude 3.5', value: 99.5, visual: 60, top: '#9C27B0', bottom: '#7B1FA2', accent: '#9C27B0', label: '99.5%' },
+  { name: 'GPT-4o', value: 99.3, visual: 50, top: '#7C3AED', bottom: '#5E2FA6', accent: '#7C3AED', label: '99.3%' },
+  { name: 'Gemini', value: 99.1, visual: 40, top: '#A78BFA', bottom: '#8B6FB5', accent: '#A78BFA', label: '99.1%' },
 ]
 
 const latencyData = [
-  { name: 'Pensr-1', value: 0.3, visual: 5, fill: '#a855f7', gradient: 'from-cobalt to-purple-900', label: '0.3ms' },
-  { name: 'Claude 3.5', value: 420, visual: 17, fill: '#6366f1', gradient: 'from-indigo-500 to-indigo-900', label: '420ms' },
-  { name: 'GPT-4o', value: 800, visual: 33, fill: '#8b5cf6', gradient: 'from-violet-500 to-violet-900', label: '800ms' },
-  { name: 'GPT-4', value: 2400, visual: 100, fill: '#a78bfa', gradient: 'from-purple-400 to-purple-800', label: '2.4s' },
+  { name: 'Pensr-1', value: 0.3, visual: 5, ...chartColors.pensr, label: '0.3ms' },
+  { name: 'Claude 3.5', value: 420, visual: 17, ...chartColors.claude, label: '420ms' },
+  { name: 'GPT-4o', value: 800, visual: 33, ...chartColors.gpt, label: '800ms' },
+  { name: 'GPT-4', value: 2400, visual: 100, ...chartColors.gpt, label: '2.4s' },
 ]
 
 const radarData = [
@@ -35,44 +43,81 @@ const radarData = [
   { metric: 'Setup\nTime', Pensr: 100, GPT4: 30 },
 ]
 
-const CustomTooltip = ({ active, payload, label }: any) => {
-  if (active && payload && payload.length) {
-    return (
-      <motion.div 
-        initial={{ opacity: 0, scale: 0.8 }}
-        animate={{ opacity: 1, scale: 1 }}
-        className="bg-black/95 border border-cobalt/50 px-4 py-3 rounded-lg shadow-lg shadow-cobalt/20 backdrop-blur-xl"
-      >
-        <p className="font-mono text-xs text-mist mb-1">{label}</p>
-        <p className="font-mono text-sm text-cobalt font-semibold">{payload[0].value}</p>
-      </motion.div>
-    )
-  }
-  return null
-}
-
-// Enhanced bar component using SVG for crisp graphics
+// Enhanced bar component with premium styling
 const GradientBar = ({ data, index, visual, inView, delay }: any) => {
   const [hovered, setHovered] = useState(false)
+  const [showTooltip, setShowTooltip] = useState(false)
+  
   const svgH = 180 // inner SVG drawing height
-  const svgW = 40
+  const svgW = 48
   const barH = inView ? Math.max((visual / 100) * svgH, 4) : 0
   const gradientId = `barGrad-${index}`
+  const shadowId = `shadow-${index}`
+
+  // Compute brightened top color for hover
+  const hexToRgb = (hex: string) => {
+    const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex)
+    return result ? {
+      r: parseInt(result[1], 16),
+      g: parseInt(result[2], 16),
+      b: parseInt(result[3], 16)
+    } : { r: 0, g: 0, b: 0 }
+  }
+
+  const brighten = (hex: string, percent: number) => {
+    const rgb = hexToRgb(hex)
+    const r = Math.min(255, Math.round(rgb.r * (1 + percent)))
+    const g = Math.min(255, Math.round(rgb.g * (1 + percent)))
+    const b = Math.min(255, Math.round(rgb.b * (1 + percent)))
+    return `rgb(${r},${g},${b})`
+  }
+
+  const hoverTopColor = brighten(data.top, 0.2)
 
   return (
-    <div className="flex flex-col items-center flex-1 gap-2 group cursor-pointer relative" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
-      <motion.span className="font-mono text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: data.fill }}>{data.label}</motion.span>
+    <div 
+      className="flex flex-col items-center flex-1 gap-3 relative"
+      onMouseEnter={() => { setHovered(true); setShowTooltip(true) }}
+      onMouseLeave={() => { setHovered(false); setShowTooltip(false) }}
+    >
+      {/* Label above bar */}
+      <motion.div
+        className="text-center h-6 flex items-end justify-center"
+        initial={{ opacity: 0, y: 4 }}
+        animate={inView ? { opacity: 1, y: 0 } : {}}
+        transition={{ delay: (delay ?? 0.1) + 0.6, duration: 0.4 }}
+      >
+        <div className="text-[13px] font-mono font-semibold text-paper drop-shadow-lg">
+          {data.label}
+        </div>
+      </motion.div>
 
-      <div className="w-full max-w-[40px] relative">
-        <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} className="block">
+      {/* Bar with gradient and shadow */}
+      <div className="w-full max-w-[48px] relative flex-1 flex items-end justify-center">
+        <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} className="block w-full" preserveAspectRatio="none">
           <defs>
+            {/* Main gradient */}
             <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stopColor={data.fill} stopOpacity="1" />
-              <stop offset="60%" stopColor={data.fill} stopOpacity="0.85" />
-              <stop offset="100%" stopColor={data.fill} stopOpacity="0.6" />
+              <stop offset="0%" stopColor={data.top} stopOpacity="1" />
+              <stop offset="60%" stopColor={data.top} stopOpacity="0.85" />
+              <stop offset="100%" stopColor={data.bottom} stopOpacity="1" />
             </linearGradient>
-            <filter id={`glow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+
+            {/* Hover gradient with brightened top */}
+            <linearGradient id={`${gradientId}-hover`} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={hoverTopColor} stopOpacity="1" />
+              <stop offset="60%" stopColor={data.top} stopOpacity="0.85" />
+              <stop offset="100%" stopColor={data.bottom} stopOpacity="1" />
+            </linearGradient>
+
+            {/* Shadow filter */}
+            <filter id={shadowId} x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="3" />
+            </filter>
+
+            {/* Glow for hover */}
+            <filter id={`glow-${index}`} x="-100%" y="-100%" width="300%" height="300%">
+              <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="coloredBlur" />
               <feMerge>
                 <feMergeNode in="coloredBlur" />
                 <feMergeNode in="SourceGraphic" />
@@ -81,120 +126,289 @@ const GradientBar = ({ data, index, visual, inView, delay }: any) => {
           </defs>
 
           {/* background rail */}
-          <rect x="0" y="0" width={svgW} height={svgH} rx="6" fill="rgba(255,255,255,0.02)" />
+          <rect x="2" y="0" width={svgW - 4} height={svgH} rx="4" fill="rgba(255,255,255,0.03)" />
 
-          {/* animated bar */}
-          <motion.rect
-            x="0"
-            rx="6"
-            width={svgW}
-            initial={{ height: 0, y: svgH }}
-            animate={inView ? { height: barH, y: svgH - barH } : {}}
-            transition={{ delay: delay ?? 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
-            fill={`url(#${gradientId})`}
-            style={{ filter: hovered ? `url(#glow-${index})` : undefined }}
-          />
+          {/* animated bar with scaling on hover */}
+          <motion.g>
+            {/* Shadow behind bar */}
+            {hovered && (
+              <rect 
+                x="2" 
+                rx="4"
+                width={svgW - 4}
+                height={barH}
+                y={svgH - barH}
+                fill={`rgba(156, 39, 176, 0.15)`}
+                filter={`url(#${shadowId})`}
+              />
+            )}
 
-          {/* highlight stripe */}
-          <motion.rect x="0" rx="6" width={svgW} height={Math.min(barH, 6)} x1={0} y={svgH - barH} fill="rgba(255,255,255,0.08)" />
+            {/* Main bar */}
+            <motion.rect
+              x="2"
+              rx="4"
+              width={svgW - 4}
+              initial={{ height: 0, y: svgH }}
+              animate={inView ? { height: barH, y: svgH - barH } : {}}
+              whileHover={{ scaleY: 1.05, originY: 1 }}
+              transition={{ delay: delay ?? 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+              fill={`url(${hovered ? `#${gradientId}-hover` : `#${gradientId}`})`}
+              filter={hovered ? `url(#glow-${index})` : undefined}
+              style={{
+                boxShadow: hovered 
+                  ? '0 8px 20px rgba(156, 39, 176, 0.35)' 
+                  : '0 4px 12px rgba(156, 39, 176, 0.2)',
+              }}
+            />
+          </motion.g>
         </svg>
-
-        {/* value label */}
-        <motion.div
-          className="absolute left-1/2 -translate-x-1/2 -top-5 text-center"
-          initial={{ opacity: 0, y: 4 }}
-          animate={inView ? { opacity: 1, y: 0 } : {}}
-          transition={{ delay: (delay ?? 0.1) + 0.6 }}
-        >
-          <div className="text-[11px] font-mono text-paper font-semibold px-1 py-0.5 bg-black/70 rounded-sm shadow-sm">{data.label}</div>
-        </motion.div>
       </div>
 
-      <span className="font-mono text-[10px] text-mist mt-2 max-w-[60px] text-center truncate">{data.name}</span>
+      {/* Model name label */}
+      <motion.span 
+        className="font-mono text-[11px] text-mist text-center truncate w-full"
+        initial={{ opacity: 0 }}
+        animate={inView ? { opacity: 1 } : {}}
+        transition={{ delay: (delay ?? 0.1) + 0.8 }}
+      >
+        {data.name}
+      </motion.span>
+
+      {/* Tooltip on hover */}
+      {showTooltip && (
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 8 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.8 }}
+          className="absolute -top-10 left-1/2 -translate-x-1/2 bg-black/95 border border-cobalt/40 px-3 py-2 rounded-md shadow-lg backdrop-blur-md z-10 whitespace-nowrap pointer-events-none"
+        >
+          <p className="font-mono text-xs text-cobalt font-semibold">{data.label}</p>
+        </motion.div>
+      )}
     </div>
   )
 }
 
-// Enhanced radar chart component
-// Enhanced radar chart component with draw animation and hover tooltips
+// Enhanced radar chart component with premium styling
 const EnhancedRadarChart = ({ inView }: any) => {
   const [hoverIdx, setHoverIdx] = useState<number | null>(null)
-  // hardcoded vertices (same as before) for simplicity
+  const [isDrawn, setIsDrawn] = useState(false)
+
+  // Vertices for the hexagon
   const vertices = [
-    { x: 130, y: 25, label: 'Cost', value: 100 },
-    { x: 210, y: 67.5, label: 'Latency', value: 100 },
-    { x: 210, y: 152.5, label: 'Uptime', value: 99.9 },
-    { x: 130, y: 195, label: 'Smudge', value: 100 },
-    { x: 50, y: 152.5, label: 'Offline', value: 100 },
-    { x: 50, y: 67.5, label: 'Setup', value: 100 },
+    { x: 130, y: 20, label: 'Cost', value: 100 },
+    { x: 218, y: 60, label: 'Latency', value: 100 },
+    { x: 218, y: 140, label: 'Uptime', value: 99.9 },
+    { x: 130, y: 180, label: 'Smudge\nControl', value: 100 },
+    { x: 42, y: 140, label: 'Offline\nSupport', value: 100 },
+    { x: 42, y: 60, label: 'Setup\nTime', value: 100 },
   ]
 
   const polyPoints = vertices.map(v => `${v.x},${v.y}`).join(' ')
 
+  // Grid circles and lines
+  const gridLevels = [1, 0.75, 0.5, 0.25]
+
+  // Animation timing
+  useEffect(() => {
+    if (inView) {
+      const timer = setTimeout(() => setIsDrawn(true), 800)
+      return () => clearTimeout(timer)
+    }
+  }, [inView])
+
   return (
-    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.8 }} className="flex justify-center">
-      <svg width="260" height="260" viewBox="0 0 260 260" className="w-full max-w-xs md:max-w-sm" style={{ filter: 'drop-shadow(0 0 24px rgba(156,39,176,0.16))' }}>
+    <motion.div 
+      initial={{ opacity: 0, scale: 0.9 }} 
+      animate={inView ? { opacity: 1, scale: 1 } : {}} 
+      transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }} 
+      className="flex justify-center"
+    >
+      <svg 
+        width="260" 
+        height="260" 
+        viewBox="0 0 260 260" 
+        className="w-full max-w-xs md:max-w-sm drop-shadow-[0_0_24px_rgba(156,39,176,0.24)]"
+      >
         <defs>
-          <linearGradient id="radarGradPensr" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#9C27B0" stopOpacity="0.55" />
-            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.08" />
-          </linearGradient>
-          <radialGradient id="radarGlowPensr" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#9C27B0" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#9C27B0" stopOpacity="0" />
+          {/* Radial background gradient */}
+          <radialGradient id="radarBg" cx="50%" cy="50%" r="50%">
+            <stop offset="0%" stopColor="#9C27B0" stopOpacity="0.15" />
+            <stop offset="100%" stopColor="#9C27B0" stopOpacity="0.05" />
           </radialGradient>
+
+          {/* Data polygon fill gradient */}
+          <linearGradient id="dataPolyGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" stopColor="#E91E63" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#9C27B0" stopOpacity="0.2" />
+          </linearGradient>
+
+          {/* Glow filter */}
+          <filter id="hexGlow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur in="SourceGraphic" stdDeviation="2" result="coloredBlur" />
+            <feMerge>
+              <feMergeNode in="coloredBlur" />
+              <feMergeNode in="SourceGraphic" />
+            </feMerge>
+          </filter>
         </defs>
 
-        {/* Soft glow */}
-        <circle cx="130" cy="130" r="110" fill="url(#radarGlowPensr)" opacity="0.28" />
+        {/* Background fill */}
+        <circle cx="130" cy="130" r="110" fill="url(#radarBg)" />
 
-        {/* Grid rings */}
-        {[1, 0.75, 0.5, 0.25].map((m, i) => (
-          <polygon key={i} points={vertices.map(v => `${130 + (v.x - 130) * m},${130 + (v.y - 130) * m}`).join(' ')} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth={1 + (i === 0 ? 0.6 : 0)} />
-        ))}
+        {/* Grid circles and lines - more prominent */}
+        {gridLevels.map((level, i) => {
+          const radius = 110 * level
+          return (
+            <g key={`grid-${i}`}>
+              {/* Grid circle */}
+              <circle 
+                cx="130" 
+                cy="130" 
+                r={radius} 
+                fill="none" 
+                stroke={i === 0 ? 'rgba(156, 39, 176, 0.4)' : 'rgba(156, 39, 176, 0.15)'} 
+                strokeWidth={i === 0 ? 1.5 : 1}
+                opacity={0.6}
+              />
+            </g>
+          )
+        })}
 
-        {/* Axes */}
+        {/* Radial axes */}
         {vertices.map((v, i) => (
-          <line key={i} x1="130" y1="130" x2={v.x} y2={v.y} stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+          <line 
+            key={`axis-${i}`}
+            x1="130" 
+            y1="130" 
+            x2={v.x} 
+            y2={v.y} 
+            stroke="rgba(156, 39, 176, 0.15)" 
+            strokeWidth="1"
+          />
         ))}
 
-        {/* Animated Pensr polygon - draw effect */}
+        {/* Animated hexagon outline with draw effect */}
         <motion.polygon
           points={polyPoints}
-          fill="url(#radarGradPensr)"
+          fill="none"
           stroke="#9C27B0"
-          strokeWidth={2.5}
+          strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          initial={{ opacity: 0, scale: 0.8, pathLength: 0 }}
-          animate={inView ? { opacity: 1, scale: 1, pathLength: 1 } : {}}
-          transition={{ delay: 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-          style={{ filter: 'drop-shadow(0 6px 18px rgba(156,39,176,0.12))' }}
+          initial={{ 
+            pathLength: inView ? 0 : 1,
+            opacity: 0
+          }}
+          animate={inView ? { 
+            pathLength: 1,
+            opacity: 1
+          } : {}}
+          transition={{ duration: 1.0, ease: [0.16, 1, 0.3, 1] }}
+          style={{
+            filter: 'drop-shadow(0 0 8px rgba(233, 30, 99, 0.2))'
+          }}
         />
 
-        {/* Data points with hover interaction */}
+        {/* Data polygon fill - fades in after hexagon is drawn */}
+        <motion.polygon
+          points={polyPoints}
+          fill="url(#dataPolyGrad)"
+          stroke="#E91E63"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ opacity: 0 }}
+          animate={isDrawn && inView ? { opacity: 1 } : { opacity: 0 }}
+          transition={{ duration: 0.8, ease: 'easeInOut' }}
+          style={{
+            filter: 'drop-shadow(0 2px 6px rgba(233, 30, 99, 0.15))'
+          }}
+        />
+
+        {/* Vertex circles with hover interaction */}
         {vertices.map((v, i) => (
-          <g key={i} onMouseEnter={() => setHoverIdx(i)} onMouseLeave={() => setHoverIdx(null)}>
-            <circle cx={v.x} cy={v.y} r={hoverIdx === i ? 6 : 4} fill="#9C27B0" stroke="#fff" strokeWidth={1} />
+          <g 
+            key={`vertex-${i}`} 
+            onMouseEnter={() => setHoverIdx(i)} 
+            onMouseLeave={() => setHoverIdx(null)}
+            style={{ cursor: 'pointer' }}
+          >
+            {/* Outer glow on hover */}
             {hoverIdx === i && (
-              <foreignObject x={v.x + 8} y={v.y - 18} width="120" height="36">
-                <div className="bg-black/90 text-xs text-paper px-2 py-1 rounded-md shadow-md font-mono">{v.label}: {v.value}</div>
-              </foreignObject>
+              <motion.circle 
+                cx={v.x} 
+                cy={v.y} 
+                r={8}
+                fill="none"
+                stroke="#E91E63"
+                strokeWidth="1"
+                opacity="0.4"
+                initial={{ r: 4, opacity: 0.2 }}
+                animate={{ r: 8, opacity: 0.4 }}
+                transition={{ duration: 0.2 }}
+              />
+            )}
+
+            {/* Vertex circle */}
+            <motion.circle 
+              cx={v.x} 
+              cy={v.y} 
+              r={hoverIdx === i ? 6 : 4}
+              fill="#9C27B0"
+              stroke="#fff"
+              strokeWidth="1.5"
+              animate={{ r: hoverIdx === i ? 6 : 4 }}
+              transition={{ duration: 0.2 }}
+              style={{
+                filter: 'drop-shadow(0 2px 4px rgba(156, 39, 176, 0.4))'
+              }}
+            />
+
+            {/* Tooltip on hover */}
+            {hoverIdx === i && (
+              <motion.foreignObject 
+                x={v.x - 45} 
+                y={v.y - 36} 
+                width="90" 
+                height="32"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.2 }}
+              >
+                <div className="bg-black/95 border border-cobalt/50 text-xs text-paper px-2 py-1.5 rounded-md shadow-lg font-mono text-center backdrop-blur-md">
+                  <div className="font-semibold text-cobalt">{v.label}</div>
+                  <div className="text-paper text-xs">{v.value}</div>
+                </div>
+              </motion.foreignObject>
             )}
           </g>
         ))}
 
-        {/* Axis labels */}
-        <text x="130" y="12" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="middle">Cost</text>
-        <text x="232" y="70" fill="#e9d6ff" fontSize="11" fontFamily="monospace">Latency</text>
-        <text x="232" y="162" fill="#e9d6ff" fontSize="11" fontFamily="monospace">Uptime</text>
-        <text x="130" y="250" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="middle">Smudge</text>
-        <text x="18" y="162" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="end">Offline</text>
-        <text x="18" y="70" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="end">Setup</text>
+        {/* Labels positioned outside hexagon with better spacing */}
+        <text x="130" y="8" fill="var(--mist)" fontSize="12" fontFamily="monospace" textAnchor="middle" fontWeight="500">
+          Cost
+        </text>
+        <text x="245" y="67" fill="var(--mist)" fontSize="12" fontFamily="monospace" fontWeight="500">
+          Latency
+        </text>
+        <text x="245" y="155" fill="var(--mist)" fontSize="12" fontFamily="monospace" fontWeight="500">
+          Uptime
+        </text>
+        <text x="130" y="252" fill="var(--mist)" fontSize="12" fontFamily="monospace" textAnchor="middle" fontWeight="500">
+          Smudge Control
+        </text>
+        <text x="15" y="155" fill="var(--mist)" fontSize="12" fontFamily="monospace" textAnchor="start" fontWeight="500">
+          Offline
+        </text>
+        <text x="15" y="67" fill="var(--mist)" fontSize="12" fontFamily="monospace" textAnchor="start" fontWeight="500">
+          Setup
+        </text>
       </svg>
     </motion.div>
   )
 }
+
 export default function Benchmarks() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
 
