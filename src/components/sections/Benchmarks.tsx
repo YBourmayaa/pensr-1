@@ -51,141 +51,150 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null
 }
 
-// Enhanced bar component with gradient
+// Enhanced bar component using SVG for crisp graphics
 const GradientBar = ({ data, index, visual, inView, delay }: any) => {
   const [hovered, setHovered] = useState(false)
-  
+  const svgH = 180 // inner SVG drawing height
+  const svgW = 40
+  const barH = inView ? Math.max((visual / 100) * svgH, 4) : 0
+  const gradientId = `barGrad-${index}`
+
   return (
-    <motion.div 
-      key={index} 
-      className="flex flex-col items-center flex-1 gap-2 group cursor-pointer"
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-    >
-      <motion.span 
-        className="font-mono text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ color: data.fill }}
-      >
-        {data.label}
-      </motion.span>
+    <div className="flex flex-col items-center flex-1 gap-2 group cursor-pointer relative" onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}>
+      <motion.span className="font-mono text-xs font-semibold opacity-0 group-hover:opacity-100 transition-opacity" style={{ color: data.fill }}>{data.label}</motion.span>
+
       <div className="w-full max-w-[40px] relative">
-        <div 
-          className="w-full rounded-t-sm transition-all duration-300 origin-bottom relative overflow-hidden"
-          style={{ 
-            height: inView ? `${visual}%` : '0%',
-            minHeight: visual > 0 ? '4px' : '0',
-            background: `linear-gradient(180deg, ${data.fill} 0%, ${data.fill}cc 50%, ${data.fill}88 100%)`
-          }}
+        <svg width={svgW} height={svgH} viewBox={`0 0 ${svgW} ${svgH}`} className="block">
+          <defs>
+            <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+              <stop offset="0%" stopColor={data.fill} stopOpacity="1" />
+              <stop offset="60%" stopColor={data.fill} stopOpacity="0.85" />
+              <stop offset="100%" stopColor={data.fill} stopOpacity="0.6" />
+            </linearGradient>
+            <filter id={`glow-${index}`} x="-50%" y="-50%" width="200%" height="200%">
+              <feGaussianBlur stdDeviation="6" result="coloredBlur" />
+              <feMerge>
+                <feMergeNode in="coloredBlur" />
+                <feMergeNode in="SourceGraphic" />
+              </feMerge>
+            </filter>
+          </defs>
+
+          {/* background rail */}
+          <rect x="0" y="0" width={svgW} height={svgH} rx="6" fill="rgba(255,255,255,0.02)" />
+
+          {/* animated bar */}
+          <motion.rect
+            x="0"
+            rx="6"
+            width={svgW}
+            initial={{ height: 0, y: svgH }}
+            animate={inView ? { height: barH, y: svgH - barH } : {}}
+            transition={{ delay: delay ?? 0.1, duration: 0.7, ease: [0.16, 1, 0.3, 1] }}
+            fill={`url(#${gradientId})`}
+            style={{ filter: hovered ? `url(#glow-${index})` : undefined }}
+          />
+
+          {/* highlight stripe */}
+          <motion.rect x="0" rx="6" width={svgW} height={Math.min(barH, 6)} x1={0} y={svgH - barH} fill="rgba(255,255,255,0.08)" />
+        </svg>
+
+        {/* value label */}
+        <motion.div
+          className="absolute left-1/2 -translate-x-1/2 -top-5 text-center"
+          initial={{ opacity: 0, y: 4 }}
+          animate={inView ? { opacity: 1, y: 0 } : {}}
+          transition={{ delay: (delay ?? 0.1) + 0.6 }}
         >
-          {/* Glow effect on hover */}
-          {hovered && (
-            <motion.div 
-              className="absolute inset-0 rounded-t-sm"
-              style={{ 
-                boxShadow: `0 0 20px ${data.fill}80, inset 0 0 10px ${data.fill}40`
-              }}
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ duration: 0.2 }}
-            />
-          )}
-        </div>
+          <div className="text-[11px] font-mono text-paper font-semibold px-1 py-0.5 bg-black/70 rounded-sm shadow-sm">{data.label}</div>
+        </motion.div>
       </div>
+
       <span className="font-mono text-[10px] text-mist mt-2 max-w-[60px] text-center truncate">{data.name}</span>
-    </motion.div>
+    </div>
   )
 }
 
 // Enhanced radar chart component
+// Enhanced radar chart component with draw animation and hover tooltips
 const EnhancedRadarChart = ({ inView }: any) => {
+  const [hoverIdx, setHoverIdx] = useState<number | null>(null)
+  // hardcoded vertices (same as before) for simplicity
+  const vertices = [
+    { x: 130, y: 25, label: 'Cost', value: 100 },
+    { x: 210, y: 67.5, label: 'Latency', value: 100 },
+    { x: 210, y: 152.5, label: 'Uptime', value: 99.9 },
+    { x: 130, y: 195, label: 'Smudge', value: 100 },
+    { x: 50, y: 152.5, label: 'Offline', value: 100 },
+    { x: 50, y: 67.5, label: 'Setup', value: 100 },
+  ]
+
+  const polyPoints = vertices.map(v => `${v.x},${v.y}`).join(' ')
+
   return (
-    <motion.div
-      initial={{ opacity: 0, scale: 0.95 }}
-      animate={inView ? { opacity: 1, scale: 1 } : {}}
-      transition={{ duration: 0.8 }}
-      className="flex justify-center"
-    >
-      <svg width="260" height="260" viewBox="0 0 260 260" style={{ filter: 'drop-shadow(0 0 20px rgba(168, 85, 247, 0.2))' }} className="w-full max-w-xs md:max-w-sm">
+    <motion.div initial={{ opacity: 0, scale: 0.95 }} animate={inView ? { opacity: 1, scale: 1 } : {}} transition={{ duration: 0.8 }} className="flex justify-center">
+      <svg width="260" height="260" viewBox="0 0 260 260" className="w-full max-w-xs md:max-w-sm" style={{ filter: 'drop-shadow(0 0 24px rgba(156,39,176,0.16))' }}>
         <defs>
-          {/* Gradients */}
-          <linearGradient id="radarGradPensr" x1="50%" y1="0%" x2="50%" y2="100%">
-            <stop offset="0%" stopColor="#a855f7" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.1" />
+          <linearGradient id="radarGradPensr" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#9C27B0" stopOpacity="0.55" />
+            <stop offset="100%" stopColor="#7c3aed" stopOpacity="0.08" />
           </linearGradient>
           <radialGradient id="radarGlowPensr" cx="50%" cy="50%" r="50%">
-            <stop offset="0%" stopColor="#a855f7" stopOpacity="0.3" />
-            <stop offset="100%" stopColor="#a855f7" stopOpacity="0" />
+            <stop offset="0%" stopColor="#9C27B0" stopOpacity="0.3" />
+            <stop offset="100%" stopColor="#9C27B0" stopOpacity="0" />
           </radialGradient>
-          <filter id="radarBlur">
-            <feGaussianBlur in="SourceGraphic" stdDeviation="1.5" />
-          </filter>
         </defs>
 
-        {/* Animated glow background */}
-        <circle cx="130" cy="130" r="110" fill="url(#radarGlowPensr)" opacity="0.3" />
+        {/* Soft glow */}
+        <circle cx="130" cy="130" r="110" fill="url(#radarGlowPensr)" opacity="0.28" />
 
-        {/* Background grid - enhanced */}
-        <polygon points="130,25 210,67.5 210,152.5 130,195 50,152.5 50,67.5" fill="none" stroke="#3a3a4a" strokeWidth="1.5" />
-        <polygon points="130,50 185,82.5 185,147.5 130,180 75,147.5 75,82.5" fill="none" stroke="#2a2a3a" strokeWidth="1" />
-        <polygon points="130,75 160,95 160,135 130,155 100,135 100,95" fill="none" stroke="#1a1a2a" strokeWidth="0.8" />
-        
-        {/* Center point */}
-        <circle cx="130" cy="130" r="3" fill="#a855f7" opacity="0.6" />
+        {/* Grid rings */}
+        {[1, 0.75, 0.5, 0.25].map((m, i) => (
+          <polygon key={i} points={vertices.map(v => `${130 + (v.x - 130) * m},${130 + (v.y - 130) * m}`).join(' ')} fill="none" stroke="rgba(255,255,255,0.04)" strokeWidth={1 + (i === 0 ? 0.6 : 0)} />
+        ))}
 
-        {/* Axes - enhanced */}
-        <line x1="130" y1="130" x2="130" y2="25" stroke="#4a4a5a" strokeWidth="1.2" />
-        <line x1="130" y1="130" x2="210" y2="67.5" stroke="#4a4a5a" strokeWidth="1.2" />
-        <line x1="130" y1="130" x2="210" y2="152.5" stroke="#4a4a5a" strokeWidth="1.2" />
-        <line x1="130" y1="130" x2="130" y2="195" stroke="#4a4a5a" strokeWidth="1.2" />
-        <line x1="130" y1="130" x2="50" y2="152.5" stroke="#4a4a5a" strokeWidth="1.2" />
-        <line x1="130" y1="130" x2="50" y2="67.5" stroke="#4a4a5a" strokeWidth="1.2" />
+        {/* Axes */}
+        {vertices.map((v, i) => (
+          <line key={i} x1="130" y1="130" x2={v.x} y2={v.y} stroke="rgba(255,255,255,0.04)" strokeWidth="1" />
+        ))}
 
-        {/* Labels - better contrast */}
-        <text x="130" y="10" fill="#a855f7" fontSize="11" fontFamily="monospace" textAnchor="middle" fontWeight="600">Cost</text>
-        <text x="225" y="70" fill="#a855f7" fontSize="11" fontFamily="monospace" fontWeight="600">Latency</text>
-        <text x="225" y="155" fill="#a855f7" fontSize="11" fontFamily="monospace" fontWeight="600">Uptime</text>
-        <text x="130" y="250" fill="#a855f7" fontSize="11" fontFamily="monospace" textAnchor="middle" fontWeight="600">Smudge</text>
-        <text x="15" y="155" fill="#a855f7" fontSize="11" fontFamily="monospace" textAnchor="end" fontWeight="600">Offline</text>
-        <text x="15" y="70" fill="#a855f7" fontSize="11" fontFamily="monospace" textAnchor="end" fontWeight="600">Setup</text>
-
-        {/* GPT4 Polygon - dashed */}
-        <motion.polygon 
-          points="130,115 138,115 204,168 83,190 130,120 94,105" 
-          fill="#8A8A9A" 
-          fillOpacity="0.08" 
-          stroke="#8A8A9A" 
-          strokeWidth="1.5" 
-          strokeDasharray="5 3"
-          initial={{ opacity: 0 }}
-          animate={inView ? { opacity: 1 } : {}}
-          transition={{ delay: 0.3, duration: 0.6 }}
-        />
-        
-        {/* Pensr Polygon - animated */}
-        <motion.polygon 
-          points="130,25 210,67.5 210,152.5 130,195 50,152.5 50,67.5" 
-          fill="url(#radarGradPensr)" 
-          stroke="#a855f7" 
-          strokeWidth="2.5"
-          initial={{ opacity: 0, scale: 0.8 }}
-          animate={inView ? { opacity: 1, scale: 1 } : {}}
-          transition={{ delay: 0.2, duration: 0.8, type: 'spring' }}
+        {/* Animated Pensr polygon - draw effect */}
+        <motion.polygon
+          points={polyPoints}
+          fill="url(#radarGradPensr)"
+          stroke="#9C27B0"
+          strokeWidth={2.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          initial={{ opacity: 0, scale: 0.8, pathLength: 0 }}
+          animate={inView ? { opacity: 1, scale: 1, pathLength: 1 } : {}}
+          transition={{ delay: 0.15, duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+          style={{ filter: 'drop-shadow(0 6px 18px rgba(156,39,176,0.12))' }}
         />
 
-        {/* Data point markers for Pensr */}
-        <motion.g initial={{ opacity: 0 }} animate={inView ? { opacity: 1 } : {}} transition={{ delay: 0.5, duration: 0.4 }}>
-          <circle cx="130" cy="25" r="3.5" fill="#a855f7" stroke="#fff" strokeWidth="1" />
-          <circle cx="210" cy="67.5" r="3.5" fill="#a855f7" stroke="#fff" strokeWidth="1" />
-          <circle cx="210" cy="152.5" r="3.5" fill="#a855f7" stroke="#fff" strokeWidth="1" />
-          <circle cx="130" cy="195" r="3.5" fill="#a855f7" stroke="#fff" strokeWidth="1" />
-          <circle cx="50" cy="152.5" r="3.5" fill="#a855f7" stroke="#fff" strokeWidth="1" />
-          <circle cx="50" cy="67.5" r="3.5" fill="#a855f7" stroke="#fff" strokeWidth="1" />
-        </motion.g>
+        {/* Data points with hover interaction */}
+        {vertices.map((v, i) => (
+          <g key={i} onMouseEnter={() => setHoverIdx(i)} onMouseLeave={() => setHoverIdx(null)}>
+            <circle cx={v.x} cy={v.y} r={hoverIdx === i ? 6 : 4} fill="#9C27B0" stroke="#fff" strokeWidth={1} />
+            {hoverIdx === i && (
+              <foreignObject x={v.x + 8} y={v.y - 18} width="120" height="36">
+                <div className="bg-black/90 text-xs text-paper px-2 py-1 rounded-md shadow-md font-mono">{v.label}: {v.value}</div>
+              </foreignObject>
+            )}
+          </g>
+        ))}
+
+        {/* Axis labels */}
+        <text x="130" y="12" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="middle">Cost</text>
+        <text x="232" y="70" fill="#e9d6ff" fontSize="11" fontFamily="monospace">Latency</text>
+        <text x="232" y="162" fill="#e9d6ff" fontSize="11" fontFamily="monospace">Uptime</text>
+        <text x="130" y="250" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="middle">Smudge</text>
+        <text x="18" y="162" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="end">Offline</text>
+        <text x="18" y="70" fill="#e9d6ff" fontSize="11" fontFamily="monospace" textAnchor="end">Setup</text>
       </svg>
     </motion.div>
   )
 }
-
 export default function Benchmarks() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
 
