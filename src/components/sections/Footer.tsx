@@ -23,17 +23,17 @@ export default function Footer() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <footer ref={ref} className="border-t border-line">
+    <footer ref={ref} className="border-t border-line w-full">
       {/* CTA strip */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={inView ? { opacity: 1 } : {}}
-        className="relative overflow-hidden border-b border-line py-24 px-8"
+        className="relative overflow-hidden border-b border-line py-24 w-full"
       >
         {/* Ambient Glow */}
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_bottom_right,_var(--tw-gradient-stops))] from-[#a855f7]/15 via-transparent to-transparent pointer-events-none" />
 
-        <div className="max-w-[1400px] mx-auto">
+        <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-end">
             <div>
               <p className="section-label mb-6">Final thought</p>
@@ -118,9 +118,9 @@ export default function Footer() {
       </motion.div>
 
       {/* Links grid */}
-      <div className="border-b border-line py-16 px-8">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-12">
+      <div className="border-b border-line py-16 w-full">
+        <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
             {Object.entries(links).map(([category, items]) => (
               <div key={category}>
                 <p className="section-label mb-6">{category}</p>
@@ -140,8 +140,8 @@ export default function Footer() {
       </div>
 
       {/* Bottom bar */}
-      <div className="py-6 px-8">
-        <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <div className="py-6 w-full">
+        <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <div className="w-5 h-5 text-cobalt">
               <PenIcon />

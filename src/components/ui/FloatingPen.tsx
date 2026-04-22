@@ -1,78 +1,87 @@
 'use client'
-import { motion, useTransform } from 'framer-motion'
+import React from 'react'
 
 interface FloatingPenProps {
-  scrollProgress: any // from framer-motion useScroll
+  className?: string
 }
 
-export default function FloatingPen({ scrollProgress }: FloatingPenProps) {
-  // Animate ink height based on scroll progress (0-1)
-  // At 0: ink is full (100% height)
-  // At 1: ink is empty (0% height)
-  const inkScaleY = useTransform(scrollProgress, [0, 1], [1, 0])
-
+export default function FloatingPen({ className }: FloatingPenProps) {
   return (
-    <div className="relative flex items-center justify-center w-[160px] h-[600px] pointer-events-none">
-      <svg width="120" height="500" viewBox="0 0 120 500" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <div className={className}>
+      <style>{`
+        @keyframes penFloat {
+          0%, 100% { transform: rotate(-25deg) translateY(0px); }
+          50% { transform: rotate(-25deg) translateY(-15px); }
+        }
+      `}</style>
+      <svg
+        viewBox="0 0 600 300"
+        xmlns="http://www.w3.org/2000/svg"
+        className="w-full h-auto max-w-[700px]"
+      >
         <defs>
-          <linearGradient id="barrelGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#1a1a1a" />
-            <stop offset="50%" stopColor="#333333" />
-            <stop offset="100%" stopColor="#1a1a1a" />
+          {/* Barrel shine */}
+          <linearGradient id="barrelGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#1a2744" />
+            <stop offset="35%" stopColor="#243460" />
+            <stop offset="50%" stopColor="#2e4080" stopOpacity="0.6" />
+            <stop offset="65%" stopColor="#1a2744" />
+            <stop offset="100%" stopColor="#0f1a30" />
           </linearGradient>
-          <linearGradient id="metalGradient" x1="0" y1="0" x2="1" y2="0">
-            <stop offset="0%" stopColor="#999999" />
-            <stop offset="50%" stopColor="#e0e0e0" />
-            <stop offset="100%" stopColor="#999999" />
+
+          {/* Chrome trim */}
+          <linearGradient id="chromeGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#e8e8e8" />
+            <stop offset="50%" stopColor="#a0a0a0" />
+            <stop offset="100%" stopColor="#d0d0d0" />
           </linearGradient>
-          <clipPath id="inkClip">
-            <rect x="52" y="160" width="16" height="180" rx="4" />
-          </clipPath>
+
+          {/* Barrel specular highlight */}
+          <linearGradient id="highlightGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#ffffff" stopOpacity="0.35" />
+            <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
+          </linearGradient>
+
+          {/* Grip matte */}
+          <linearGradient id="gripGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stopColor="#111111" />
+            <stop offset="50%" stopColor="#1a1a1a" />
+            <stop offset="100%" stopColor="#0a0a0a" />
+          </linearGradient>
+
+          <filter id="penShadow" x="-10%" y="-10%" width="120%" height="130%">
+            <feDropShadow dx="4" dy="8" stdDeviation="10" floodColor="#000000" floodOpacity="0.4" />
+          </filter>
         </defs>
 
-        {/* Pen Cap / Top Button */}
-        <rect id="pen-cap" x="50" y="20" width="20" height="30" rx="2" fill="url(#barrelGradient)" />
-        <rect x="52" y="15" width="16" height="5" rx="1" fill="#444" />
+        <g style={{ animation: 'penFloat 4s ease-in-out infinite' }} filter="url(#penShadow)">
+          {/* Main Barrel */}
+          <rect x="140" y="120" width="320" height="60" rx="12" fill="url(#barrelGrad)" />
+          
+          {/* Highlight strip */}
+          <rect x="140" y="125" width="320" height="12" rx="4" fill="url(#highlightGrad)" />
 
-        {/* Upper Barrel */}
-        <rect id="pen-barrel-top" x="45" y="50" width="30" height="110" fill="url(#barrelGradient)" />
+          {/* Grip section */}
+          <rect x="420" y="120" width="60" height="60" fill="url(#gripGrad)" />
+          
+          {/* Trim rings */}
+          <rect x="416" y="120" width="4" height="60" fill="url(#chromeGrad)" />
+          <rect x="140" y="120" width="4" height="60" fill="url(#chromeGrad)" />
 
-        {/* Metal Clip */}
-        <rect id="pen-clip" x="72" y="70" width="6" height="80" rx="2" fill="url(#metalGradient)" stroke="#666" strokeWidth="0.5" />
+          {/* Tip taper */}
+          <polygon points="480,120 480,180 540,150" fill="url(#chromeGrad)" />
+          
+          {/* Nib point */}
+          <ellipse cx="540" cy="150" rx="2" ry="2" fill="#111" />
 
-        {/* Ink Reservoir Housing (Transparent Tube) */}
-        <rect id="pen-reservoir-bg" x="50" y="155" width="20" height="190" rx="6" fill="#1a1a2e" stroke="#ffffff" strokeOpacity="0.1" strokeWidth="1" />
-        
-        {/* The Ink (Animated) */}
-        <motion.rect
-          id="pen-ink"
-          x="53"
-          y="163" 
-          width="14"
-          height="174"
-          rx="3"
-          fill="#a855f7"
-          style={{ 
-            scaleY: inkScaleY,
-            transformOrigin: 'bottom' 
-          }}
-        />
+          {/* Clip */}
+          <rect x="180" y="105" width="200" height="8" rx="4" fill="url(#chromeGrad)" />
+          <circle cx="180" cy="109" r="6" fill="url(#chromeGrad)" />
 
-        {/* Main Barrel Lower */}
-        <path id="pen-barrel" d="M45 340 L75 340 L75 420 L45 420 Z" fill="url(#barrelGradient)" />
-
-        {/* Tapered Nib / Tip */}
-        <path id="pen-nib" d="M45 420 L75 420 L65 470 L55 470 Z" fill="url(#barrelGradient)" />
-        <circle cx="60" cy="480" r="4" fill="#000" fillOpacity="0.5" />
-        <circle cx="60" cy="480" r="1.5" fill="#a855f7" />
-
-        {/* Details / Lines */}
-        <line x1="45" y1="340" x2="75" y2="340" stroke="#000" strokeOpacity="0.3" strokeWidth="1" />
-        <line x1="45" y1="420" x2="75" y2="420" stroke="#000" strokeOpacity="0.3" strokeWidth="1" />
+          {/* Top Cap */}
+          <rect x="130" y="120" width="10" height="60" rx="4" fill="#0f1a30" />
+        </g>
       </svg>
-
-      {/* Subtle floating glow */}
-      <div className="absolute inset-0 bg-[#a855f7]/10 blur-[100px] rounded-full pointer-events-none" />
     </div>
   )
 }

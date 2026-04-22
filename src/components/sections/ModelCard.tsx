@@ -22,8 +22,8 @@ export default function ModelCard() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
 
   return (
-    <section id="model" ref={ref} className="py-32 border-t border-line">
-      <div className="max-w-[1400px] mx-auto px-8">
+    <section id="model" ref={ref} className="py-32 border-t border-line w-full">
+      <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
           {/* Left */}
           <motion.div

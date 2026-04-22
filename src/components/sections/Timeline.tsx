@@ -97,7 +97,7 @@ export default function Timeline() {
 
   return (
     <section className="relative border-t border-line py-32 bg-ink overflow-hidden">
-      <div ref={headerRef} className="max-w-[1400px] mx-auto px-8 pb-16 flex-shrink-0">
+      <div ref={headerRef} className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] pb-16 flex-shrink-0">
         <motion.div initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.7 }}>
           <p style={{ fontFamily: "'DM Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: 'var(--mist)', marginBottom: '12px' }}>
             History of text generation
@@ -110,17 +110,16 @@ export default function Timeline() {
       </div>
 
       <div 
-        className="w-full overflow-x-auto snap-x snap-mandatory flex no-scrollbar" 
-        style={{ paddingLeft: '2rem', paddingRight: '2rem' }}
+        className="w-full overflow-x-auto snap-x snap-mandatory flex no-scrollbar"
       >
-        <div className="flex bg-dim border-y border-line">
+        <div className="flex bg-dim border-y border-line pl-[clamp(1.5rem,5vw,4rem)]">
           {events.map((e, i) => (
             <TimelineCard key={i} e={e} i={i} />
           ))}
         </div>
       </div>
 
-      <div style={{ display: 'flex', alignItems: 'center', gap: '12px', paddingLeft: '2rem', paddingTop: '2rem' }}>
+      <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] pt-8 flex items-center gap-3">
         <motion.div animate={{ x: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
           <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
             <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="#8A8A9A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />

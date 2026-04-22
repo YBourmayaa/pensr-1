@@ -33,8 +33,8 @@ export default function HowItWorks() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
 
   return (
-    <section ref={ref} className="py-32 border-t border-line">
-      <div className="max-w-[1400px] mx-auto px-8">
+    <section ref={ref} className="py-32 border-t border-line w-full">
+      <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={inView ? { opacity: 1, y: 0 } : {}}

@@ -1,8 +1,9 @@
 'use client'
 import React, { useEffect, useState } from 'react'
 import { useInView } from 'react-intersection-observer'
-import { motion, useMotionValue, useSpring, useTransform, useScroll } from 'framer-motion'
+import { motion, useSpring, useTransform, useScroll } from 'framer-motion'
 import MagneticButton from '@/components/ui/MagneticButton'
+import FloatingPen from '@/components/ui/FloatingPen'
 
 const words = ['essays.', 'novels.', 'manifestos.', 'love letters.', 'grocery lists.', 'resignation letters.', 'history.']
 
@@ -100,7 +101,7 @@ export default function Hero() {
   }, [wordIndex, typing])
 
   return (
-    <section className="relative min-h-screen flex flex-col justify-center overflow-hidden">
+    <section className="relative min-h-screen flex flex-col justify-center items-center overflow-hidden w-full">
       {/* Background grid */}
       <div className="absolute inset-0 opacity-[0.05]"
         style={{
@@ -114,13 +115,17 @@ export default function Hero() {
         style={{ background: 'radial-gradient(circle, #a855f7 0%, transparent 70%)' }}
       />
 
-      <motion.div style={{ y, opacity }} className="relative z-10 px-8 max-w-[1400px] w-full mx-auto pt-40 pb-24 flex">
-        <div className="w-full flex flex-col">
+      <motion.div style={{ y, opacity }} className="relative z-10 w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] pt-40 pb-24 flex flex-col items-center">
+        
+        {/* The new Pen background */}
+        <FloatingPen className="absolute inset-0 w-[65%] mx-auto opacity-10 pointer-events-none z-0 flex items-center justify-center translate-y-[-10%]" />
+
+        <div className="relative z-10 w-full flex flex-col items-center text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="flex items-center gap-4 mb-12"
+            className="flex items-center gap-4 mb-12 justify-center"
           >
             <span className="tag !text-[#888] !border-[#222]">Analog weights — SOTA 2024</span>
             <span className="w-8 h-px bg-[#222]" />
@@ -128,22 +133,22 @@ export default function Hero() {
           </motion.div>
 
           {/* Main headline */}
-          <div className="overflow-hidden mb-4">
+          <div className="overflow-hidden mb-4 w-full">
             <motion.h1
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.5, ease: [0.16, 1, 0.3, 1] }}
-              className="display text-[clamp(5rem,10vw,14rem)] text-[#ffffff] leading-none"
+              className="display text-[clamp(4rem,10vw,14rem)] text-[#ffffff] leading-none"
             >
               THE ORIGINAL
             </motion.h1>
           </div>
-          <div className="overflow-hidden mb-8">
+          <div className="overflow-hidden mb-8 w-full">
             <motion.h1
               initial={{ y: '100%' }}
               animate={{ y: 0 }}
               transition={{ duration: 1, delay: 0.65, ease: [0.16, 1, 0.3, 1] }}
-              className="display text-[clamp(5rem,10vw,14rem)] text-[#e0e0e0] leading-none"
+              className="display text-[clamp(4rem,10vw,14rem)] text-[#e0e0e0] leading-none"
             >
               TEXT MODEL
             </motion.h1>
@@ -154,7 +159,7 @@ export default function Hero() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ delay: 1.2 }}
-            className="flex items-baseline gap-3 mb-16"
+            className="flex items-baseline justify-center gap-3 mb-16 w-full"
           >
             <span className="font-mono text-[clamp(1.5rem,3vw,2.5rem)] text-[#a855f7]">{verbs[verbIndex]}</span>
             <Cursor />
@@ -169,7 +174,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 40 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.4 }}
-            className="grid grid-cols-2 md:grid-cols-4 gap-px bg-[#222] border border-[#222] relative overflow-hidden"
+            className="flex flex-wrap justify-center gap-8 w-full bg-[#0a0a0a] border-y border-[#222] py-8 relative overflow-hidden"
           >
             {/* Animated top border */}
             <motion.div
@@ -185,14 +190,14 @@ export default function Hero() {
               { label: 'Uptime', value: count3.toFixed(2), unit: '%', sub: 'Est. 2024' },
               { label: 'Cost', value: 'Free', unit: '', sub: 'open-weight' },
             ].map((stat) => (
-              <div key={stat.label} className="bg-[#0a0a0a] px-6 py-8 group hover:bg-[#111] transition-colors flex flex-col justify-between">
-                <div>
+              <div key={stat.label} className="group hover:bg-[#111] transition-colors flex flex-col items-center min-w-[160px]">
+                <div className="w-full text-center">
                   <p className="font-mono text-[10px] tracking-[0.2em] uppercase text-[#888] mb-3">{stat.label}</p>
                   <p className="display text-4xl text-[#fff] group-hover:text-[#a855f7] transition-colors mb-1">
                     {stat.value}<span className="text-xl ml-1 text-[#888]">{stat.unit}</span>
                   </p>
                 </div>
-                <div>
+                <div className="w-full max-w-[120px]">
                   <svg width="100%" height="2" style={{ display: 'block', marginTop: '6px' }}>
                     <line
                       x1="0" y1="1" x2="100%" y2="1"
@@ -216,7 +221,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 1.6 }}
-            className="flex items-center gap-6 mt-12"
+            className="flex flex-wrap justify-center gap-4 mt-12 w-full"
           >
             <MagneticButton
               href="#pricing"
@@ -239,7 +244,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 2.2 }}
-        className="absolute bottom-8 left-8 flex items-center gap-3"
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 flex items-center gap-3"
       >
         <div className="w-px h-12 bg-line relative overflow-hidden">
           <motion.div
@@ -257,7 +262,7 @@ export default function Hero() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.8 }}
-        className="absolute top-24 right-8 text-right hidden md:block"
+        className="absolute top-24 right-8 text-right hidden lg:block"
       >
         <p className="section-label">Issue No.</p>
         <p className="font-mono text-2xl text-line font-light">002024</p>

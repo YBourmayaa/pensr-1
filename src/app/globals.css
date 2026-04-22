@@ -5,8 +5,10 @@
 
 :root {
   --font-display: 'Bebas Neue', sans-serif;
-  --font-body: 'DM Mono', monospace; /* Switched to mono for terminal feel */
-  --font-serif: 'Instrument Sans', sans-serif; /* Switched serif for body to have a clean tech look */
+  --font-body: 'DM Mono', monospace;
+  /* Switched to mono for terminal feel */
+  --font-serif: 'Instrument Sans', sans-serif;
+  /* Switched serif for body to have a clean tech look */
   --font-mono: 'DM Mono', monospace;
 
   /* Theme Colors */
@@ -15,7 +17,8 @@
   --mist: #8A8A9A;
   --line: #1A1A24;
   --dim: #0A0A0F;
-  --cobalt: #a855f7; /* Emerald Green */
+  --cobalt: #a855f7;
+  /* Emerald Green */
   --cobalt2: #059669;
 }
 
@@ -26,7 +29,8 @@
   cursor: none !important;
 }
 
-a, button {
+a,
+button {
   cursor: none !important;
 }
 
@@ -93,21 +97,37 @@ body {
 }
 
 /* Scrollbar */
-::-webkit-scrollbar { width: 4px; }
-::-webkit-scrollbar-track { background: #0A0A0E; }
-::-webkit-scrollbar-thumb { background: #2A2A36; border-radius: 2px; }
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: #0A0A0E;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #2A2A36;
+  border-radius: 2px;
+}
 
 /* Selection */
-::selection { background: #a855f7; color: #050505; }
+::selection {
+  background: #a855f7;
+  color: #050505;
+}
 
 /* Horizontal rule */
-.rule { border: none; border-top: 1px solid #2A2A36; }
+.rule {
+  border: none;
+  border-top: 1px solid #2A2A36;
+}
 
 /* Ink stroke underline */
 .ink-underline {
   position: relative;
   display: inline-block;
 }
+
 .ink-underline::after {
   content: '';
   position: absolute;
@@ -120,7 +140,10 @@ body {
   transform-origin: left;
   transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
-.ink-underline:hover::after { transform: scaleX(1); }
+
+.ink-underline:hover::after {
+  transform: scaleX(1);
+}
 
 /* Tag pill */
 .tag {
@@ -166,13 +189,20 @@ body {
 
 /* Animated border */
 @keyframes border-spin {
-  to { --border-angle: 360deg; }
+  to {
+    --border-angle: 360deg;
+  }
 }
 
 /* Ink line animation */
 @keyframes draw-line {
-  from { stroke-dashoffset: 1000; }
-  to { stroke-dashoffset: 0; }
+  from {
+    stroke-dashoffset: 1000;
+  }
+
+  to {
+    stroke-dashoffset: 0;
+  }
 }
 
 .draw-path {
@@ -183,14 +213,28 @@ body {
 
 /* Number counter */
 @keyframes count-up {
-  from { opacity: 0; transform: translateY(20px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Section fade-up fallback */
 @keyframes fadeUp {
-  from { opacity: 0; transform: translateY(32px); }
-  to { opacity: 1; transform: translateY(0); }
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* Right padding on sections to avoid fixed pen overlap on large screens */
@@ -210,6 +254,7 @@ body {
 a[href="#"] {
   position: relative;
 }
+
 a[href="#"]:hover::after {
   content: 'Coming soon';
   position: absolute;
@@ -224,8 +269,15 @@ a[href="#"]:hover::after {
 }
 
 @keyframes blink {
-  0%, 100% { opacity: 1; }
-  50% { opacity: 0; }
+
+  0%,
+  100% {
+    opacity: 1;
+  }
+
+  50% {
+    opacity: 0;
+  }
 }
 
 .animate-blink {

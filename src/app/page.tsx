@@ -61,17 +61,13 @@ export default function Home() {
         </p>
       </div>
 
-      <main className="relative lg:pr-[35vw]" ref={sectionRef}>
+      <main className="relative" ref={sectionRef}>
         <ScrollProgress />
         <SmoothScroll />
         <Intro />
         <Cursor />
         <Nav />
 
-        {/* Global Floating Pen Overlay */}
-        <div className="fixed inset-y-0 right-0 w-[35vw] pointer-events-none z-40 hidden lg:flex items-center justify-center">
-          <FloatingPen scrollProgress={scrollYProgress} />
-        </div>
         <Hero />
         <Ticker />
         <ModelCard />
