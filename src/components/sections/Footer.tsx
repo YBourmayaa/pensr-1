@@ -50,21 +50,6 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col gap-6 lg:items-end">
-              {/* Headshot + bio section */}
-              <div className="flex gap-4 items-start lg:justify-end mb-2">
-                <img 
-                  src="[YOUR_IMAGE_PATH]" 
-                  alt="Youssef Bourmaya" 
-                  className="w-16 h-16 rounded-sm object-cover border border-line"
-                />
-                <div className="flex-1 lg:text-right">
-                  <p className="text-paper font-medium text-sm mb-1">Youssef Bourmaya</p>
-                  <p className="text-mist text-xs leading-relaxed">
-                    Frontend & AI product developer based in Casablanca. I build things that look and feel like real products.
-                  </p>
-                </div>
-              </div>
-
               {/* Live availability badge */}
               <div className="flex items-center gap-3 border border-line px-5 py-3 w-fit lg:ml-auto">
                 <span className="relative flex h-2.5 w-2.5">
@@ -110,21 +95,13 @@ export default function Footer() {
                 ))}
               </div>
 
-              {/* CTA buttons */}
+              {/* CTA button */}
               <div className="flex gap-3 flex-wrap lg:justify-end mt-4">
-                <a
-                  href="[YOUR_CAL_LINK]"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="px-10 py-5 bg-cobalt hover:bg-cobalt2 text-paper hover:scale-105 font-medium transition-all duration-300 text-base shadow-[0_0_30px_rgba(168,85,247,0.3)]"
-                >
-                  Book a Call →
-                </a>
                 <a
                   href="https://contra.com/youssef_bourmaya_y6j4php0?referralExperimentNid=DEFAULT_REFERRAL_PROGRAM&referrerUsername=youssef_bourmaya_y6j4php0"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="px-10 py-5 border border-line hover:bg-dim text-paper font-medium transition-colors text-base"
+                  className="px-10 py-5 bg-cobalt hover:bg-cobalt2 text-paper hover:scale-105 font-medium transition-all duration-300 text-base shadow-[0_0_30px_rgba(168,85,247,0.3)]"
                 >
                   Hire me on Contra
                 </a>

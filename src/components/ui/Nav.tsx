@@ -69,8 +69,8 @@ export default function Nav() {
             <MagneticButton href="https://contra.com/youssef_bourmaya_y6j4php0" className="px-5 py-2.5 border border-line hover:bg-dim text-paper text-sm font-medium transition-all duration-300 rounded-sm hover:border-cobalt hover:text-cobalt">
               Hire me →
             </MagneticButton>
-            <MagneticButton href="[YOUR_CAL_LINK]" className="px-6 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-all duration-300 rounded-sm hover:shadow-lg hover:shadow-cobalt/50">
-              Book a Call →
+            <MagneticButton href="#pricing" className="px-5 py-2.5 bg-cobalt hover:bg-cobalt2 text-paper text-sm font-medium transition-all duration-300 rounded-sm hover:shadow-lg hover:shadow-cobalt/50">
+              Get Pensr-1
             </MagneticButton>
           </div>
 
