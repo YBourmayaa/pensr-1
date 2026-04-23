@@ -42,7 +42,7 @@ export default function ModelCard() {
               and a guaranteed capillary-driven architecture.
             </p>
             <p className="text-mist leading-relaxed mb-12 text-lg max-w-md">
-              Unlike transfromer-based architectures, Pensr-1 uses Capillary-Driven Ink Diffusion 
+              Unlike transformer-based architectures, Pensr-1 uses Capillary-Driven Ink Diffusion 
               — what researchers call the <span className="text-paper font-mono text-sm">CDID</span> paradigm — 
               to produce deterministic, high-quality text at astronomical speeds.
             </p>

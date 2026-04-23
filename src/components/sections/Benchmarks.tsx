@@ -409,8 +409,57 @@ const EnhancedRadarChart = ({ inView }: any) => {
   )
 }
 
+// Mobile comparison list component
+const MobileComparisonList = ({ inView }: any) => {
+  const comparisons = [
+    { metric: 'Cost', pensr: 'Free', gpt4: '$15.00', winner: 'pensr' },
+    { metric: 'Latency', pensr: '0.3ms', gpt4: '2.4s', winner: 'pensr' },
+    { metric: 'Uptime', pensr: '99.999%', gpt4: '98%', winner: 'pensr' },
+    { metric: 'Smudge Control', pensr: '100%', gpt4: '72%', winner: 'pensr' },
+    { metric: 'Offline Support', pensr: 'Yes', gpt4: 'No', winner: 'pensr' },
+    { metric: 'Setup Time', pensr: '< 1min', gpt4: '30+ min', winner: 'pensr' },
+  ]
+
+  return (
+    <div className="space-y-3">
+      {comparisons.map((item, i) => (
+        <motion.div
+          key={item.metric}
+          initial={{ opacity: 0, x: -20 }}
+          animate={inView ? { opacity: 1, x: 0 } : {}}
+          transition={{ delay: i * 0.05, duration: 0.4 }}
+          className="border border-line/50 bg-ink p-4 rounded-sm hover:border-cobalt/30 transition-colors"
+        >
+          <p className="font-mono text-xs text-mist mb-2">{item.metric}</p>
+          <div className="flex items-center justify-between gap-4">
+            <div className="flex-1">
+              <p className="text-paper text-sm font-medium">{item.pensr}</p>
+              <p className="text-mist text-xs">Pensr-1</p>
+            </div>
+            <div className="text-line">vs</div>
+            <div className="flex-1 text-right">
+              <p className="text-mist text-sm line-through">{item.gpt4}</p>
+              <p className="text-mist text-xs">GPT-4</p>
+            </div>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+  )
+}
+
 export default function Benchmarks() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.05 })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <section id="benchmarks" ref={ref} className="py-32 border-t border-line bg-dim w-full">
@@ -493,10 +542,16 @@ export default function Benchmarks() {
             transition={{ delay: 0.45 }}
             className="bg-dim p-6 md:p-10 border border-line/30 hover:border-cobalt/20 transition-colors"
           >
-            <p className="section-label mb-2 text-xs md:text-sm">Overall capability radar</p>
+            <p className="section-label mb-2 text-xs md:text-sm">Overall capability comparison</p>
             <p className="text-mist text-xs md:text-sm mb-4">Pensr-1 <span className="text-cobalt">—</span> vs GPT-4 <span className="text-mist/50">—</span></p>
-            <div className="flex justify-center mt-8">
-              <EnhancedRadarChart inView={inView} />
+            <div className="mt-8">
+              {isMobile ? (
+                <MobileComparisonList inView={inView} />
+              ) : (
+                <div className="flex justify-center">
+                  <EnhancedRadarChart inView={inView} />
+                </div>
+              )}
             </div>
           </motion.div>
         </div>

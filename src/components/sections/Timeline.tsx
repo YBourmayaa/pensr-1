@@ -1,5 +1,5 @@
 'use client'
-import { useRef } from 'react'
+import { useRef, useState, useEffect } from 'react'
 import { motion, useScroll, useTransform } from 'framer-motion'
 import { useInView } from 'react-intersection-observer'
 
@@ -92,8 +92,42 @@ function TimelineCard({ e, i }: { e: any, i: number }) {
   )
 }
 
+function TimelineCardMobile({ e, i }: { e: any, i: number }) {
+  const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.2 })
+  
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 40 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.6, delay: i * 0.08 }}
+      className={`p-6 border-l-4 ${e.highlight ? 'border-l-cobalt bg-dim/50' : 'border-l-line bg-transparent'}`}
+    >
+      <p style={{ fontFamily: "'DM Mono', monospace", fontSize: '10px', letterSpacing: '0.2em', textTransform: 'uppercase', color: e.highlight ? '#a855f7' : '#8A8A9A', marginBottom: '12px' }}>{e.era}</p>
+      <p style={{ fontFamily: "'Bebas Neue', sans-serif", fontSize: '2rem', lineHeight: 0.9, color: e.highlight ? '#a855f7' : '#e0e0e0', marginBottom: '8px' }}>{e.year}</p>
+      <h3 style={{ fontSize: '16px', fontWeight: 500, color: '#e0e0e0', marginBottom: '8px' }}>{e.title}</h3>
+      <p style={{ fontSize: '12px', lineHeight: 1.5, color: e.highlight ? '#e0e0e0' : '#8A8A9A' }}>{e.desc}</p>
+      {e.highlight && (
+        <div style={{ marginTop: '16px', paddingTop: '16px', borderTop: '1px solid rgba(245,240,232,0.2)' }}>
+          <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#a855f7' }}>Current SOTA</span>
+        </div>
+      )}
+    </motion.div>
+  )
+}
+
 export default function Timeline() {
   const { ref: headerRef, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
+  const [isMobile, setIsMobile] = useState(false)
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 768)
+    }
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   return (
     <section className="relative border-t border-line py-32 bg-ink overflow-hidden">
@@ -109,26 +143,38 @@ export default function Timeline() {
         </motion.div>
       </div>
 
-      <div 
-        className="w-full overflow-x-auto snap-x snap-mandatory flex no-scrollbar"
-      >
-        <div className="flex bg-dim border-y border-line pl-[clamp(1.5rem,5vw,4rem)]">
+      {isMobile ? (
+        // Mobile vertical layout
+        <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] space-y-4">
           {events.map((e, i) => (
-            <TimelineCard key={i} e={e} i={i} />
+            <TimelineCardMobile key={i} e={e} i={i} />
           ))}
         </div>
-      </div>
+      ) : (
+        // Desktop horizontal scroll
+        <>
+          <div 
+            className="w-full overflow-x-auto snap-x snap-mandatory flex no-scrollbar"
+          >
+            <div className="flex bg-dim border-y border-line pl-[clamp(1.5rem,5vw,4rem)]">
+              {events.map((e, i) => (
+                <TimelineCard key={i} e={e} i={i} />
+              ))}
+            </div>
+          </div>
 
-      <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] pt-8 flex items-center gap-3">
-        <motion.div animate={{ x: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
-          <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
-            <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="#8A8A9A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
-        </motion.div>
-        <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8A8A9A' }}>
-          Scroll horizontally to travel through time
-        </span>
-      </div>
+          <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)] pt-8 flex items-center gap-3">
+            <motion.div animate={{ x: [0, 8, 0] }} transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}>
+              <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                <path d="M4 10H16M16 10L11 5M16 10L11 15" stroke="#8A8A9A" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </motion.div>
+            <span style={{ fontFamily: "'DM Mono', monospace", fontSize: '10px', letterSpacing: '0.15em', textTransform: 'uppercase', color: '#8A8A9A' }}>
+              Scroll horizontally to travel through time
+            </span>
+          </div>
+        </>
+      )}
     </section>
   )
 }

@@ -12,12 +12,12 @@ const PenIcon = () => (
   </svg>
 )
 
-const links = {
-  Product: ['Model weights', 'Features', 'Benchmarks', 'Pricing', 'CDID Architecture'],
-  Research: ['Technical report', 'BibTeX', 'Papier-Suite v0.1', 'Dataset vibes', 'OpenWeights'],
-  Developer: ['Documentation', 'API Reference', 'SDKs', 'Playground', 'Status'],
-  Legal: ['Privacy policy', 'Terms of use', 'Model deprecation', 'Safety guidelines'],
-}
+const navLinks = [
+  { label: 'Features', href: '#features' },
+  { label: 'Benchmarks', href: '#benchmarks' },
+  { label: 'Pricing', href: '#pricing' },
+  { label: 'Paper', href: '#paper' },
+]
 
 export default function Footer() {
   const { ref, inView } = useInView({ triggerOnce: true, threshold: 0.1 })
@@ -50,8 +50,23 @@ export default function Footer() {
             </div>
 
             <div className="flex flex-col gap-6 lg:items-end">
+              {/* Headshot + bio section */}
+              <div className="flex gap-4 items-start lg:justify-end mb-2">
+                <img 
+                  src="[YOUR_IMAGE_PATH]" 
+                  alt="Youssef Bourmaya" 
+                  className="w-16 h-16 rounded-sm object-cover border border-line"
+                />
+                <div className="flex-1 lg:text-right">
+                  <p className="text-paper font-medium text-sm mb-1">Youssef Bourmaya</p>
+                  <p className="text-mist text-xs leading-relaxed">
+                    Frontend & AI product developer based in Casablanca. I build things that look and feel like real products.
+                  </p>
+                </div>
+              </div>
+
               {/* Live availability badge */}
-              <div className="flex items-center gap-3 border border-line px-5 py-3 w-fit">
+              <div className="flex items-center gap-3 border border-line px-5 py-3 w-fit lg:ml-auto">
                 <span className="relative flex h-2.5 w-2.5">
                   <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75" />
                   <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-400" />
@@ -98,18 +113,20 @@ export default function Footer() {
               {/* CTA buttons */}
               <div className="flex gap-3 flex-wrap lg:justify-end mt-4">
                 <a
-                  href="https://contra.com/youssef_bourmaya_y6j4php0?referralExperimentNid=DEFAULT_REFERRAL_PROGRAM&referrerUsername=youssef_bourmaya_y6j4php0"
+                  href="[YOUR_CAL_LINK]"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="px-10 py-5 bg-cobalt hover:bg-cobalt2 text-paper hover:scale-105 font-medium transition-all duration-300 text-base shadow-[0_0_30px_rgba(168,85,247,0.3)]"
                 >
-                  Hire me on Contra
+                  Book a Call →
                 </a>
                 <a
-                  href="mailto:pensr@ai.dev"
+                  href="https://contra.com/youssef_bourmaya_y6j4php0?referralExperimentNid=DEFAULT_REFERRAL_PROGRAM&referrerUsername=youssef_bourmaya_y6j4php0"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="px-10 py-5 border border-line hover:bg-dim text-paper font-medium transition-colors text-base"
                 >
-                  Send a message
+                  Hire me on Contra
                 </a>
               </div>
             </div>
@@ -120,21 +137,55 @@ export default function Footer() {
       {/* Links grid */}
       <div className="border-b border-line py-16 w-full">
         <div className="w-full max-w-[1200px] mx-auto px-[clamp(1.5rem,5vw,4rem)]">
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-8">
-            {Object.entries(links).map(([category, items]) => (
-              <div key={category}>
-                <p className="section-label mb-6">{category}</p>
-                <ul className="space-y-3">
-                  {items.map(item => (
-                    <li key={item}>
-                      <a href="#" onClick={(e) => { e.preventDefault(); alert("This is a pen, not a startup."); }} className="text-mist hover:text-paper transition-colors text-sm ink-underline">
-                        {item}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <p className="section-label mb-6">Navigation</p>
+              <ul className="space-y-3">
+                {navLinks.map(link => (
+                  <li key={link.href}>
+                    <a 
+                      href={link.href} 
+                      className="text-mist hover:text-paper transition-colors text-sm ink-underline"
+                    >
+                      {link.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <p className="section-label mb-6">Get in touch</p>
+              <ul className="space-y-3">
+                <li>
+                  <a 
+                    href="https://twitter.com" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-mist hover:text-paper transition-colors text-sm ink-underline"
+                  >
+                    Twitter / X
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="https://linkedin.com" 
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-mist hover:text-paper transition-colors text-sm ink-underline"
+                  >
+                    LinkedIn
+                  </a>
+                </li>
+                <li>
+                  <a 
+                    href="mailto:hello@pensr.dev"
+                    className="text-mist hover:text-paper transition-colors text-sm ink-underline"
+                  >
+                    Email
+                  </a>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

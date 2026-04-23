@@ -6,6 +6,7 @@ import Hero from '@/components/sections/Hero'
 import Ticker from '@/components/ui/Ticker'
 import ModelCard from '@/components/sections/ModelCard'
 import Features from '@/components/sections/Features'
+import CTATeaser from '@/components/sections/CTATeaser'
 import HowItWorks from '@/components/sections/HowItWorks'
 import ContextWindow from '@/components/sections/ContextWindow'
 import Benchmarks from '@/components/sections/Benchmarks'
@@ -74,6 +75,7 @@ export default function Home() {
 
         <Timeline />
         <Features />
+        <CTATeaser />
         <HowItWorks />
         <ContextWindow />
         <Benchmarks />
